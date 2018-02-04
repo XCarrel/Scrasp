@@ -1,10 +1,32 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Accueil";
+    List<string> todolist = ViewBag.Todo;
 }
 
-<div class="jumbotron">
-    <h1>SCRASP</h1>
+@if (ViewBag.Message != null)
+{
+    <div class="alert-info">@ViewBag.Message</div>
+}
+<div class="container">
+    <h3>A faire</h3>
+    <ul>
+        @foreach (string item in todolist)
+        {
+            <li>@item</li>
+        }
+    </ul>
 </div>
-
-<div class="row">
+<div class="container">
+    <h3>Données</h3>
+    <h4>Stories</h4>
+    <h4>Tâches</h4>
+    <h4>Personnes</h4>
+</div>
+<div class="container">
+    <h3>Actions</h3>
+    <a href="/add">Ajouter un utilisateur supplémentaire</a><br />
+    <a href="/rename/2">Changer le username de l'utilsateur qui a l'id 2 à '???'</a><br />
+    <a href="/delete/3">Supprimer l'utilisateur qui a l'id 3</a><br />
+    <a href="/changeid/4/10">Mettre à 10 l'id de l'utilisateur qui a l'id 4</a><br />
+    <a href="/changeid/4/2">Tenter de mettre à 2 l'id de l'utilisateur qui a l'id 4</a><br />
 </div>
