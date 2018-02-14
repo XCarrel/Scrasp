@@ -8,11 +8,16 @@ namespace Scrasp.Controllers
 {
     public class HomeController : Controller
     {
+        private List<string> todo;
+
+        public HomeController()
+        {
+            todo = getTodoList();
+            ViewBag.Todo = todo;
+        }
+
         public ActionResult Index()
         {
-            List<string> todo = getTodoList(); 
-            ViewBag.Todo = todo;
-
             return View();
         }
 

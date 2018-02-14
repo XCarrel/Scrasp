@@ -20,7 +20,7 @@ namespace Scrasp
             );
             routes.MapRoute(
                 name: "Rename",
-                url: "rename/{id}",
+                url: "rename/{id}/{value}",
                 defaults: new { controller = "Home", action = "Rename", id = UrlParameter.Optional }
             );
             routes.MapRoute(
