@@ -4,8 +4,8 @@ GO
 -- Drop tables
 
 IF OBJECT_ID('Teams', 'U') IS NOT NULL DROP TABLE Teams;
-IF OBJECT_ID('Tasks', 'U') IS NOT NULL DROP TABLE Tasks;
-IF OBJECT_ID('TaskStates', 'U') IS NOT NULL DROP TABLE TaskStates;
+IF OBJECT_ID('TodoItems', 'U') IS NOT NULL DROP TABLE TodoItems;
+IF OBJECT_ID('TodoItemStates', 'U') IS NOT NULL DROP TABLE TodoItemStates;
 IF OBJECT_ID('Stories', 'U') IS NOT NULL DROP TABLE Stories;
 IF OBJECT_ID('StoryStates', 'U') IS NOT NULL DROP TABLE StoryStates;
 IF OBJECT_ID('StoryTypes', 'U') IS NOT NULL DROP TABLE StoryTypes;
@@ -72,16 +72,16 @@ CREATE TABLE Stories
 	points int
 );
 
-CREATE TABLE TaskStates
+CREATE TABLE TodoItemStates
 (
 	id int NOT NULL IDENTITY PRIMARY KEY,
 	stateName varchar(15)
 )
 
-CREATE TABLE Tasks
+CREATE TABLE TodoItems
 (
 	id int NOT NULL IDENTITY PRIMARY KEY,
-	TaskStates_id int NOT NULL REFERENCES TaskStates(id),
+	TodoItemStates_id int NOT NULL REFERENCES TodoItemStates(id),
 	Stories_id int NOT NULL REFERENCES Stories(id),
 	ScraspUsers_id int NOT NULL REFERENCES ScraspUsers(id)
 )
@@ -99,7 +99,7 @@ GO
 
 SET NOCOUNT ON
 INSERT INTO ScraspRoles (roleName) VALUES ('Non défini'),('Développement'),('Management'),('Infrastructure');
-INSERT INTO TaskStates (stateName) VALUES ('Nouvelle'),('Assignée'),('En cours'),('Terminée'),('En suspens');
+INSERT INTO TodoItemStates (stateName) VALUES ('Nouvelle'),('Assignée'),('En cours'),('Terminée'),('En suspens');
 INSERT INTO StoryTypes(typeName) VALUES ('User'),('Technical');
 INSERT INTO StoryStates(stateName) VALUES ('Nouvelle'),('Discussion'),('Validée'),('Rejetée');
 INSERT INTO ScraspUsers(AspNetUsers_id,username,ScraspRoles_id) SELECT id, Email,1 FROM AspNetUsers;

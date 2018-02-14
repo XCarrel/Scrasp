@@ -17,8 +17,8 @@ namespace Scrasp.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ScraspUser()
         {
-            this.Tasks = new HashSet<Task>();
             this.Teams = new HashSet<Team>();
+            this.TodoItems = new HashSet<TodoItem>();
         }
     
         public int id { get; set; }
@@ -28,8 +28,8 @@ namespace Scrasp.Models
     
         public virtual ScraspRole ScraspRole { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Task> Tasks { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Team> Teams { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TodoItem> TodoItems { get; set; }
     }
 }

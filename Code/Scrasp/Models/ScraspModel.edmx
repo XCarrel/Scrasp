@@ -68,22 +68,6 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="typeName" Type="varchar" MaxLength="15" />
         </EntityType>
-        <EntityType Name="Tasks">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TaskStates_id" Type="int" Nullable="false" />
-          <Property Name="Stories_id" Type="int" Nullable="false" />
-          <Property Name="ScraspUsers_id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="TaskStates">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="stateName" Type="varchar" MaxLength="15" />
-        </EntityType>
         <EntityType Name="Teams">
           <Key>
             <PropertyRef Name="id" />
@@ -92,7 +76,23 @@
           <Property Name="Projects_id" Type="int" Nullable="false" />
           <Property Name="ScraspUsers_id" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__ScraspUse__Scras__3C34F16F">
+        <EntityType Name="TodoItems">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TodoItemStates_id" Type="int" Nullable="false" />
+          <Property Name="Stories_id" Type="int" Nullable="false" />
+          <Property Name="ScraspUsers_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TodoItemStates">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stateName" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <Association Name="FK__ScraspUse__Scras__59C55456">
           <End Role="ScraspRoles" Type="Self.ScraspRoles" Multiplicity="1" />
           <End Role="ScraspUsers" Type="Self.ScraspUsers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -104,7 +104,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sprints__Project__40F9A68C">
+        <Association Name="FK__Sprints__Project__5E8A0973">
           <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
           <End Role="Sprints" Type="Self.Sprints" Multiplicity="*" />
           <ReferentialConstraint>
@@ -116,7 +116,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Stories__Sprints__498EEC8D">
+        <Association Name="FK__Stories__Sprints__671F4F74">
           <End Role="Sprints" Type="Self.Sprints" Multiplicity="1" />
           <End Role="Stories" Type="Self.Stories" Multiplicity="*" />
           <ReferentialConstraint>
@@ -128,7 +128,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Stories__StorySt__489AC854">
+        <Association Name="FK__Stories__StorySt__662B2B3B">
           <End Role="StoryStates" Type="Self.StoryStates" Multiplicity="1" />
           <End Role="Stories" Type="Self.Stories" Multiplicity="*" />
           <ReferentialConstraint>
@@ -140,7 +140,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Stories__StoryTy__47A6A41B">
+        <Association Name="FK__Stories__StoryTy__65370702">
           <End Role="StoryTypes" Type="Self.StoryTypes" Multiplicity="1" />
           <End Role="Stories" Type="Self.Stories" Multiplicity="*" />
           <ReferentialConstraint>
@@ -152,43 +152,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Tasks__ScraspUse__503BEA1C">
-          <End Role="ScraspUsers" Type="Self.ScraspUsers" Multiplicity="1" />
-          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ScraspUsers">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Tasks">
-              <PropertyRef Name="ScraspUsers_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Tasks__Stories_i__4F47C5E3">
-          <End Role="Stories" Type="Self.Stories" Multiplicity="1" />
-          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Stories">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Tasks">
-              <PropertyRef Name="Stories_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Tasks__TaskState__4E53A1AA">
-          <End Role="TaskStates" Type="Self.TaskStates" Multiplicity="1" />
-          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TaskStates">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Tasks">
-              <PropertyRef Name="TaskStates_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Teams__Projects___531856C7">
+        <Association Name="FK__Teams__Projects___70A8B9AE">
           <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
           <End Role="Teams" Type="Self.Teams" Multiplicity="*" />
           <ReferentialConstraint>
@@ -200,7 +164,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teams__ScraspUse__540C7B00">
+        <Association Name="FK__Teams__ScraspUse__719CDDE7">
           <End Role="ScraspUsers" Type="Self.ScraspUsers" Multiplicity="1" />
           <End Role="Teams" Type="Self.Teams" Multiplicity="*" />
           <ReferentialConstraint>
@@ -212,6 +176,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__TodoItems__Scras__6DCC4D03">
+          <End Role="ScraspUsers" Type="Self.ScraspUsers" Multiplicity="1" />
+          <End Role="TodoItems" Type="Self.TodoItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScraspUsers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TodoItems">
+              <PropertyRef Name="ScraspUsers_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TodoItems__Stori__6CD828CA">
+          <End Role="Stories" Type="Self.Stories" Multiplicity="1" />
+          <End Role="TodoItems" Type="Self.TodoItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TodoItems">
+              <PropertyRef Name="Stories_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TodoItems__TodoI__6BE40491">
+          <End Role="TodoItemStates" Type="Self.TodoItemStates" Multiplicity="1" />
+          <End Role="TodoItems" Type="Self.TodoItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TodoItemStates">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TodoItems">
+              <PropertyRef Name="TodoItemStates_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="scraspModelStoreContainer">
           <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScraspRoles" EntityType="Self.ScraspRoles" Schema="dbo" store:Type="Tables" />
@@ -220,48 +220,48 @@
           <EntitySet Name="Stories" EntityType="Self.Stories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StoryStates" EntityType="Self.StoryStates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StoryTypes" EntityType="Self.StoryTypes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TaskStates" EntityType="Self.TaskStates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__ScraspUse__Scras__3C34F16F" Association="Self.FK__ScraspUse__Scras__3C34F16F">
+          <EntitySet Name="TodoItems" EntityType="Self.TodoItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TodoItemStates" EntityType="Self.TodoItemStates" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ScraspUse__Scras__59C55456" Association="Self.FK__ScraspUse__Scras__59C55456">
             <End Role="ScraspRoles" EntitySet="ScraspRoles" />
             <End Role="ScraspUsers" EntitySet="ScraspUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sprints__Project__40F9A68C" Association="Self.FK__Sprints__Project__40F9A68C">
+          <AssociationSet Name="FK__Sprints__Project__5E8A0973" Association="Self.FK__Sprints__Project__5E8A0973">
             <End Role="Projects" EntitySet="Projects" />
             <End Role="Sprints" EntitySet="Sprints" />
           </AssociationSet>
-          <AssociationSet Name="FK__Stories__Sprints__498EEC8D" Association="Self.FK__Stories__Sprints__498EEC8D">
+          <AssociationSet Name="FK__Stories__Sprints__671F4F74" Association="Self.FK__Stories__Sprints__671F4F74">
             <End Role="Sprints" EntitySet="Sprints" />
             <End Role="Stories" EntitySet="Stories" />
           </AssociationSet>
-          <AssociationSet Name="FK__Stories__StorySt__489AC854" Association="Self.FK__Stories__StorySt__489AC854">
+          <AssociationSet Name="FK__Stories__StorySt__662B2B3B" Association="Self.FK__Stories__StorySt__662B2B3B">
             <End Role="StoryStates" EntitySet="StoryStates" />
             <End Role="Stories" EntitySet="Stories" />
           </AssociationSet>
-          <AssociationSet Name="FK__Stories__StoryTy__47A6A41B" Association="Self.FK__Stories__StoryTy__47A6A41B">
+          <AssociationSet Name="FK__Stories__StoryTy__65370702" Association="Self.FK__Stories__StoryTy__65370702">
             <End Role="StoryTypes" EntitySet="StoryTypes" />
             <End Role="Stories" EntitySet="Stories" />
           </AssociationSet>
-          <AssociationSet Name="FK__Tasks__ScraspUse__503BEA1C" Association="Self.FK__Tasks__ScraspUse__503BEA1C">
-            <End Role="ScraspUsers" EntitySet="ScraspUsers" />
-            <End Role="Tasks" EntitySet="Tasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Tasks__Stories_i__4F47C5E3" Association="Self.FK__Tasks__Stories_i__4F47C5E3">
-            <End Role="Stories" EntitySet="Stories" />
-            <End Role="Tasks" EntitySet="Tasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Tasks__TaskState__4E53A1AA" Association="Self.FK__Tasks__TaskState__4E53A1AA">
-            <End Role="TaskStates" EntitySet="TaskStates" />
-            <End Role="Tasks" EntitySet="Tasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Teams__Projects___531856C7" Association="Self.FK__Teams__Projects___531856C7">
+          <AssociationSet Name="FK__Teams__Projects___70A8B9AE" Association="Self.FK__Teams__Projects___70A8B9AE">
             <End Role="Projects" EntitySet="Projects" />
             <End Role="Teams" EntitySet="Teams" />
           </AssociationSet>
-          <AssociationSet Name="FK__Teams__ScraspUse__540C7B00" Association="Self.FK__Teams__ScraspUse__540C7B00">
+          <AssociationSet Name="FK__Teams__ScraspUse__719CDDE7" Association="Self.FK__Teams__ScraspUse__719CDDE7">
             <End Role="ScraspUsers" EntitySet="ScraspUsers" />
             <End Role="Teams" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TodoItems__Scras__6DCC4D03" Association="Self.FK__TodoItems__Scras__6DCC4D03">
+            <End Role="ScraspUsers" EntitySet="ScraspUsers" />
+            <End Role="TodoItems" EntitySet="TodoItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TodoItems__Stori__6CD828CA" Association="Self.FK__TodoItems__Stori__6CD828CA">
+            <End Role="Stories" EntitySet="Stories" />
+            <End Role="TodoItems" EntitySet="TodoItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TodoItems__TodoI__6BE40491" Association="Self.FK__TodoItems__TodoI__6BE40491">
+            <End Role="TodoItemStates" EntitySet="TodoItemStates" />
+            <End Role="TodoItems" EntitySet="TodoItems" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -277,8 +277,8 @@
           <Property Name="title" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="projectDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="refRepo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Sprints" Relationship="Self.FK__Sprints__Project__40F9A68C" FromRole="Projects" ToRole="Sprints" />
-          <NavigationProperty Name="Teams" Relationship="Self.FK__Teams__Projects___531856C7" FromRole="Projects" ToRole="Teams" />
+          <NavigationProperty Name="Sprints" Relationship="Self.FK__Sprints__Project__5E8A0973" FromRole="Projects" ToRole="Sprints" />
+          <NavigationProperty Name="Teams" Relationship="Self.FK__Teams__Projects___70A8B9AE" FromRole="Projects" ToRole="Teams" />
         </EntityType>
         <EntityType Name="ScraspRole">
           <Key>
@@ -286,7 +286,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="roleName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ScraspUsers" Relationship="Self.FK__ScraspUse__Scras__3C34F16F" FromRole="ScraspRoles" ToRole="ScraspUsers" />
+          <NavigationProperty Name="ScraspUsers" Relationship="Self.FK__ScraspUse__Scras__59C55456" FromRole="ScraspRoles" ToRole="ScraspUsers" />
         </EntityType>
         <EntityType Name="ScraspUser">
           <Key>
@@ -296,9 +296,9 @@
           <Property Name="AspNetUsers_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="username" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ScraspRoles_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ScraspRole" Relationship="Self.FK__ScraspUse__Scras__3C34F16F" FromRole="ScraspUsers" ToRole="ScraspRoles" />
-          <NavigationProperty Name="Tasks" Relationship="Self.FK__Tasks__ScraspUse__503BEA1C" FromRole="ScraspUsers" ToRole="Tasks" />
-          <NavigationProperty Name="Teams" Relationship="Self.FK__Teams__ScraspUse__540C7B00" FromRole="ScraspUsers" ToRole="Teams" />
+          <NavigationProperty Name="ScraspRole" Relationship="Self.FK__ScraspUse__Scras__59C55456" FromRole="ScraspUsers" ToRole="ScraspRoles" />
+          <NavigationProperty Name="Teams" Relationship="Self.FK__Teams__ScraspUse__719CDDE7" FromRole="ScraspUsers" ToRole="Teams" />
+          <NavigationProperty Name="TodoItems" Relationship="Self.FK__TodoItems__Scras__6DCC4D03" FromRole="ScraspUsers" ToRole="TodoItems" />
         </EntityType>
         <EntityType Name="Sprint">
           <Key>
@@ -310,8 +310,8 @@
           <Property Name="startDate" Type="DateTime" Precision="0" />
           <Property Name="endDate" Type="DateTime" Precision="0" />
           <Property Name="Projects_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Project" Relationship="Self.FK__Sprints__Project__40F9A68C" FromRole="Sprints" ToRole="Projects" />
-          <NavigationProperty Name="Stories" Relationship="Self.FK__Stories__Sprints__498EEC8D" FromRole="Sprints" ToRole="Stories" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__Sprints__Project__5E8A0973" FromRole="Sprints" ToRole="Projects" />
+          <NavigationProperty Name="Stories" Relationship="Self.FK__Stories__Sprints__671F4F74" FromRole="Sprints" ToRole="Stories" />
         </EntityType>
         <EntityType Name="Story">
           <Key>
@@ -325,10 +325,10 @@
           <Property Name="StoryStates_id" Type="Int32" Nullable="false" />
           <Property Name="Sprints_id" Type="Int32" Nullable="false" />
           <Property Name="points" Type="Int32" />
-          <NavigationProperty Name="Sprint" Relationship="Self.FK__Stories__Sprints__498EEC8D" FromRole="Stories" ToRole="Sprints" />
-          <NavigationProperty Name="StoryState" Relationship="Self.FK__Stories__StorySt__489AC854" FromRole="Stories" ToRole="StoryStates" />
-          <NavigationProperty Name="StoryType" Relationship="Self.FK__Stories__StoryTy__47A6A41B" FromRole="Stories" ToRole="StoryTypes" />
-          <NavigationProperty Name="Tasks" Relationship="Self.FK__Tasks__Stories_i__4F47C5E3" FromRole="Stories" ToRole="Tasks" />
+          <NavigationProperty Name="Sprint" Relationship="Self.FK__Stories__Sprints__671F4F74" FromRole="Stories" ToRole="Sprints" />
+          <NavigationProperty Name="StoryState" Relationship="Self.FK__Stories__StorySt__662B2B3B" FromRole="Stories" ToRole="StoryStates" />
+          <NavigationProperty Name="StoryType" Relationship="Self.FK__Stories__StoryTy__65370702" FromRole="Stories" ToRole="StoryTypes" />
+          <NavigationProperty Name="TodoItems" Relationship="Self.FK__TodoItems__Stori__6CD828CA" FromRole="Stories" ToRole="TodoItems" />
         </EntityType>
         <EntityType Name="StoryState">
           <Key>
@@ -336,7 +336,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="stateName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Stories" Relationship="Self.FK__Stories__StorySt__489AC854" FromRole="StoryStates" ToRole="Stories" />
+          <NavigationProperty Name="Stories" Relationship="Self.FK__Stories__StorySt__662B2B3B" FromRole="StoryStates" ToRole="Stories" />
         </EntityType>
         <EntityType Name="StoryType">
           <Key>
@@ -344,27 +344,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="typeName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Stories" Relationship="Self.FK__Stories__StoryTy__47A6A41B" FromRole="StoryTypes" ToRole="Stories" />
-        </EntityType>
-        <EntityType Name="Task">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TaskStates_id" Type="Int32" Nullable="false" />
-          <Property Name="Stories_id" Type="Int32" Nullable="false" />
-          <Property Name="ScraspUsers_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ScraspUser" Relationship="Self.FK__Tasks__ScraspUse__503BEA1C" FromRole="Tasks" ToRole="ScraspUsers" />
-          <NavigationProperty Name="Story" Relationship="Self.FK__Tasks__Stories_i__4F47C5E3" FromRole="Tasks" ToRole="Stories" />
-          <NavigationProperty Name="TaskState" Relationship="Self.FK__Tasks__TaskState__4E53A1AA" FromRole="Tasks" ToRole="TaskStates" />
-        </EntityType>
-        <EntityType Name="TaskState">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="stateName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Tasks" Relationship="Self.FK__Tasks__TaskState__4E53A1AA" FromRole="TaskStates" ToRole="Tasks" />
+          <NavigationProperty Name="Stories" Relationship="Self.FK__Stories__StoryTy__65370702" FromRole="StoryTypes" ToRole="Stories" />
         </EntityType>
         <EntityType Name="Team">
           <Key>
@@ -373,10 +353,30 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Projects_id" Type="Int32" Nullable="false" />
           <Property Name="ScraspUsers_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Project" Relationship="Self.FK__Teams__Projects___531856C7" FromRole="Teams" ToRole="Projects" />
-          <NavigationProperty Name="ScraspUser" Relationship="Self.FK__Teams__ScraspUse__540C7B00" FromRole="Teams" ToRole="ScraspUsers" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__Teams__Projects___70A8B9AE" FromRole="Teams" ToRole="Projects" />
+          <NavigationProperty Name="ScraspUser" Relationship="Self.FK__Teams__ScraspUse__719CDDE7" FromRole="Teams" ToRole="ScraspUsers" />
         </EntityType>
-        <Association Name="FK__Sprints__Project__40F9A68C">
+        <EntityType Name="TodoItem">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TodoItemStates_id" Type="Int32" Nullable="false" />
+          <Property Name="Stories_id" Type="Int32" Nullable="false" />
+          <Property Name="ScraspUsers_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ScraspUser" Relationship="Self.FK__TodoItems__Scras__6DCC4D03" FromRole="TodoItems" ToRole="ScraspUsers" />
+          <NavigationProperty Name="Story" Relationship="Self.FK__TodoItems__Stori__6CD828CA" FromRole="TodoItems" ToRole="Stories" />
+          <NavigationProperty Name="TodoItemState" Relationship="Self.FK__TodoItems__TodoI__6BE40491" FromRole="TodoItems" ToRole="TodoItemStates" />
+        </EntityType>
+        <EntityType Name="TodoItemState">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stateName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TodoItems" Relationship="Self.FK__TodoItems__TodoI__6BE40491" FromRole="TodoItemStates" ToRole="TodoItems" />
+        </EntityType>
+        <Association Name="FK__Sprints__Project__5E8A0973">
           <End Role="Projects" Type="Self.Project" Multiplicity="1" />
           <End Role="Sprints" Type="Self.Sprint" Multiplicity="*" />
           <ReferentialConstraint>
@@ -388,7 +388,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teams__Projects___531856C7">
+        <Association Name="FK__Teams__Projects___70A8B9AE">
           <End Role="Projects" Type="Self.Project" Multiplicity="1" />
           <End Role="Teams" Type="Self.Team" Multiplicity="*" />
           <ReferentialConstraint>
@@ -400,7 +400,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ScraspUse__Scras__3C34F16F">
+        <Association Name="FK__ScraspUse__Scras__59C55456">
           <End Role="ScraspRoles" Type="Self.ScraspRole" Multiplicity="1" />
           <End Role="ScraspUsers" Type="Self.ScraspUser" Multiplicity="*" />
           <ReferentialConstraint>
@@ -412,19 +412,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Tasks__ScraspUse__503BEA1C">
-          <End Role="ScraspUsers" Type="Self.ScraspUser" Multiplicity="1" />
-          <End Role="Tasks" Type="Self.Task" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ScraspUsers">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Tasks">
-              <PropertyRef Name="ScraspUsers_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Teams__ScraspUse__540C7B00">
+        <Association Name="FK__Teams__ScraspUse__719CDDE7">
           <End Role="ScraspUsers" Type="Self.ScraspUser" Multiplicity="1" />
           <End Role="Teams" Type="Self.Team" Multiplicity="*" />
           <ReferentialConstraint>
@@ -436,7 +424,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Stories__Sprints__498EEC8D">
+        <Association Name="FK__TodoItems__Scras__6DCC4D03">
+          <End Role="ScraspUsers" Type="Self.ScraspUser" Multiplicity="1" />
+          <End Role="TodoItems" Type="Self.TodoItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScraspUsers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TodoItems">
+              <PropertyRef Name="ScraspUsers_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stories__Sprints__671F4F74">
           <End Role="Sprints" Type="Self.Sprint" Multiplicity="1" />
           <End Role="Stories" Type="Self.Story" Multiplicity="*" />
           <ReferentialConstraint>
@@ -448,7 +448,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Stories__StorySt__489AC854">
+        <Association Name="FK__Stories__StorySt__662B2B3B">
           <End Role="StoryStates" Type="Self.StoryState" Multiplicity="1" />
           <End Role="Stories" Type="Self.Story" Multiplicity="*" />
           <ReferentialConstraint>
@@ -460,7 +460,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Stories__StoryTy__47A6A41B">
+        <Association Name="FK__Stories__StoryTy__65370702">
           <End Role="StoryTypes" Type="Self.StoryType" Multiplicity="1" />
           <End Role="Stories" Type="Self.Story" Multiplicity="*" />
           <ReferentialConstraint>
@@ -472,31 +472,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Tasks__Stories_i__4F47C5E3">
+        <Association Name="FK__TodoItems__Stori__6CD828CA">
           <End Role="Stories" Type="Self.Story" Multiplicity="1" />
-          <End Role="Tasks" Type="Self.Task" Multiplicity="*" />
+          <End Role="TodoItems" Type="Self.TodoItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Stories">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Tasks">
+            <Dependent Role="TodoItems">
               <PropertyRef Name="Stories_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Tasks__TaskState__4E53A1AA">
-          <End Role="TaskStates" Type="Self.TaskState" Multiplicity="1" />
-          <End Role="Tasks" Type="Self.Task" Multiplicity="*" />
+        <Association Name="FK__TodoItems__TodoI__6BE40491">
+          <End Role="TodoItemStates" Type="Self.TodoItemState" Multiplicity="1" />
+          <End Role="TodoItems" Type="Self.TodoItem" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TaskStates">
+            <Principal Role="TodoItemStates">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Tasks">
-              <PropertyRef Name="TaskStates_id" />
+            <Dependent Role="TodoItems">
+              <PropertyRef Name="TodoItemStates_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="scraspEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Projects" EntityType="Self.Project" />
           <EntitySet Name="ScraspRoles" EntityType="Self.ScraspRole" />
           <EntitySet Name="ScraspUsers" EntityType="Self.ScraspUser" />
@@ -504,48 +504,48 @@
           <EntitySet Name="Stories" EntityType="Self.Story" />
           <EntitySet Name="StoryStates" EntityType="Self.StoryState" />
           <EntitySet Name="StoryTypes" EntityType="Self.StoryType" />
-          <EntitySet Name="Tasks" EntityType="Self.Task" />
-          <EntitySet Name="TaskStates" EntityType="Self.TaskState" />
           <EntitySet Name="Teams" EntityType="Self.Team" />
-          <AssociationSet Name="FK__Sprints__Project__40F9A68C" Association="Self.FK__Sprints__Project__40F9A68C">
+          <EntitySet Name="TodoItems" EntityType="Self.TodoItem" />
+          <EntitySet Name="TodoItemStates" EntityType="Self.TodoItemState" />
+          <AssociationSet Name="FK__Sprints__Project__5E8A0973" Association="Self.FK__Sprints__Project__5E8A0973">
             <End Role="Projects" EntitySet="Projects" />
             <End Role="Sprints" EntitySet="Sprints" />
           </AssociationSet>
-          <AssociationSet Name="FK__Teams__Projects___531856C7" Association="Self.FK__Teams__Projects___531856C7">
+          <AssociationSet Name="FK__Teams__Projects___70A8B9AE" Association="Self.FK__Teams__Projects___70A8B9AE">
             <End Role="Projects" EntitySet="Projects" />
             <End Role="Teams" EntitySet="Teams" />
           </AssociationSet>
-          <AssociationSet Name="FK__ScraspUse__Scras__3C34F16F" Association="Self.FK__ScraspUse__Scras__3C34F16F">
+          <AssociationSet Name="FK__ScraspUse__Scras__59C55456" Association="Self.FK__ScraspUse__Scras__59C55456">
             <End Role="ScraspRoles" EntitySet="ScraspRoles" />
             <End Role="ScraspUsers" EntitySet="ScraspUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK__Tasks__ScraspUse__503BEA1C" Association="Self.FK__Tasks__ScraspUse__503BEA1C">
-            <End Role="ScraspUsers" EntitySet="ScraspUsers" />
-            <End Role="Tasks" EntitySet="Tasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Teams__ScraspUse__540C7B00" Association="Self.FK__Teams__ScraspUse__540C7B00">
+          <AssociationSet Name="FK__Teams__ScraspUse__719CDDE7" Association="Self.FK__Teams__ScraspUse__719CDDE7">
             <End Role="ScraspUsers" EntitySet="ScraspUsers" />
             <End Role="Teams" EntitySet="Teams" />
           </AssociationSet>
-          <AssociationSet Name="FK__Stories__Sprints__498EEC8D" Association="Self.FK__Stories__Sprints__498EEC8D">
+          <AssociationSet Name="FK__TodoItems__Scras__6DCC4D03" Association="Self.FK__TodoItems__Scras__6DCC4D03">
+            <End Role="ScraspUsers" EntitySet="ScraspUsers" />
+            <End Role="TodoItems" EntitySet="TodoItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stories__Sprints__671F4F74" Association="Self.FK__Stories__Sprints__671F4F74">
             <End Role="Sprints" EntitySet="Sprints" />
             <End Role="Stories" EntitySet="Stories" />
           </AssociationSet>
-          <AssociationSet Name="FK__Stories__StorySt__489AC854" Association="Self.FK__Stories__StorySt__489AC854">
+          <AssociationSet Name="FK__Stories__StorySt__662B2B3B" Association="Self.FK__Stories__StorySt__662B2B3B">
             <End Role="StoryStates" EntitySet="StoryStates" />
             <End Role="Stories" EntitySet="Stories" />
           </AssociationSet>
-          <AssociationSet Name="FK__Stories__StoryTy__47A6A41B" Association="Self.FK__Stories__StoryTy__47A6A41B">
+          <AssociationSet Name="FK__Stories__StoryTy__65370702" Association="Self.FK__Stories__StoryTy__65370702">
             <End Role="StoryTypes" EntitySet="StoryTypes" />
             <End Role="Stories" EntitySet="Stories" />
           </AssociationSet>
-          <AssociationSet Name="FK__Tasks__Stories_i__4F47C5E3" Association="Self.FK__Tasks__Stories_i__4F47C5E3">
+          <AssociationSet Name="FK__TodoItems__Stori__6CD828CA" Association="Self.FK__TodoItems__Stori__6CD828CA">
             <End Role="Stories" EntitySet="Stories" />
-            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="TodoItems" EntitySet="TodoItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Tasks__TaskState__4E53A1AA" Association="Self.FK__Tasks__TaskState__4E53A1AA">
-            <End Role="TaskStates" EntitySet="TaskStates" />
-            <End Role="Tasks" EntitySet="Tasks" />
+          <AssociationSet Name="FK__TodoItems__TodoI__6BE40491" Association="Self.FK__TodoItems__TodoI__6BE40491">
+            <End Role="TodoItemStates" EntitySet="TodoItemStates" />
+            <End Role="TodoItems" EntitySet="TodoItems" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -553,7 +553,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="scraspModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="scraspModelStoreContainer" CdmEntityContainer="scraspEntities">
           <EntitySetMapping Name="Projects">
             <EntityTypeMapping TypeName="scraspModel.Project">
               <MappingFragment StoreEntitySet="Projects">
@@ -624,30 +624,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tasks">
-            <EntityTypeMapping TypeName="scraspModel.Task">
-              <MappingFragment StoreEntitySet="Tasks">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="TaskStates_id" ColumnName="TaskStates_id" />
-                <ScalarProperty Name="Stories_id" ColumnName="Stories_id" />
-                <ScalarProperty Name="ScraspUsers_id" ColumnName="ScraspUsers_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TaskStates">
-            <EntityTypeMapping TypeName="scraspModel.TaskState">
-              <MappingFragment StoreEntitySet="TaskStates">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="stateName" ColumnName="stateName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="scraspModel.Team">
               <MappingFragment StoreEntitySet="Teams">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Projects_id" ColumnName="Projects_id" />
                 <ScalarProperty Name="ScraspUsers_id" ColumnName="ScraspUsers_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TodoItems">
+            <EntityTypeMapping TypeName="scraspModel.TodoItem">
+              <MappingFragment StoreEntitySet="TodoItems">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="TodoItemStates_id" ColumnName="TodoItemStates_id" />
+                <ScalarProperty Name="Stories_id" ColumnName="Stories_id" />
+                <ScalarProperty Name="ScraspUsers_id" ColumnName="ScraspUsers_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TodoItemStates">
+            <EntityTypeMapping TypeName="scraspModel.TodoItemState">
+              <MappingFragment StoreEntitySet="TodoItemStates">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="stateName" ColumnName="stateName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

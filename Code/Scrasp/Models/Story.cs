@@ -17,7 +17,7 @@ namespace Scrasp.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Story()
         {
-            this.Tasks = new HashSet<Task>();
+            this.TodoItems = new HashSet<TodoItem>();
         }
     
         public int id { get; set; }
@@ -33,6 +33,6 @@ namespace Scrasp.Models
         public virtual StoryState StoryState { get; set; }
         public virtual StoryType StoryType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Task> Tasks { get; set; }
+        public virtual ICollection<TodoItem> TodoItems { get; set; }
     }
 }

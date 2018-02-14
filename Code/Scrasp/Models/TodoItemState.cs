@@ -12,15 +12,18 @@ namespace Scrasp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Task
+    public partial class TodoItemState
     {
-        public int id { get; set; }
-        public int TaskStates_id { get; set; }
-        public int Stories_id { get; set; }
-        public int ScraspUsers_id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TodoItemState()
+        {
+            this.TodoItems = new HashSet<TodoItem>();
+        }
     
-        public virtual ScraspUser ScraspUser { get; set; }
-        public virtual Story Story { get; set; }
-        public virtual TaskState TaskState { get; set; }
+        public int id { get; set; }
+        public string stateName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TodoItem> TodoItems { get; set; }
     }
 }

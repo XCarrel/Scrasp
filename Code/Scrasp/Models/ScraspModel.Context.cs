@@ -13,10 +13,10 @@ namespace Scrasp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class scraspEntities : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public scraspEntities()
+            : base("name=scraspEntities")
         {
         }
     
@@ -32,8 +32,8 @@ namespace Scrasp.Models
         public virtual DbSet<Story> Stories { get; set; }
         public virtual DbSet<StoryState> StoryStates { get; set; }
         public virtual DbSet<StoryType> StoryTypes { get; set; }
-        public virtual DbSet<Task> Tasks { get; set; }
-        public virtual DbSet<TaskState> TaskStates { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<TodoItem> TodoItems { get; set; }
+        public virtual DbSet<TodoItemState> TodoItemStates { get; set; }
     }
 }
