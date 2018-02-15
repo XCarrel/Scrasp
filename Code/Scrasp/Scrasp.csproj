@@ -236,17 +236,18 @@
     <Compile Include="Models\StoryType.cs">
       <DependentUpon>ScraspModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Task.cs">
-      <DependentUpon>ScraspModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TaskState.cs">
-      <DependentUpon>ScraspModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Team.cs">
+      <DependentUpon>ScraspModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TodoItem.cs">
+      <DependentUpon>ScraspModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TodoItemState.cs">
       <DependentUpon>ScraspModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Controllers\StoryTypesController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -320,6 +321,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\StoryTypes\Create.cshtml" />
+    <Content Include="Views\StoryTypes\Delete.cshtml" />
+    <Content Include="Views\StoryTypes\Details.cshtml" />
+    <Content Include="Views\StoryTypes\Edit.cshtml" />
+    <Content Include="Views\StoryTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
