@@ -4,8 +4,8 @@ GO
 -- Drop tables
 
 IF OBJECT_ID('Teams', 'U') IS NOT NULL DROP TABLE Teams;
-IF OBJECT_ID('Tasks', 'U') IS NOT NULL DROP TABLE Tasks;
-IF OBJECT_ID('TaskStates', 'U') IS NOT NULL DROP TABLE TaskStates;
+IF OBJECT_ID('Jobs', 'U') IS NOT NULL DROP TABLE Jobs;
+IF OBJECT_ID('JobStates', 'U') IS NOT NULL DROP TABLE JobStates;
 IF OBJECT_ID('Stories', 'U') IS NOT NULL DROP TABLE Stories;
 IF OBJECT_ID('StoryStates', 'U') IS NOT NULL DROP TABLE StoryStates;
 IF OBJECT_ID('StoryTypes', 'U') IS NOT NULL DROP TABLE StoryTypes;
@@ -44,8 +44,7 @@ CREATE TABLE Sprints
 	number int,
 	sprintDescription text,
 	startDate date, -- Planned 
-	endDate date, -- Planned
-	Projects_id int NOT NULL REFERENCES Projects(id)
+	endDate date -- Planned
 );
 
 CREATE TABLE StoryTypes
@@ -68,20 +67,24 @@ CREATE TABLE Stories
 	storyDescription text,
 	StoryTypes_id int NOT NULL REFERENCES StoryTypes(id),
 	StoryStates_id int NOT NULL REFERENCES StoryStates(id),
-	Sprints_id int NOT NULL REFERENCES Sprints(id),
+	Sprints_id int NULL REFERENCES Sprints(id), -- Sprint is null = Story is in the project's backlog
+	Projects_id int NOT NULL REFERENCES Projects(id),
 	points int
 );
 
-CREATE TABLE TaskStates
+CREATE TABLE JobStates
 (
 	id int NOT NULL IDENTITY PRIMARY KEY,
 	stateName varchar(15)
 )
 
-CREATE TABLE Tasks
+CREATE TABLE Jobs
 (
 	id int NOT NULL IDENTITY PRIMARY KEY,
-	TaskStates_id int NOT NULL REFERENCES TaskStates(id),
+	jobDescription text,
+	startDate date, -- Planned 
+	endDate date, -- Planned
+	JobStates_id int NOT NULL REFERENCES JobStates(id),
 	Stories_id int NOT NULL REFERENCES Stories(id),
 	ScraspUsers_id int NOT NULL REFERENCES ScraspUsers(id)
 )
@@ -99,7 +102,7 @@ GO
 
 SET NOCOUNT ON
 INSERT INTO ScraspRoles (roleName) VALUES ('Non défini'),('Développement'),('Management'),('Infrastructure');
-INSERT INTO TaskStates (stateName) VALUES ('Nouvelle'),('Assignée'),('En cours'),('Terminée'),('En suspens');
+INSERT INTO JobStates (stateName) VALUES ('Nouveau'),('Assigné'),('En cours'),('Terminé'),('En suspens');
 INSERT INTO StoryTypes(typeName) VALUES ('User'),('Technical');
 INSERT INTO StoryStates(stateName) VALUES ('Nouvelle'),('Discussion'),('Validée'),('Rejetée');
 INSERT INTO ScraspUsers(AspNetUsers_id,username,ScraspRoles_id) SELECT id, Email,1 FROM AspNetUsers;
