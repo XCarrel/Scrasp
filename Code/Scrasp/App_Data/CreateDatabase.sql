@@ -44,8 +44,7 @@ CREATE TABLE Sprints
 	number int,
 	sprintDescription text,
 	startDate date, -- Planned 
-	endDate date, -- Planned
-	Projects_id int NOT NULL REFERENCES Projects(id)
+	endDate date -- Planned
 );
 
 CREATE TABLE StoryTypes
@@ -68,7 +67,8 @@ CREATE TABLE Stories
 	storyDescription text,
 	StoryTypes_id int NOT NULL REFERENCES StoryTypes(id),
 	StoryStates_id int NOT NULL REFERENCES StoryStates(id),
-	Sprints_id int NOT NULL REFERENCES Sprints(id),
+	Sprints_id int NULL REFERENCES Sprints(id), -- Sprint is null = Story is in the project's backlog
+	Projects_id int NOT NULL REFERENCES Projects(id),
 	points int
 );
 
@@ -81,6 +81,9 @@ CREATE TABLE JobStates
 CREATE TABLE Jobs
 (
 	id int NOT NULL IDENTITY PRIMARY KEY,
+	jobDescription text,
+	startDate date, -- Planned 
+	endDate date, -- Planned
 	JobStates_id int NOT NULL REFERENCES JobStates(id),
 	Stories_id int NOT NULL REFERENCES Stories(id),
 	ScraspUsers_id int NOT NULL REFERENCES ScraspUsers(id)
