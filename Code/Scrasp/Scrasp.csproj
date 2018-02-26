@@ -199,7 +199,52 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Job.cs">
+      <DependentUpon>ScraspModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JobState.cs">
+      <DependentUpon>ScraspModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Project.cs">
+      <DependentUpon>ScraspModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ScraspModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScraspModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ScraspModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScraspModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ScraspModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScraspModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ScraspRole.cs">
+      <DependentUpon>ScraspModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ScraspUser.cs">
+      <DependentUpon>ScraspModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Sprint.cs">
+      <DependentUpon>ScraspModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Story.cs">
+      <DependentUpon>ScraspModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoryState.cs">
+      <DependentUpon>ScraspModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoryType.cs">
+      <DependentUpon>ScraspModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Team.cs">
+      <DependentUpon>ScraspModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -211,10 +256,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\ScraspModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ScraspModel.edmx</DependentUpon>
+      <LastGenOutput>ScraspModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ScraspModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ScraspModel.edmx</DependentUpon>
+      <LastGenOutput>ScraspModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EntityDeploy Include="Models\ScraspModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ScraspModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ScraspModel.edmx.diagram">
+      <DependentUpon>ScraspModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
