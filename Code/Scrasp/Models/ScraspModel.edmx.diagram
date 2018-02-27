@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="390b6e076a7d49d69887b93bcc6b150f" Name="Diagram1">
+        <EntityTypeShape EntityType="ScraspModel.Job" Width="1.5" PointX="8.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScraspModel.JobState" Width="1.5" PointX="6" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScraspModel.Project" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScraspModel.ScraspRole" Width="1.5" PointX="3.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScraspModel.ScraspUser" Width="1.5" PointX="6" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScraspModel.Sprint" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScraspModel.Story" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScraspModel.StoryState" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScraspModel.StoryType" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScraspModel.Team" Width="1.5" PointX="6" PointY="4.25" IsExpanded="true" />
+        <AssociationConnector Association="ScraspModel.FK__Jobs__JobStates___06CD04F7" ManuallyRouted="false" />
+        <AssociationConnector Association="ScraspModel.FK__Jobs__ScraspUser__08B54D69" ManuallyRouted="false" />
+        <AssociationConnector Association="ScraspModel.FK__Jobs__Stories_id__07C12930" ManuallyRouted="false" />
+        <AssociationConnector Association="ScraspModel.FK__Stories__Project__02084FDA" ManuallyRouted="false" />
+        <AssociationConnector Association="ScraspModel.FK__Teams__Projects___0B91BA14" ManuallyRouted="false" />
+        <AssociationConnector Association="ScraspModel.FK__ScraspUse__Scras__74AE54BC" ManuallyRouted="false" />
+        <AssociationConnector Association="ScraspModel.FK__Teams__ScraspUse__0C85DE4D" ManuallyRouted="false" />
+        <AssociationConnector Association="ScraspModel.FK__Stories__Sprints__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="ScraspModel.FK__Stories__StorySt__00200768" ManuallyRouted="false" />
+        <AssociationConnector Association="ScraspModel.FK__Stories__StoryTy__7F2BE32F" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
