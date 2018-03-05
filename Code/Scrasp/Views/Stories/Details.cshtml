@@ -1,4 +1,5 @@
 ﻿@model Scrasp.Models.Story
+@using Scrasp.Models
 
 @{
     ViewBag.Title = "Details";
@@ -80,3 +81,16 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<h4>Tâches liées</h4>
+@if (Model.Jobs.Count == 0)
+{
+    <p>Aucune</p>
+}
+else
+{
+    foreach (Job j in Model.Jobs)
+    {
+        <p>@j.jobDescription</p>
+    }
+}

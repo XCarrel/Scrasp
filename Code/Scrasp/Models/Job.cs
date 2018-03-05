@@ -19,8 +19,8 @@ namespace Scrasp.Models
         public Nullable<System.DateTime> startDate { get; set; }
         public Nullable<System.DateTime> endDate { get; set; }
         public int JobStates_id { get; set; }
-        public int Stories_id { get; set; }
-        public int ScraspUsers_id { get; set; }
+        public Nullable<int> Stories_id { get; set; }
+        public Nullable<int> ScraspUsers_id { get; set; }
     
         public virtual JobState JobState { get; set; }
         public virtual ScraspUser ScraspUser { get; set; }

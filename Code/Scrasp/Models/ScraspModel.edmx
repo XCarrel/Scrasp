@@ -14,8 +14,8 @@
           <Property Name="startDate" Type="date" />
           <Property Name="endDate" Type="date" />
           <Property Name="JobStates_id" Type="int" Nullable="false" />
-          <Property Name="Stories_id" Type="int" Nullable="false" />
-          <Property Name="ScraspUsers_id" Type="int" Nullable="false" />
+          <Property Name="Stories_id" Type="int" />
+          <Property Name="ScraspUsers_id" Type="int" />
         </EntityType>
         <EntityType Name="JobStates">
           <Key>
@@ -64,7 +64,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="shortName" Type="varchar" MaxLength="15" />
+          <Property Name="shortName" Type="varchar" MaxLength="50" />
           <Property Name="actor" Type="varchar" MaxLength="35" Nullable="false" />
           <Property Name="storyDescription" Type="text" />
           <Property Name="StoryTypes_id" Type="int" Nullable="false" />
@@ -108,7 +108,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Jobs__ScraspUser__37703C52">
-          <End Role="ScraspUsers" Type="Self.ScraspUsers" Multiplicity="1" />
+          <End Role="ScraspUsers" Type="Self.ScraspUsers" Multiplicity="0..1" />
           <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ScraspUsers">
@@ -120,7 +120,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Jobs__Stories_id__367C1819">
-          <End Role="Stories" Type="Self.Stories" Multiplicity="1" />
+          <End Role="Stories" Type="Self.Stories" Multiplicity="0..1" />
           <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Stories">
@@ -131,7 +131,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ScraspUse__Scras__236943A5">
+        <Association Name="FK__ScraspUse__Scras__33D4B598">
           <End Role="ScraspRoles" Type="Self.ScraspRoles" Multiplicity="1" />
           <End Role="ScraspUsers" Type="Self.ScraspUsers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -191,7 +191,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teams__Projects___3A4CA8FD">
+        <Association Name="FK__Teams__Projects___38996AB5">
           <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
           <End Role="Teams" Type="Self.Teams" Multiplicity="*" />
           <ReferentialConstraint>
@@ -203,7 +203,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teams__ScraspUse__3B40CD36">
+        <Association Name="FK__Teams__ScraspUse__398D8EEE">
           <End Role="ScraspUsers" Type="Self.ScraspUsers" Multiplicity="1" />
           <End Role="Teams" Type="Self.Teams" Multiplicity="*" />
           <ReferentialConstraint>
@@ -238,7 +238,7 @@
             <End Role="Stories" EntitySet="Stories" />
             <End Role="Jobs" EntitySet="Jobs" />
           </AssociationSet>
-          <AssociationSet Name="FK__ScraspUse__Scras__236943A5" Association="Self.FK__ScraspUse__Scras__236943A5">
+          <AssociationSet Name="FK__ScraspUse__Scras__33D4B598" Association="Self.FK__ScraspUse__Scras__33D4B598">
             <End Role="ScraspRoles" EntitySet="ScraspRoles" />
             <End Role="ScraspUsers" EntitySet="ScraspUsers" />
           </AssociationSet>
@@ -258,11 +258,11 @@
             <End Role="StoryTypes" EntitySet="StoryTypes" />
             <End Role="Stories" EntitySet="Stories" />
           </AssociationSet>
-          <AssociationSet Name="FK__Teams__Projects___3A4CA8FD" Association="Self.FK__Teams__Projects___3A4CA8FD">
+          <AssociationSet Name="FK__Teams__Projects___38996AB5" Association="Self.FK__Teams__Projects___38996AB5">
             <End Role="Projects" EntitySet="Projects" />
             <End Role="Teams" EntitySet="Teams" />
           </AssociationSet>
-          <AssociationSet Name="FK__Teams__ScraspUse__3B40CD36" Association="Self.FK__Teams__ScraspUse__3B40CD36">
+          <AssociationSet Name="FK__Teams__ScraspUse__398D8EEE" Association="Self.FK__Teams__ScraspUse__398D8EEE">
             <End Role="ScraspUsers" EntitySet="ScraspUsers" />
             <End Role="Teams" EntitySet="Teams" />
           </AssociationSet>
@@ -281,8 +281,8 @@
           <Property Name="startDate" Type="DateTime" Precision="0" />
           <Property Name="endDate" Type="DateTime" Precision="0" />
           <Property Name="JobStates_id" Type="Int32" Nullable="false" />
-          <Property Name="Stories_id" Type="Int32" Nullable="false" />
-          <Property Name="ScraspUsers_id" Type="Int32" Nullable="false" />
+          <Property Name="Stories_id" Type="Int32" />
+          <Property Name="ScraspUsers_id" Type="Int32" />
           <NavigationProperty Name="JobState" Relationship="Self.FK__Jobs__JobStates___3587F3E0" FromRole="Jobs" ToRole="JobStates" />
           <NavigationProperty Name="ScraspUser" Relationship="Self.FK__Jobs__ScraspUser__37703C52" FromRole="Jobs" ToRole="ScraspUsers" />
           <NavigationProperty Name="Story" Relationship="Self.FK__Jobs__Stories_id__367C1819" FromRole="Jobs" ToRole="Stories" />
@@ -304,7 +304,7 @@
           <Property Name="projectDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="refRepo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Stories" Relationship="Self.FK__Stories__Project__30C33EC3" FromRole="Projects" ToRole="Stories" />
-          <NavigationProperty Name="Teams" Relationship="Self.FK__Teams__Projects___3A4CA8FD" FromRole="Projects" ToRole="Teams" />
+          <NavigationProperty Name="Teams" Relationship="Self.FK__Teams__Projects___38996AB5" FromRole="Projects" ToRole="Teams" />
         </EntityType>
         <EntityType Name="ScraspRole">
           <Key>
@@ -312,7 +312,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="roleName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ScraspUsers" Relationship="Self.FK__ScraspUse__Scras__236943A5" FromRole="ScraspRoles" ToRole="ScraspUsers" />
+          <NavigationProperty Name="ScraspUsers" Relationship="Self.FK__ScraspUse__Scras__33D4B598" FromRole="ScraspRoles" ToRole="ScraspUsers" />
         </EntityType>
         <EntityType Name="ScraspUser">
           <Key>
@@ -323,8 +323,8 @@
           <Property Name="username" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ScraspRoles_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Jobs" Relationship="Self.FK__Jobs__ScraspUser__37703C52" FromRole="ScraspUsers" ToRole="Jobs" />
-          <NavigationProperty Name="ScraspRole" Relationship="Self.FK__ScraspUse__Scras__236943A5" FromRole="ScraspUsers" ToRole="ScraspRoles" />
-          <NavigationProperty Name="Teams" Relationship="Self.FK__Teams__ScraspUse__3B40CD36" FromRole="ScraspUsers" ToRole="Teams" />
+          <NavigationProperty Name="ScraspRole" Relationship="Self.FK__ScraspUse__Scras__33D4B598" FromRole="ScraspUsers" ToRole="ScraspRoles" />
+          <NavigationProperty Name="Teams" Relationship="Self.FK__Teams__ScraspUse__398D8EEE" FromRole="ScraspUsers" ToRole="Teams" />
         </EntityType>
         <EntityType Name="Sprint">
           <Key>
@@ -342,7 +342,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="shortName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="shortName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="actor" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="storyDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="StoryTypes_id" Type="Int32" Nullable="false" />
@@ -379,8 +379,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Projects_id" Type="Int32" Nullable="false" />
           <Property Name="ScraspUsers_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Project" Relationship="Self.FK__Teams__Projects___3A4CA8FD" FromRole="Teams" ToRole="Projects" />
-          <NavigationProperty Name="ScraspUser" Relationship="Self.FK__Teams__ScraspUse__3B40CD36" FromRole="Teams" ToRole="ScraspUsers" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__Teams__Projects___38996AB5" FromRole="Teams" ToRole="Projects" />
+          <NavigationProperty Name="ScraspUser" Relationship="Self.FK__Teams__ScraspUse__398D8EEE" FromRole="Teams" ToRole="ScraspUsers" />
         </EntityType>
         <Association Name="FK__Jobs__JobStates___3587F3E0">
           <End Role="JobStates" Type="Self.JobState" Multiplicity="1" />
@@ -395,7 +395,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Jobs__ScraspUser__37703C52">
-          <End Role="ScraspUsers" Type="Self.ScraspUser" Multiplicity="1" />
+          <End Role="ScraspUsers" Type="Self.ScraspUser" Multiplicity="0..1" />
           <End Role="Jobs" Type="Self.Job" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ScraspUsers">
@@ -407,7 +407,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Jobs__Stories_id__367C1819">
-          <End Role="Stories" Type="Self.Story" Multiplicity="1" />
+          <End Role="Stories" Type="Self.Story" Multiplicity="0..1" />
           <End Role="Jobs" Type="Self.Job" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Stories">
@@ -430,7 +430,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teams__Projects___3A4CA8FD">
+        <Association Name="FK__Teams__Projects___38996AB5">
           <End Role="Projects" Type="Self.Project" Multiplicity="1" />
           <End Role="Teams" Type="Self.Team" Multiplicity="*" />
           <ReferentialConstraint>
@@ -442,7 +442,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ScraspUse__Scras__236943A5">
+        <Association Name="FK__ScraspUse__Scras__33D4B598">
           <End Role="ScraspRoles" Type="Self.ScraspRole" Multiplicity="1" />
           <End Role="ScraspUsers" Type="Self.ScraspUser" Multiplicity="*" />
           <ReferentialConstraint>
@@ -454,7 +454,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teams__ScraspUse__3B40CD36">
+        <Association Name="FK__Teams__ScraspUse__398D8EEE">
           <End Role="ScraspUsers" Type="Self.ScraspUser" Multiplicity="1" />
           <End Role="Teams" Type="Self.Team" Multiplicity="*" />
           <ReferentialConstraint>
@@ -529,15 +529,15 @@
             <End Role="Projects" EntitySet="Projects" />
             <End Role="Stories" EntitySet="Stories" />
           </AssociationSet>
-          <AssociationSet Name="FK__Teams__Projects___3A4CA8FD" Association="Self.FK__Teams__Projects___3A4CA8FD">
+          <AssociationSet Name="FK__Teams__Projects___38996AB5" Association="Self.FK__Teams__Projects___38996AB5">
             <End Role="Projects" EntitySet="Projects" />
             <End Role="Teams" EntitySet="Teams" />
           </AssociationSet>
-          <AssociationSet Name="FK__ScraspUse__Scras__236943A5" Association="Self.FK__ScraspUse__Scras__236943A5">
+          <AssociationSet Name="FK__ScraspUse__Scras__33D4B598" Association="Self.FK__ScraspUse__Scras__33D4B598">
             <End Role="ScraspRoles" EntitySet="ScraspRoles" />
             <End Role="ScraspUsers" EntitySet="ScraspUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK__Teams__ScraspUse__3B40CD36" Association="Self.FK__Teams__ScraspUse__3B40CD36">
+          <AssociationSet Name="FK__Teams__ScraspUse__398D8EEE" Association="Self.FK__Teams__ScraspUse__398D8EEE">
             <End Role="ScraspUsers" EntitySet="ScraspUsers" />
             <End Role="Teams" EntitySet="Teams" />
           </AssociationSet>
