@@ -73,3 +73,29 @@
 }
 
 </table>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: 'api/StoriesAPI/2',
+                type: 'POST',
+                data: {
+                    Address1: "423 Judy Road",
+                    Address2: "1001",
+                    City: "New York",
+                    State: "NY",
+                    ZipCode: "10301",
+                    Country: "USA"
+                },
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    alert(data.success);
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        });
+    </script>
+    }
