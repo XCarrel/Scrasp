@@ -29,6 +29,11 @@ namespace Scrasp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Story story = db.Stories.Find(id);
+
+            // Gather the loose jobs 
+            List<Job> looseJobs = db.Jobs.Where(j => j.Stories_id == null).ToList();
+            ViewBag.looseJobs = looseJobs;
+
             if (story == null)
             {
                 return HttpNotFound();

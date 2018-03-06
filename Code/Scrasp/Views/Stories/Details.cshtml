@@ -3,6 +3,7 @@
 
 @{
     ViewBag.Title = "Details";
+    List<Job> looseJobs = ViewBag.looseJobs;
 }
 
 <h2>Details</h2>
@@ -90,6 +91,19 @@
 else
 {
     foreach (Job j in Model.Jobs)
+    {
+        <p>@j.jobDescription</p>
+    }
+}
+
+<h4>Tâches libres</h4>
+@if (looseJobs.Count == 0)
+{
+    <p>Aucune</p>
+}
+else
+{
+    foreach (Job j in looseJobs)
     {
         <p>@j.jobDescription</p>
     }
