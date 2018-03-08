@@ -1,109 +1,42 @@
 ﻿@model Scrasp.Models.Story
-@using Scrasp.Models
 
 @{
-    ViewBag.Title = "Details";
+  ViewBag.Title = "Story details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Story</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.shortName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.shortName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.actor)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.actor)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.storyDescription)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.storyDescription)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.points)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.points)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Project.title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Project.title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Sprint.sprintDescription)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Sprint.sprintDescription)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StoryState.stateName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StoryState.stateName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StoryType.typeName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StoryType.typeName)
-        </dd>
-
-    </dl>
+<div class="row">
+  <h2>Story @Model.shortName</h2>
+  <p>As a @Model.actor</p>
+  <p>I want to @Model.storyDescription</p>
+  <p>Il s'agit d'une @Model.StoryType.typeName story, valant @Model.points points, qui est @Model.StoryState.stateName</p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-
-<h4>Tâches liées</h4>
-@if (Model.Jobs.Count == 0)
-{
-    <p>Aucune</p>
-}
-else
-{
-    foreach (Job j in Model.Jobs)
-    {
-        <p>@j.jobDescription</p>
+<div class="row">
+  <h4>Tâches associées</h4>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Tâche</th>
+      <th>Personne</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var job in Model.Jobs) {
+      <tr>
+        <td>@job.jobDescription</td>
+        @if (job.ScraspUser == null) {
+          <td>Aucun</td>
+        } else {
+          <td>@job.ScraspUser.username</td>
+        }
+      </tr>
     }
-}
-
-<h4>Tâches libres</h4>
-@if (Model.JobCandidates.Count == 0)
-{
-    <p>Aucune</p>
-}
-else
-{
-    foreach (Job j in Model.JobCandidates)
-    {
-        <p>@j.jobDescription</p>
-    }
-}
+    <tr></tr>
+    </tbody>
+  </table>
+</div>
+<div class="row">
+  <p>
+    @Html.ActionLink("Edit", "Edit", new {id = Model.id}, new {@class = "btn btn-warning"}) |
+    @Html.ActionLink("Back to List", "Index", null, new {@class = "btn btn-primary"})
+  </p>
+</div>

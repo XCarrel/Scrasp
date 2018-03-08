@@ -1,98 +1,102 @@
 ﻿@model Scrasp.Models.Story
 
 @{
-    ViewBag.Title = "Edit";
+  ViewBag.Title = "Story edit";
 }
 
-<h2>Edit</h2>
+@using (Html.BeginForm()) {
+  @Html.AntiForgeryToken()
+  @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+  @Html.HiddenFor(model => model.id)
+  @Html.HiddenFor(model => model.Projects_id)
 
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Story</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.shortName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.shortName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.shortName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.actor, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.actor, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.actor, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.storyDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.storyDescription, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.storyDescription, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StoryTypes_id, "StoryTypes_id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.StoryTypes_id, null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.StoryTypes_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StoryStates_id, "StoryStates_id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("StoryStates_id", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.StoryStates_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Sprints_id, "Sprints_id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Sprints_id", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Sprints_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Projects_id, "Projects_id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Projects_id", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Projects_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.points, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.points, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.points, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+  <div class="row">
+    <h2>
+      Story @Html.EditorFor(model => model.shortName)
+    </h2>
+    @Html.ValidationMessageFor(model => model.shortName, "", new {@class = "text-danger"})
+    <p>
+      As a @Html.EditorFor(model => model.actor)
+      @Html.ValidationMessageFor(model => model.actor, "", new {@class = "text-danger"})
+    </p>
+    <p>
+      I want to @Html.EditorFor(model => model.storyDescription)
+      @Html.ValidationMessageFor(model => model.storyDescription, "", new {@class = "text-danger"})
+    </p>
+    <p>
+      Il s'agit d'une @Html.DropDownList("StoryTypes_id") story, valant @Html.EditorFor(model => model.points) points, qui est @Html.DropDownList("StoryStates_id")
+      @Html.ValidationMessageFor(model => model.StoryTypes_id, "", new {@class = "text-danger"})
+      @Html.ValidationMessageFor(model => model.points, "", new {@class = "text-danger"})
+      @Html.ValidationMessageFor(model => model.StoryStates_id, "", new {@class = "text-danger"})
+    </p>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Tâches associées</h4>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Remove</th>
+          <th>@Html.DisplayNameFor(model => model.Jobs.First().jobDescription)</th>
+          <th>Personne</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var job in Model.Jobs) {
+          <tr>
+            <td>
+              <input name="remove" type="checkbox" value="@job.id"/>
+            </td>
+            <td>@job.jobDescription</td>
+            @if (job.ScraspUser == null) {
+              <td>Aucun</td>
+            } else {
+              <td>@job.ScraspUser.username</td>
+            }
+          </tr>
+        }
+        <tr></tr>
+        </tbody>
+      </table>
     </div>
+    <div class="col-md-6">
+      <h4>Tâches non attribuées</h4>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Add</th>
+          <th>@Html.DisplayNameFor(model => model.Jobs.First().jobDescription)</th>
+          <th>Personne</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var job in ViewBag.Unassigned_Jobs) {
+          <tr>
+            <td>
+              <input name="add" type="checkbox" value="@job.id"/>
+            </td>
+            <td>@job.jobDescription</td>
+            @if (job.ScraspUser == null) {
+              <td>Aucun</td>
+            } else {
+              <td>@job.ScraspUser.username</td>
+            }
+          </tr>
+        }
+        <tr></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <p>
+      <input type="submit" value="Enregistrer" class="btn btn-success"/> |
+      @Html.ActionLink("Back to List", "Index", null, new {@class = "btn btn-primary"})
+    </p>
+  </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+  @Scripts.Render("~/bundles/jqueryval")
 }
+

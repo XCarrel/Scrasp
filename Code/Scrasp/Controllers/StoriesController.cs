@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -29,17 +30,12 @@ namespace Scrasp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            // Eager loading
-             Story story = db.Stories.Include(s => s.Project).Include(s => s.Sprint).Include(s => s.StoryState).Include(s => s.StoryType).SingleOrDefault(s => s.id == id);
-            // Lazy loading
-            //Story story = db.Stories.Find(id);
-
-            // Gather the loose jobs 
-            story.JobCandidates = db.Jobs.Where(j => j.Stories_id == null).ToList();
-
+            Story story = db.Stories.Find(id);
             if (story == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
+                //return HttpNotFound();
+
             }
             return View(story);
         }
@@ -88,11 +84,11 @@ namespace Scrasp.Controllers
                 return HttpNotFound();
             }
             ViewBag.Projects_id = new SelectList(db.Projects, "id", "title", story.Projects_id);
-            List<SelectListItem> sl = new SelectList(db.Sprints, "id", "sprintDescription", story.Sprints_id).ToList();
-            sl.Insert(0, (new SelectListItem { Text = "-- Aucun --", Value = "0" }));
-            ViewBag.Sprints_id = sl;
+            ViewBag.Sprints_id = new SelectList(db.Sprints, "id", "sprintDescription", story.Sprints_id);
             ViewBag.StoryStates_id = new SelectList(db.StoryStates, "id", "stateName", story.StoryStates_id);
             ViewBag.StoryTypes_id = new SelectList(db.StoryTypes, "id", "typeName", story.StoryTypes_id);
+            ViewBag.Unassigned_Jobs = db.Jobs.Where(i => i.Stories_id == null);
+
             return View(story);
         }
 
@@ -101,12 +97,26 @@ namespace Scrasp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,shortName,actor,storyDescription,StoryTypes_id,StoryStates_id,Sprints_id,Projects_id,points")] Story story, string toto)
+        public ActionResult Edit([Bind(Include = "id,shortName,actor,storyDescription,StoryTypes_id,StoryStates_id,points,Projects_id")] Story story)
         {
-            if (story.Sprints_id == 0) story.Sprints_id = null;
+            if (ModelState.IsValid) {
+                if (Request["remove"] != null) {
+                    var remove = Array.ConvertAll(Request["remove"].Split(','), int.Parse);
+                    foreach (var jobId in remove) {
+                        var job = db.Jobs.Find(jobId);
+                        if (job != null) job.Stories_id = null;
+                    }
+                }
 
-            if (ModelState.IsValid)
-            {
+                if (Request["add"] != null) {
+                    var add = Array.ConvertAll(Request["add"].Split(','), int.Parse);
+                    foreach (var jobId in add) {
+                        var job = db.Jobs.Find(jobId);
+                        if (job != null) job.Stories_id = story.id;
+                    }
+                }
+
+
                 db.Entry(story).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

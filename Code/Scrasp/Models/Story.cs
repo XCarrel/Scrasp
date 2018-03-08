@@ -23,7 +23,6 @@ namespace Scrasp.Models
         }
     
         public int id { get; set; }
-        [Display(Name ="Titre")]
         public string shortName { get; set; }
         public string actor { get; set; }
         public string storyDescription { get; set; }
