@@ -13,6 +13,7 @@
         <div class="container">
             <div class="navbar-header">
                 @Html.ActionLink("SCRASP", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Stories", "Index", "Stories")
             </div>
             <div class="navbar-collapse collapse">
                 @Html.Partial("_LoginPartial")

@@ -1,0 +1,88 @@
+﻿@model Scrasp.Models.Story
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Story</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.shortName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.shortName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.actor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.actor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.storyDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.storyDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.points)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.points)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Project.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Project.title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sprint.sprintDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sprint.sprintDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StoryState.stateName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StoryState.stateName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StoryType.typeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StoryType.typeName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

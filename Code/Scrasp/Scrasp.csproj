@@ -193,7 +193,14 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobsController.cs" />
+    <Compile Include="Controllers\JobStatesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\ScraspUsersController.cs" />
+    <Compile Include="Controllers\SprintsController.cs" />
+    <Compile Include="Controllers\StoriesController.cs" />
+    <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -288,7 +295,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -320,6 +329,41 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Stories\Create.cshtml" />
+    <Content Include="Views\Stories\Delete.cshtml" />
+    <Content Include="Views\Stories\Details.cshtml" />
+    <Content Include="Views\Stories\Edit.cshtml" />
+    <Content Include="Views\Stories\Index.cshtml" />
+    <Content Include="Views\Projects\Create.cshtml" />
+    <Content Include="Views\Projects\Delete.cshtml" />
+    <Content Include="Views\Projects\Details.cshtml" />
+    <Content Include="Views\Projects\Edit.cshtml" />
+    <Content Include="Views\Projects\Index.cshtml" />
+    <Content Include="Views\Jobs\Create.cshtml" />
+    <Content Include="Views\Jobs\Delete.cshtml" />
+    <Content Include="Views\Jobs\Details.cshtml" />
+    <Content Include="Views\Jobs\Edit.cshtml" />
+    <Content Include="Views\Jobs\Index.cshtml" />
+    <Content Include="Views\Sprints\Create.cshtml" />
+    <Content Include="Views\Sprints\Delete.cshtml" />
+    <Content Include="Views\Sprints\Details.cshtml" />
+    <Content Include="Views\Sprints\Edit.cshtml" />
+    <Content Include="Views\Sprints\Index.cshtml" />
+    <Content Include="Views\Teams\Create.cshtml" />
+    <Content Include="Views\Teams\Delete.cshtml" />
+    <Content Include="Views\Teams\Details.cshtml" />
+    <Content Include="Views\Teams\Edit.cshtml" />
+    <Content Include="Views\Teams\Index.cshtml" />
+    <Content Include="Views\JobStates\Create.cshtml" />
+    <Content Include="Views\JobStates\Delete.cshtml" />
+    <Content Include="Views\JobStates\Details.cshtml" />
+    <Content Include="Views\JobStates\Edit.cshtml" />
+    <Content Include="Views\JobStates\Index.cshtml" />
+    <Content Include="Views\ScraspUsers\Create.cshtml" />
+    <Content Include="Views\ScraspUsers\Delete.cshtml" />
+    <Content Include="Views\ScraspUsers\Details.cshtml" />
+    <Content Include="Views\ScraspUsers\Edit.cshtml" />
+    <Content Include="Views\ScraspUsers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
