@@ -263,6 +263,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\BigStory.cs" />
+    <Compile Include="ViewModels\Story.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\CreateDatabase.sql" />
