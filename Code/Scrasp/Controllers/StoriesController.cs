@@ -1,7 +1,11 @@
 ﻿using System;
+
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using Scrasp.Models;
 
@@ -25,11 +29,13 @@ namespace Scrasp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Story story = db.Stories.Find(id);
             if (story == null)
             {
                 return RedirectToAction("Index");
                 //return HttpNotFound();
+
             }
             return View(story);
         }
@@ -82,6 +88,7 @@ namespace Scrasp.Controllers
             ViewBag.StoryStates_id = new SelectList(db.StoryStates, "id", "stateName", story.StoryStates_id);
             ViewBag.StoryTypes_id = new SelectList(db.StoryTypes, "id", "typeName", story.StoryTypes_id);
             ViewBag.Unassigned_Jobs = db.Jobs.Where(i => i.Stories_id == null);
+
             return View(story);
         }
 
@@ -108,6 +115,7 @@ namespace Scrasp.Controllers
                         if (job != null) job.Stories_id = story.id;
                     }
                 }
+
 
                 db.Entry(story).State = EntityState.Modified;
                 db.SaveChanges();
