@@ -108,4 +108,3 @@ INSERT INTO StoryStates(stateName) VALUES ('Nouvelle'),('Discussion'),('Validée'
 INSERT INTO ScraspUsers(AspNetUsers_id,username,ScraspRoles_id) SELECT id, Email,1 FROM AspNetUsers;
 INSERT INTO Projects(title,projectDescription) VALUES ('Alpha','Premier projet'),('Beta','Deuxième projet'),('Gamma','Troisième projet');
 SET NOCOUNT OFF
-
