@@ -1,4 +1,5 @@
 ﻿@model Scrasp.Models.Project
+@using Scrasp.Models
 
 @{
     ViewBag.Title = "Details";
@@ -36,6 +37,33 @@
 
     </dl>
 </div>
+
+<div class="row">
+    <h4>Stories associées</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Acteur</th>
+                <th>Type</th>
+                <th>Etat</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var story in Model.Stories)
+            {
+                <tr>
+                    <td>@story.shortName</td>
+                    <td>@story.actor</td>
+                    <td>@story.StoryType.typeName</td>
+                    <td>@story.StoryState.stateName</td>
+                </tr>
+            }
+            <tr></tr>
+        </tbody>
+    </table>
+</div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
     @Html.ActionLink("Back to List", "Index")

@@ -23,7 +23,7 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr class="clickable" data-url="@Url.Action("Edit", "Projects", new { id=item.id })">
+    <tr class="clickable" data-url="@Url.Action("Details", "Projects", new { id=item.id })">
         <td>
             @Html.DisplayFor(modelItem => item.title)
         </td>
