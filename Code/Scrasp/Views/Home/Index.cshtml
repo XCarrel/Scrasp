@@ -1,5 +1,18 @@
-﻿@{
+﻿@model Scrasp.Models.Project
+@{
     ViewBag.Title = "Accueil";
 }
 
 <h1>Projets</h1>
+
+<table class="table table-bordered table-hover table-striped">
+    <tr>
+        <th>Nom</th>
+    </tr>
+    @foreach (var project in ViewBag.projects)
+    {
+        <tr class="hover" data-href="@Url.Action("Details", "Projects", new { id = project.id})" title="Voir les détails du projet : @project.title">
+            <td>@project.title</td>
+        </tr>
+    }
+</table>
