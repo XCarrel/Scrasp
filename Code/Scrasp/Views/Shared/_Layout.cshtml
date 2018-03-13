@@ -13,16 +13,11 @@
         <div class="container">
             <div class="navbar-header">
                 @Html.ActionLink("SCRASP", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Stories", "Index", "Stories")
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>
-                        @Html.ActionLink("Roles", "Index", "ScraspRoles")
-                    </li>
-                    <li>
-                        @Html.ActionLink("Stories", "Index", "Stories")
-                    </li>
+                    <li>@Html.ActionLink("Projets", "Index", "Projects")</li>
+                    <li>@Html.ActionLink("Stories", "Index", "Stories")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
