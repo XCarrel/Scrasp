@@ -20,11 +20,10 @@
         <th>
             @Html.DisplayNameFor(model => model.refRepo)
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr class="clickable" data-url="@Url.Action("Edit", "Projects", new { id=item.id })">
         <td>
             @Html.DisplayFor(modelItem => item.title)
         </td>
@@ -33,11 +32,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.refRepo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
         </td>
     </tr>
 }
