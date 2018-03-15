@@ -205,6 +205,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Annotations\JobMetadata.cs" />
+    <Compile Include="Models\Annotations\JobStateMetadata.cs" />
+    <Compile Include="Models\Annotations\ProjectMetadata.cs" />
+    <Compile Include="Models\Annotations\RoleMetadata.cs" />
+    <Compile Include="Models\Annotations\SprintMetadata.cs" />
+    <Compile Include="Models\Annotations\StoryMetadata.cs" />
+    <Compile Include="Models\Annotations\StoryStateMetadata.cs" />
+    <Compile Include="Models\Annotations\StoryTypeMetadata.cs" />
+    <Compile Include="Models\Annotations\TeamMetadata.cs" />
+    <Compile Include="Models\Annotations\UserMetadata.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Job.cs">
       <DependentUpon>ScraspModel.tt</DependentUpon>
@@ -213,9 +223,6 @@
       <DependentUpon>ScraspModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Metadata\ProjectMetadata.cs" />
-    <Compile Include="Models\Metadata\SprintMetadata.cs" />
-    <Compile Include="Models\Metadata\StoryMetadata.cs" />
     <Compile Include="Models\Project.cs">
       <DependentUpon>ScraspModel.tt</DependentUpon>
     </Compile>
