@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Scrasp.Models
-{
+
+namespace Scrasp.Models {
     using System;
-    using System.Collections.Generic;
-    
-    public partial class Job
-    {
+
+    public partial class Job {
         public int id { get; set; }
         public string jobDescription { get; set; }
         public Nullable<System.DateTime> startDate { get; set; }

@@ -25,10 +25,11 @@
     </p>
     <p>
       Il s'agit d'une @Html.DropDownList("StoryTypes_id") story, valant @Html.EditorFor(model => model.points) points, qui est @Html.DropDownList("StoryStates_id")
-      @Html.ValidationMessageFor(model => model.StoryTypes_id, "", new {@class = "text-danger"})
-      @Html.ValidationMessageFor(model => model.points, "", new {@class = "text-danger"})
-      @Html.ValidationMessageFor(model => model.StoryStates_id, "", new {@class = "text-danger"})
     </p>
+    <p>La story appartien au sprint @Html.DropDownList("Sprints_id")</p>
+    @Html.ValidationMessageFor(model => model.StoryTypes_id, "", new {@class = "text-danger"})
+    @Html.ValidationMessageFor(model => model.points, "", new {@class = "text-danger"})
+    @Html.ValidationMessageFor(model => model.StoryStates_id, "", new {@class = "text-danger"})
   </div>
   <div class="row">
     <div class="col-md-6">

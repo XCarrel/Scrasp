@@ -1,42 +1,94 @@
 ﻿@model Scrasp.Models.Project
 
 @{
-    ViewBag.Title = "Details";
+  ViewBag.Title = "Project details";
 }
 
-<h2>Details</h2>
+<h2>Project details</h2>
 
-<div>
-    <h4>Project</h4>
+<form action="/Projects/Edit/@Model.id" method="post">
+  @Html.AntiForgeryToken()
+  <div>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.title)
-        </dt>
+      @Html.HiddenFor(model => model.id)
 
-        <dd>
-            @Html.DisplayFor(model => model.title)
-        </dd>
+      <dt>
+        @Html.DisplayNameFor(model => model.title)
+      </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.projectDescription)
-        </dt>
+      <dd>
+        <div class="toggle-hidden">@Html.DisplayFor(model => model.title)</div>
+        @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "default-hidden" }})
+      </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.projectDescription)
-        </dd>
+      <dt>
+        @Html.DisplayNameFor(model => model.projectDescription)
+      </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.refRepo)
-        </dt>
+      <dd>
+        <div class="toggle-hidden">@Html.DisplayFor(model => model.projectDescription)</div>
+        @Html.EditorFor(model => model.projectDescription, new { htmlAttributes = new {@class = "default-hidden" }})
+      </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.refRepo)
-        </dd>
+      <dt>
+        @Html.DisplayNameFor(model => model.refRepo)
+      </dt>
+
+      <dd>
+        <div class="toggle-hidden">@Html.DisplayFor(model => model.refRepo)</div>
+        @Html.EditorFor(model => model.refRepo, new { htmlAttributes = new { @class = "default-hidden" }})
+      </dd>
 
     </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+    <hr />
+    <p><h3>Stories</h3> <a class="btn btn-success default-hidden" href="/Stories/Create/@Model.id">Ajouter</a></p>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>@Html.DisplayNameFor(model => model.Stories.First().shortName)</th>
+          <th>@Html.DisplayNameFor(model => model.Stories.First().actor)</th>
+          <th>@Html.DisplayNameFor(model => model.Stories.First().storyDescription)</th>
+          <th>@Html.DisplayNameFor(model => model.Stories.First().StoryState.stateName)</th>
+          <th>@Html.DisplayNameFor(model => model.Stories.First().StoryType.typeName)</th>
+          <th class="default-hidden">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var story in Model.Stories) {
+          <tr>
+            <td>@story.shortName</td>
+            <td>@story.actor</td>
+            <td>@story.storyDescription</td>
+            <td>@story.StoryState.stateName</td>
+            <td>@story.StoryType.typeName</td>
+            <td class="default-hidden"><a class="btn btn-danger" href="/Stories/Delete/@story.id">Supprimer</a></td>
+          </tr>
+        }
+        <tr></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <p>
+      <a id="edit-btn" class="btn btn-warning toggle-hidden">Edit</a>
+      <input id="save-btn" type="submit" value="Enregistrer" class="btn btn-success default-hidden" /> |
+      @Html.ActionLink("Back to List", "Index", null, new {@class="btn btn-primary"})
+    </p>
+  </div>
+</form>
+
+@section scripts {
+  <script type="text/javascript">
+    $(document).ready(function ($) {
+
+      $(".default-hidden").hide();
+
+      $("#edit-btn").click(function () {
+        $(".toggle-hidden").hide();
+        $(".default-hidden").show();
+      });
+    });
+  </script>
+}
