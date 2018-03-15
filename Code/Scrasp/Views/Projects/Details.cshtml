@@ -10,36 +10,58 @@
 <div>
     <h4>Project</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.title)
-        </dt>
+    @using (Html.BeginForm("Edit", "Projects"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
 
-        <dd>
-            @Html.DisplayFor(model => model.title)
-        </dd>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.title)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.projectDescription)
-        </dt>
+            <dd class="details">
+                @Html.DisplayFor(model => model.title)
+            </dd>
+            <dd class="edit">
+                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.projectDescription)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.projectDescription)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.refRepo)
-        </dt>
+            <dd class="details">
+                @Html.DisplayFor(model => model.projectDescription)
+            </dd>
+            <dd class="edit">
+                @Html.EditorFor(model => model.projectDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.projectDescription, "", new { @class = "text-danger" })
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.refRepo)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.refRepo)
+            </dt>
 
-    </dl>
+            <dd class="details">
+                @Html.DisplayFor(model => model.refRepo)
+            </dd>
+            <dd class="edit">
+                @Html.EditorFor(model => model.refRepo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.refRepo, "", new { @class = "text-danger" })
+            </dd>
+
+            <input type="submit" value="Save" class="edit btn btn-default" />
+        </dl>
+    }
 </div>
+    
 
 <div class="row">
     <h4>Stories associées</h4>
+    <button class="btn">@Html.ActionLink("Nouvelle story", "Create", "Stories", new { id = Model.id }, null)</button>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -47,6 +69,7 @@
                 <th>Acteur</th>
                 <th>Type</th>
                 <th>Etat</th>
+                <th class="edit">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -57,6 +80,7 @@
                     <td>@story.actor</td>
                     <td>@story.StoryType.typeName</td>
                     <td>@story.StoryState.stateName</td>
+                    <td class="edit">@Html.ActionLink("Supprimer", "Delete", "Stories", new { id = story.id }, null)</td>
                 </tr>
             }
             <tr></tr>
@@ -65,6 +89,7 @@
 </div>
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    <button class="btn btn-primary show-edit details">Edit</button>
+    <button class="btn btn-primary cancel-edit edit">Cancel edit</button>
     @Html.ActionLink("Back to List", "Index")
 </p>

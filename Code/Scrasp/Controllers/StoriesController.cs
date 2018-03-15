@@ -41,9 +41,9 @@ namespace Scrasp.Controllers
         }
 
         // GET: Stories/Create
-        public ActionResult Create()
+        public ActionResult Create(int project_id)
         {
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title");
+            ViewBag.Projects_id = project_id;
             ViewBag.Sprints_id = new SelectList(db.Sprints, "id", "sprintDescription");
             ViewBag.StoryStates_id = new SelectList(db.StoryStates, "id", "stateName");
             ViewBag.StoryTypes_id = new SelectList(db.StoryTypes, "id", "typeName");
@@ -88,6 +88,9 @@ namespace Scrasp.Controllers
             ViewBag.StoryStates_id = new SelectList(db.StoryStates, "id", "stateName", story.StoryStates_id);
             ViewBag.StoryTypes_id = new SelectList(db.StoryTypes, "id", "typeName", story.StoryTypes_id);
             ViewBag.Unassigned_Jobs = db.Jobs.Where(i => i.Stories_id == null);
+            List<SelectListItem> Sprints_List = new SelectList(db.Sprints, "id", "sprintDescription", story.Sprints_id).ToList();
+            Sprints_List.Insert(0, (new SelectListItem { Text = "Aucun", Value = "" }));
+            ViewBag.Sprints_id = Sprints_List;
 
             return View(story);
         }
@@ -97,7 +100,7 @@ namespace Scrasp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,shortName,actor,storyDescription,StoryTypes_id,StoryStates_id,points,Projects_id")] Story story)
+        public ActionResult Edit([Bind(Include = "id,shortName,actor,storyDescription,StoryTypes_id,StoryStates_id,points,Projects_id, Sprints_id")] Story story)
         {
             if (ModelState.IsValid) {
                 if (Request["remove"] != null) {
@@ -149,6 +152,10 @@ namespace Scrasp.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Story story = db.Stories.Find(id);
+            ICollection<Job> Jobs = story.Jobs.ToList();
+            foreach (Job job in Jobs) {
+                db.Jobs.Remove(job);
+            }
             db.Stories.Remove(story);
             db.SaveChanges();
             return RedirectToAction("Index");

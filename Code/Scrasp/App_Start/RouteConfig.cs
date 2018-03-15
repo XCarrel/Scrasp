@@ -20,6 +20,12 @@ namespace Scrasp
             );
 
             routes.MapRoute(
+                name: "create_Story",
+                url: "Stories/Create/{project_id}",
+                defaults: new { controller = "Stories", action = "Create", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Projects", action = "Index", id = UrlParameter.Optional }

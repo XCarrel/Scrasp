@@ -26,3 +26,7 @@ textarea {
 .clickable{
     cursor: pointer;
 }
+
+.edit{
+    display: none;
+}

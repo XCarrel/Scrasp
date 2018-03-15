@@ -29,6 +29,7 @@
       @Html.ValidationMessageFor(model => model.points, "", new {@class = "text-danger"})
       @Html.ValidationMessageFor(model => model.StoryStates_id, "", new {@class = "text-danger"})
     </p>
+    <p>Sprint: @Html.DropDownList("Sprints_id")</p>
   </div>
   <div class="row">
     <div class="col-md-6">
