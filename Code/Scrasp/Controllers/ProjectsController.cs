@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -82,6 +83,24 @@ namespace Scrasp.Controllers
         {
             if (ModelState.IsValid)
             {
+                // We check some stories to remove ?
+                if (Request["remove"] != null)
+                {
+                    var storiesIdToRemove = Array.ConvertAll(Request["remove"].Split(','), int.Parse);
+                    foreach (var storyId in storiesIdToRemove)
+                    {
+                        Story storyToRemove = db.Stories.Find(storyId);
+                        // unlink all story's jobs
+                        foreach (Job storyJobs in storyToRemove.Jobs)
+                        {
+                            storyJobs.Stories_id = null;
+                        }
+                        // Remove the story
+                        project.Stories.Remove(storyToRemove);
+                        db.Stories.Remove(storyToRemove);
+                    }
+                }
+
                 db.Entry(project).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

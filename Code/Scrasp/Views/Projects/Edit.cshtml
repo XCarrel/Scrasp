@@ -1,10 +1,13 @@
 ﻿@model Scrasp.Models.Project
 
 @{
+    /**/
+
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Projet @Model.title</h2>
+<br />
 
 
 @using (Html.BeginForm())
@@ -12,8 +15,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Project</h4>
-        <hr />
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
 
@@ -40,35 +42,36 @@
                 @Html.ValidationMessageFor(model => model.refRepo, "", new { @class = "text-danger" })
             </div>
         </div>
+    </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <a class="btn btn-warning btn-mode-controller mode-edit">Éditer</a>
-                <!--<input type="submit" value="Save" class="btn btn-default" />-->
-            </div>
+    <h4>Stories du projet</h4>
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <th>Nom</th>
+            <th>Action</th>
+            <th>Supprimer</th>
+        </tr>
+        @foreach (var story in Model.Stories)
+        {
+            <tr>
+                <td>@story.shortName</td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center">@Html.ActionLink("Voir", "Details", "Stories", new { id = story.id }, new { @class = "btn btn-primary" })</td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center"><input class="delete-story" name="remove" type="checkbox" value="@story.id" disabled="disabled"/></td>
+            </tr>
+        }
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-12">
+            <a class="btn btn-warning btn-mode-controller mode-edit">Éditer</a>
+        </div>
+        <br />
+        <div class="col-md-12">
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
         </div>
     </div>
+
 }
-
-<table class="table table-bordered table-hover table-striped">
-    <tr>
-        <th>Nom</th>
-        <th>Action</th>
-    </tr>
-    @foreach (var story in Model.Stories)
-    {
-        <tr>
-            <td>@story.shortName</td>
-            <td>@Html.ActionLink("Voir", "Details", "Stories", new { id = story.id }, new { @class = "btn btn-primary" })</td>
-        </tr>
-    }
-</table>
-
-<div class="row">
-    <p>
-        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
-    </p>
-</div>
 
 
 @section Scripts {
@@ -79,6 +82,9 @@
             if ($(this).hasClass("mode-edit")) {
                 // Enable each form-control
                 $(".form-control").each(function (i) {
+                    $(this).prop('disabled', false);
+                });
+                $("input.delete-story").each(function (i) {
                     $(this).prop('disabled', false);
                 });
                 // Change the current button mode
@@ -94,6 +100,9 @@
                 $(".form-control").each(function (i) {
                     $(this).prop('disabled', true);
                 });
+                $("input.delete-story").each(function (i) {
+                    $(this).prop('disabled', true);
+                });
                 // Change the current button mode
                 $(this).removeClass("btn-danger mode-cancel");
                 $(this).addClass("btn-warning mode-edit");
@@ -101,7 +110,6 @@
                 // Remove the submit button
                 $(this).next("button").remove();
             }
-            
         });
 
     </script>

@@ -31,3 +31,6 @@ table tr.hover{
 .margin-left{
     margin-left: 20px;
 }
+td {
+    vertical-align: middle!important;
+}
