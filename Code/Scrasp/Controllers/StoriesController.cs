@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -35,12 +36,15 @@ namespace Scrasp.Controllers
         }
 
         // GET: Stories/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title");
-            ViewBag.Sprints_id = new SelectList(db.Sprints, "id", "sprintDescription");
+
+            ViewBag.Projects_id = id;
             ViewBag.StoryStates_id = new SelectList(db.StoryStates, "id", "stateName");
             ViewBag.StoryTypes_id = new SelectList(db.StoryTypes, "id", "typeName");
+            List<SelectListItem> slist = new SelectList(db.Sprints, "id", "sprintDescription").ToList();
+            slist.Insert(0, new SelectListItem { Text = "-- Aucun --", Value = "0" });
+            ViewBag.Sprints_id = slist;
             return View();
         }
 
@@ -51,8 +55,8 @@ namespace Scrasp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,shortName,actor,storyDescription,StoryTypes_id,StoryStates_id,Sprints_id,Projects_id,points")] Story story)
         {
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
+                if (story.Sprints_id == 0) story.Sprints_id = null;
                 db.Stories.Add(story);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -62,6 +66,7 @@ namespace Scrasp.Controllers
             ViewBag.Sprints_id = new SelectList(db.Sprints, "id", "sprintDescription", story.Sprints_id);
             ViewBag.StoryStates_id = new SelectList(db.StoryStates, "id", "stateName", story.StoryStates_id);
             ViewBag.StoryTypes_id = new SelectList(db.StoryTypes, "id", "typeName", story.StoryTypes_id);
+
             return View(story);
         }
 
@@ -78,10 +83,14 @@ namespace Scrasp.Controllers
                 return HttpNotFound();
             }
             ViewBag.Projects_id = new SelectList(db.Projects, "id", "title", story.Projects_id);
-            ViewBag.Sprints_id = new SelectList(db.Sprints, "id", "sprintDescription", story.Sprints_id);
             ViewBag.StoryStates_id = new SelectList(db.StoryStates, "id", "stateName", story.StoryStates_id);
             ViewBag.StoryTypes_id = new SelectList(db.StoryTypes, "id", "typeName", story.StoryTypes_id);
+
             ViewBag.Unassigned_Jobs = db.Jobs.Where(i => i.Stories_id == null);
+            List<SelectListItem> slist = new SelectList(db.Sprints, "id", "sprintDescription", story.Sprints_id).ToList();
+            slist.Insert(0, new SelectListItem { Text = "-- Aucun --", Value = "0" });
+            ViewBag.Sprints_id = slist;
+
             return View(story);
         }
 
@@ -90,7 +99,7 @@ namespace Scrasp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,shortName,actor,storyDescription,StoryTypes_id,StoryStates_id,points,Projects_id")] Story story)
+        public ActionResult Edit([Bind(Include = "id,shortName,actor,storyDescription,StoryTypes_id,StoryStates_id,points,Projects_id,Sprints_id")] Story story)
         {
             if (ModelState.IsValid) {
                 if (Request["remove"] != null) {
@@ -108,6 +117,8 @@ namespace Scrasp.Controllers
                         if (job != null) job.Stories_id = story.id;
                     }
                 }
+
+                if (story.Sprints_id == 0) story.Sprints_id = null;
 
                 db.Entry(story).State = EntityState.Modified;
                 db.SaveChanges();
@@ -141,6 +152,9 @@ namespace Scrasp.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Story story = db.Stories.Find(id);
+            foreach (Job storyJob in story.Jobs) {
+                storyJob.Stories_id = null;
+            }
             db.Stories.Remove(story);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -213,6 +213,9 @@
       <DependentUpon>ScraspModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Metadata\ProjectMetadata.cs" />
+    <Compile Include="Models\Metadata\SprintMetadata.cs" />
+    <Compile Include="Models\Metadata\StoryMetadata.cs" />
     <Compile Include="Models\Project.cs">
       <DependentUpon>ScraspModel.tt</DependentUpon>
     </Compile>
