@@ -227,6 +227,7 @@
       <DependentUpon>ScraspModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Metadata\ProjectMetadata.cs" />
     <Compile Include="Models\Project.cs">
       <DependentUpon>ScraspModel.tt</DependentUpon>
     </Compile>
