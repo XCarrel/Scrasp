@@ -45,6 +45,8 @@
     </div>
 
     <h4>Stories du projet</h4>
+    <a class="btn btn-primary">Ajouter une story</a>
+    <br/><br />
     <table class="table table-bordered table-hover table-striped">
         <tr>
             <th>Nom</th>
@@ -53,7 +55,7 @@
         </tr>
         @foreach (var story in Model.Stories)
         {
-            <tr>
+            <tr class="hover" data-href="@Url.Action("Details", "Stories", new { id = story.id})" title="Voir les détails de la story : @story.id">
                 <td>@story.shortName</td>
                 <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center">@Html.ActionLink("Voir", "Details", "Stories", new { id = story.id }, new { @class = "btn btn-primary" })</td>
                 <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center"><input class="delete-story" name="remove" type="checkbox" value="@story.id" disabled="disabled"/></td>
