@@ -210,6 +210,7 @@
     <Compile Include="Controllers\JobStatesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\ScraspRolesController.cs" />
     <Compile Include="Controllers\ScraspUsersController.cs" />
     <Compile Include="Controllers\SprintsController.cs" />
     <Compile Include="Controllers\StoriesController.cs" />
@@ -379,6 +380,11 @@
     <Content Include="Views\ScraspUsers\Details.cshtml" />
     <Content Include="Views\ScraspUsers\Edit.cshtml" />
     <Content Include="Views\ScraspUsers\Index.cshtml" />
+    <Content Include="Views\ScraspRoles\Create.cshtml" />
+    <Content Include="Views\ScraspRoles\Delete.cshtml" />
+    <Content Include="Views\ScraspRoles\Details.cshtml" />
+    <Content Include="Views\ScraspRoles\Edit.cshtml" />
+    <Content Include="Views\ScraspRoles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />

@@ -27,3 +27,7 @@ textarea {
 table tr.hover{
     cursor: pointer;
 }
+
+.margin-left{
+    margin-left: 20px;
+}

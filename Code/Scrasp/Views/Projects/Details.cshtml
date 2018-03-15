@@ -8,6 +8,7 @@
 
 <div>
     <h4>Project</h4>
+
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -36,7 +37,10 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="row">
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id }, new { @class = "btn btn-warning" }) |
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+    </p>
+</div>

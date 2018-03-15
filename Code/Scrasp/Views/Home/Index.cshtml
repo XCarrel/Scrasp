@@ -11,7 +11,7 @@
     </tr>
     @foreach (var project in ViewBag.projects)
     {
-        <tr class="hover" data-href="@Url.Action("Details", "Projects", new { id = project.id})" title="Voir les détails du projet : @project.title">
+        <tr class="hover" data-href="@Url.Action("Edit", "Projects", new { id = project.id})" title="Voir les détails du projet : @project.title">
             <td>@project.title</td>
         </tr>
     }

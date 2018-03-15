@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Project</h4>
         <hr />
@@ -20,7 +20,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                 @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.projectDescription, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.projectDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.projectDescription, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                 @Html.ValidationMessageFor(model => model.projectDescription, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -36,23 +36,73 @@
         <div class="form-group">
             @Html.LabelFor(model => model.refRepo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.refRepo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.refRepo, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                 @Html.ValidationMessageFor(model => model.refRepo, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <a class="btn btn-warning btn-mode-controller mode-edit">Éditer</a>
+                <!--<input type="submit" value="Save" class="btn btn-default" />-->
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<table class="table table-bordered table-hover table-striped">
+    <tr>
+        <th>Nom</th>
+        <th>Action</th>
+    </tr>
+    @foreach (var story in Model.Stories)
+    {
+        <tr>
+            <td>@story.shortName</td>
+            <td>@Html.ActionLink("Voir", "Details", "Stories", new { id = story.id }, new { @class = "btn btn-primary" })</td>
+        </tr>
+    }
+</table>
+
+<div class="row">
+    <p>
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+    </p>
 </div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $("a.btn-mode-controller").click(function () {
+            // Click on an edit button
+            if ($(this).hasClass("mode-edit")) {
+                // Enable each form-control
+                $(".form-control").each(function (i) {
+                    $(this).prop('disabled', false);
+                });
+                // Change the current button mode
+                $(this).removeClass("btn-warning mode-edit");
+                $(this).addClass("btn-danger mode-cancel");
+                $(this).text("Annuler")
+                // Add the submit button after the current button mode
+                $(this).after("<button class=\"btn btn-success margin-left\">Sauver</button>");
+            }
+            // Click on an cancel button
+            else if ($(this).hasClass("mode-cancel")) {
+                // Disable each form-control
+                $(".form-control").each(function (i) {
+                    $(this).prop('disabled', true);
+                });
+                // Change the current button mode
+                $(this).removeClass("btn-danger mode-cancel");
+                $(this).addClass("btn-warning mode-edit");
+                $(this).text("Éditer")
+                // Remove the submit button
+                $(this).next("button").remove();
+            }
+            
+        });
+
+    </script>
 }
