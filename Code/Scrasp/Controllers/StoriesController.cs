@@ -43,7 +43,9 @@ namespace Scrasp.Controllers
         // GET: Stories/Create
         public ActionResult Create()
         {
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title");
+            // get the project_id in parameters of the url
+            ViewBag.project_id = Request.QueryString["project_id"];
+
             ViewBag.Sprints_id = new SelectList(db.Sprints, "id", "sprintDescription");
             ViewBag.StoryStates_id = new SelectList(db.StoryStates, "id", "stateName");
             ViewBag.StoryTypes_id = new SelectList(db.StoryTypes, "id", "typeName");
