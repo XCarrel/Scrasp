@@ -87,6 +87,12 @@ namespace Scrasp.Controllers
             ViewBag.Sprints_id = new SelectList(db.Sprints, "id", "sprintDescription", story.Sprints_id);
             ViewBag.StoryStates_id = new SelectList(db.StoryStates, "id", "stateName", story.StoryStates_id);
             ViewBag.StoryTypes_id = new SelectList(db.StoryTypes, "id", "typeName", story.StoryTypes_id);
+
+            // Create a selected list of sprints that can be null (first entry = "Aucun"
+            List<SelectListItem> sprintList = new SelectList(db.Sprints, "id", "sprintDescription", story.Sprints_id).ToList();
+            sprintList.Insert(0, (new SelectListItem { Text = "-- Aucun --", Value = "0" }));
+            ViewBag.Sprints_id = sprintList;
+
             ViewBag.Unassigned_Jobs = db.Jobs.Where(i => i.Stories_id == null);
 
             return View(story);
@@ -97,7 +103,7 @@ namespace Scrasp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,shortName,actor,storyDescription,StoryTypes_id,StoryStates_id,points,Projects_id")] Story story)
+        public ActionResult Edit([Bind(Include = "id,shortName,actor,storyDescription,StoryTypes_id,StoryStates_id,points,Projects_id,Sprints_id")] Story story)
         {
             if (ModelState.IsValid) {
                 if (Request["remove"] != null) {
@@ -114,6 +120,12 @@ namespace Scrasp.Controllers
                         var job = db.Jobs.Find(jobId);
                         if (job != null) job.Stories_id = story.id;
                     }
+                }
+
+                // Sprints ID choose in selectlist (can be 0 => null) (auto bind in the Bind) 
+                if (story.Sprints_id == 0)
+                {
+                    story.Sprints_id = null;
                 }
 
 
