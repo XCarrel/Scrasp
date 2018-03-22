@@ -15,6 +15,16 @@ namespace Scrasp.Models {
         [Display(Name = "Repository Git")]
         [Url(ErrorMessage = "Doit être un url")]
         public object refRepo { get; set; }
+
+        [Display(Name = "Date de début")]
+        [DataType(DataType.Date)]
+        public object startDate { get; set; }
+
+        [Display(Name = "Date de fin")]
+        [DataType(DataType.Date)]
+        public object endDate { get; set; }
+
+
     }
 
     [MetadataType(typeof(ProjectMetadata))]
