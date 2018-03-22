@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="scraspModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="scraspModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Jobs">
           <Key>
             <PropertyRef Name="id" />
@@ -32,6 +32,8 @@
           <Property Name="title" Type="varchar" MaxLength="35" Nullable="false" />
           <Property Name="projectDescription" Type="text" />
           <Property Name="refRepo" Type="varchar" MaxLength="100" />
+          <Property Name="beginDate" Type="date" />
+          <Property Name="endDate" Type="date" />
         </EntityType>
         <EntityType Name="ScraspRoles">
           <Key>
@@ -267,8 +269,7 @@
             <End Role="Teams" EntitySet="Teams" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="scraspModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -305,6 +306,8 @@
           <Property Name="refRepo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Stories" Relationship="Self.FK__Stories__Project__30C33EC3" FromRole="Projects" ToRole="Stories" />
           <NavigationProperty Name="Teams" Relationship="Self.FK__Teams__Projects___38996AB5" FromRole="Projects" ToRole="Teams" />
+          <Property Name="beginDate" Type="DateTime" Precision="0" />
+          <Property Name="endDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="ScraspRole">
           <Key>
@@ -584,6 +587,8 @@
           <EntitySetMapping Name="Projects">
             <EntityTypeMapping TypeName="scraspModel.Project">
               <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="beginDate" ColumnName="beginDate" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="projectDescription" ColumnName="projectDescription" />

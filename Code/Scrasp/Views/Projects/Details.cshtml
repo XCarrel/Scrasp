@@ -11,34 +11,52 @@
   <div>
     <hr />
     <dl class="dl-horizontal">
-      @Html.HiddenFor(model => model.id)
+        @Html.HiddenFor(model => model.id)
 
-      <dt>
-        @Html.DisplayNameFor(model => model.title)
-      </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.title)
+        </dt>
 
-      <dd>
-        <div class="toggle-hidden">@Html.DisplayFor(model => model.title)</div>
-        @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "default-hidden" }})
-      </dd>
+        <dd>
+            <div class="toggle-hidden">@Html.DisplayFor(model => model.title)</div>
+            @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "default-hidden" } })
+        </dd>
 
-      <dt>
-        @Html.DisplayNameFor(model => model.projectDescription)
-      </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.projectDescription)
+        </dt>
 
-      <dd>
-        <div class="toggle-hidden">@Html.DisplayFor(model => model.projectDescription)</div>
-        @Html.EditorFor(model => model.projectDescription, new { htmlAttributes = new {@class = "default-hidden" }})
-      </dd>
+        <dd>
+            <div class="toggle-hidden">@Html.DisplayFor(model => model.projectDescription)</div>
+            @Html.EditorFor(model => model.projectDescription, new { htmlAttributes = new { @class = "default-hidden" } })
+        </dd>
 
-      <dt>
-        @Html.DisplayNameFor(model => model.refRepo)
-      </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.refRepo)
+        </dt>
 
-      <dd>
-        <div class="toggle-hidden">@Html.DisplayFor(model => model.refRepo)</div>
-        @Html.EditorFor(model => model.refRepo, new { htmlAttributes = new { @class = "default-hidden" }})
-      </dd>
+        <dd>
+            <div class="toggle-hidden">@Html.DisplayFor(model => model.refRepo)</div>
+            @Html.EditorFor(model => model.refRepo, new { htmlAttributes = new { @class = "default-hidden" } })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.beginDate)
+        </dt>
+
+        <dd>
+            <div class="toggle-hidden">@Html.DisplayFor(model => model.beginDate)</div>
+            @Html.EditorFor(model => model.beginDate, new { htmlAttributes = new { @class = "default-hidden" } })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.endDate)
+        </dt>
+
+        <dd>
+            <div class="toggle-hidden">@Html.DisplayFor(model => model.endDate)</div>
+            @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "default-hidden" } })
+        </dd>
 
     </dl>
 

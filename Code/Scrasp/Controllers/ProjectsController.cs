@@ -86,6 +86,7 @@ namespace Scrasp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            //return RedirectToAction("Details", project);
             return View(project);
         }
 
