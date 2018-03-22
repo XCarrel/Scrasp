@@ -86,7 +86,10 @@ namespace Scrasp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.fromEdit = true;
+            project.Stories = db.Projects.Find(project.id).Stories;
+
             return View("Details", project);
         }
 
