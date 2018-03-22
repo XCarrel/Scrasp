@@ -388,10 +388,9 @@
     <Content Include="Views\ScraspUsers\Details.cshtml" />
     <Content Include="Views\ScraspUsers\Edit.cshtml" />
     <Content Include="Views\ScraspUsers\Index.cshtml" />
+    <Content Include="Views\Stories\StoriesList.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
