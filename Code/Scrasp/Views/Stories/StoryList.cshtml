@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Scrasp.Models.Story>
+
+<table class="table table-striped">
+      <thead>
+        <tr>
+          <th>@Html.DisplayNameFor(model => model.shortName)</th>
+          <th>@Html.DisplayNameFor(model => model.actor)</th>
+          <th>@Html.DisplayNameFor(model => model.storyDescription)</th>
+          <th>@Html.DisplayNameFor(model => model.StoryState.stateName)</th>
+          <th>@Html.DisplayNameFor(model => model.StoryType.typeName)</th>
+          <th class="default-hidden">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var story in Model) {
+          <tr>
+            <td>@story.shortName</td>
+            <td>@story.actor</td>
+            <td>@story.storyDescription</td>
+            <td>@story.StoryState.stateName</td>
+            <td>@story.StoryType.typeName</td>
+            <td class="default-hidden"><a class="btn btn-danger" href="/Stories/Delete/@story.id">Supprimer</a></td>
+          </tr>
+        }
+        <tr></tr>
+      </tbody>
+    </table>
+
+</table>

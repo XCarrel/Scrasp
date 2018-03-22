@@ -62,31 +62,8 @@
 
     <hr />
     <p><h3>Stories</h3> <a class="btn btn-success default-hidden" href="/Stories/Create/@Model.id">Ajouter</a></p>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>@Html.DisplayNameFor(model => model.Stories.First().shortName)</th>
-          <th>@Html.DisplayNameFor(model => model.Stories.First().actor)</th>
-          <th>@Html.DisplayNameFor(model => model.Stories.First().storyDescription)</th>
-          <th>@Html.DisplayNameFor(model => model.Stories.First().StoryState.stateName)</th>
-          <th>@Html.DisplayNameFor(model => model.Stories.First().StoryType.typeName)</th>
-          <th class="default-hidden">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach (var story in Model.Stories) {
-          <tr>
-            <td>@story.shortName</td>
-            <td>@story.actor</td>
-            <td>@story.storyDescription</td>
-            <td>@story.StoryState.stateName</td>
-            <td>@story.StoryType.typeName</td>
-            <td class="default-hidden"><a class="btn btn-danger" href="/Stories/Delete/@story.id">Supprimer</a></td>
-          </tr>
-        }
-        <tr></tr>
-      </tbody>
-    </table>
+    @Html.Partial("~/Views/Stories/StoryList.cshtml",Model.Stories)
+
   </div>
   <div class="row">
     <p>
