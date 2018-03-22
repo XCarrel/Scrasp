@@ -6,81 +6,56 @@
 @using (Html.BeginForm("Edit", "Projects"))
 {
     @Html.AntiForgeryToken()
-    <div>
-        <hr />
-        <dl class="dl-horizontal">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.id)
-            <dt>
-                @Html.DisplayNameFor(model => model.title)
-            </dt>
-            <dd>
-                <div class="toggle-hidden">@Html.DisplayFor(model => model.title, new { htmlAttributes = new { @class = "control-label" } })</div>
-                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "default-hidden form-control" } })
-                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.projectDescription)
-            </dt>
-            <dd>
-                <div class="toggle-hidden">@Html.DisplayFor(model => model.projectDescription, new { htmlAttributes = new { @class = "control-label" } })</div>
-                @Html.EditorFor(model => model.projectDescription, new { htmlAttributes = new { @class = "default-hidden form-control" } })
-                @Html.ValidationMessageFor(model => model.projectDescription, "", new { @class = "text-danger" })
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.refRepo)
-            </dt>
-            <dd>
-                <div class="toggle-hidden">@Html.DisplayFor(model => model.refRepo, new { htmlAttributes = new { @class = "control-label" } })</div>
-                @Html.EditorFor(model => model.refRepo, new { htmlAttributes = new { @class = "default-hidden form-control" } })
-                @Html.ValidationMessageFor(model => model.refRepo, "", new { @class = "text-danger" })
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.startDate)
-            </dt>
-            <dd>
-                <div class="toggle-hidden">@Html.DisplayFor(model => model.startDate, new { htmlAttributes = new { @class = "control-label" } })</div>
-                @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "default-hidden form-control", @type = "date" } })
-                @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.endDate)
-            </dt>
-            <dd>
-                <div class="toggle-hidden">@Html.DisplayFor(model => model.endDate, new { htmlAttributes = new { @class = "control-label" } })</div>
-                @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "default-hidden form-control", @type = "date" } })
-                @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
-            </dd>
-        </dl>
-        <hr />
-        <p><h3>Stories</h3> <a class="btn btn-success default-hidden" href="/Stories/Create/@Model.id">Ajouter</a></p>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Stories.First().shortName)</th>
-                    <th>@Html.DisplayNameFor(model => model.Stories.First().actor)</th>
-                    <th>@Html.DisplayNameFor(model => model.Stories.First().storyDescription)</th>
-                    <th>@Html.DisplayNameFor(model => model.Stories.First().StoryState.stateName)</th>
-                    <th>@Html.DisplayNameFor(model => model.Stories.First().StoryType.typeName)</th>
-                    <th class="default-hidden">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var story in Model.Stories)
-                {
-                    <tr>
-                        <td>@story.shortName</td>
-                        <td>@story.actor</td>
-                        <td>@story.storyDescription</td>
-                        <td>@story.StoryState.stateName</td>
-                        <td>@story.StoryType.typeName</td>
-                        <td class="default-hidden"><a class="btn btn-danger" href="/Stories/Delete/@story.id">Supprimer</a></td>
-                    </tr>
-                }
-                <tr></tr>
-            </tbody>
-        </table>
-    </div>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+        <dt>
+            @Html.DisplayNameFor(model => model.title)
+        </dt>
+        <dd>
+            <div class="toggle-hidden">@Html.DisplayFor(model => model.title, new { htmlAttributes = new { @class = "control-label" } })</div>
+            @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "default-hidden form-control" } })
+            @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.projectDescription)
+        </dt>
+        <dd>
+            <div class="toggle-hidden">@Html.DisplayFor(model => model.projectDescription, new { htmlAttributes = new { @class = "control-label" } })</div>
+            @Html.EditorFor(model => model.projectDescription, new { htmlAttributes = new { @class = "default-hidden form-control" } })
+            @Html.ValidationMessageFor(model => model.projectDescription, "", new { @class = "text-danger" })
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.refRepo)
+        </dt>
+        <dd>
+            <div class="toggle-hidden">@Html.DisplayFor(model => model.refRepo, new { htmlAttributes = new { @class = "control-label" } })</div>
+            @Html.EditorFor(model => model.refRepo, new { htmlAttributes = new { @class = "default-hidden form-control" } })
+            @Html.ValidationMessageFor(model => model.refRepo, "", new { @class = "text-danger" })
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.startDate)
+        </dt>
+        <dd>
+            <div class="toggle-hidden">@Html.DisplayFor(model => model.startDate, new { htmlAttributes = new { @class = "control-label" } })</div>
+            @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "default-hidden form-control datepicker", @type = "date" } })
+            @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.endDate)
+        </dt>
+        <dd>
+            <div class="toggle-hidden">@Html.DisplayFor(model => model.endDate, new { htmlAttributes = new { @class = "control-label" } })</div>
+            @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "default-hidden form-control datepicker", @type = "date" } })
+            @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+        </dd>
+    </dl>
+    <hr />
+    <p><h3>Stories</h3> <a class="btn btn-success default-hidden" href="/Stories/Create/@Model.id">Ajouter</a></p>
+    @Html.Partial("~/Views/Stories/_Stories.cshtml", Model.Stories)
+</div>
     <div class="row">
         <p>
             <a id="edit-btn" class="btn btn-warning toggle-hidden">Edit</a>
@@ -91,7 +66,7 @@
 }
 @section scripts {
     <script type="text/javascript">
-        $(document).ready(function ($) {
+        $(document).ready(function () {
 
             $(".default-hidden").hide();
 
