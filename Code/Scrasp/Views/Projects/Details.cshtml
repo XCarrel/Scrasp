@@ -6,7 +6,7 @@
 
 <h2>Project details</h2>
 
-<form action="/Projects/Edit/@Model.id" method="post">
+<form action="/Projects/Edit/@Model.id" method="post" class="@(ViewBag.fromEdit == true ? "fromEdit" : "")" >
   @Html.AntiForgeryToken()
   <div>
     <hr />
@@ -18,8 +18,9 @@
       </dt>
 
       <dd>
-        <div class="toggle-hidden">@Html.DisplayFor(model => model.title)</div>
-        @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "default-hidden" }})
+          <div class="toggle-hidden">@Html.DisplayFor(model => model.title)</div>
+          @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "default-hidden" } })
+          @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
       </dd>
 
       <dt>
@@ -27,8 +28,9 @@
       </dt>
 
       <dd>
-        <div class="toggle-hidden">@Html.DisplayFor(model => model.projectDescription)</div>
-        @Html.EditorFor(model => model.projectDescription, new { htmlAttributes = new {@class = "default-hidden" }})
+          <div class="toggle-hidden">@Html.DisplayFor(model => model.projectDescription)</div>
+          @Html.EditorFor(model => model.projectDescription, new { htmlAttributes = new { @class = "default-hidden" } })
+          @Html.ValidationMessageFor(model => model.projectDescription, "", new { @class = "text-danger" })
       </dd>
 
       <dt>
@@ -36,8 +38,9 @@
       </dt>
 
       <dd>
-        <div class="toggle-hidden">@Html.DisplayFor(model => model.refRepo)</div>
-        @Html.EditorFor(model => model.refRepo, new { htmlAttributes = new { @class = "default-hidden" }})
+          <div class="toggle-hidden">@Html.DisplayFor(model => model.refRepo)</div>
+          @Html.EditorFor(model => model.refRepo, new { htmlAttributes = new { @class = "default-hidden" } })
+          @Html.ValidationMessageFor(model => model.refRepo, "", new { @class = "text-danger" })
       </dd>
 
     </dl>
@@ -83,12 +86,18 @@
   <script type="text/javascript">
     $(document).ready(function ($) {
 
-      $(".default-hidden").hide();
+        if ($('.fromEdit').length == 0) {
+            $(".default-hidden").hide();
+        }
+        else {
+            $(".toggle-hidden").hide();
+            $(".default-hidden").show();
+        }
 
-      $("#edit-btn").click(function () {
-        $(".toggle-hidden").hide();
-        $(".default-hidden").show();
-      });
+        $("#edit-btn").click(function () {
+            $(".toggle-hidden").hide();
+            $(".default-hidden").show();
+        });
     });
   </script>
 }

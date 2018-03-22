@@ -86,7 +86,8 @@ namespace Scrasp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(project);
+            ViewBag.fromEdit = true;
+            return View("Details", project);
         }
 
         // GET: Projects/Delete/5
