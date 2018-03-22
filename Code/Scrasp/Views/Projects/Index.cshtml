@@ -45,10 +45,10 @@
               @Html.DisplayFor(modelItem => item.refRepo)
           </td>
           <td>
-              @Html.DisplayFor(modelItem => item.startDate)
+              @( item.startDate == null ? "" : Convert.ToDateTime(item.startDate).ToString("dd.MM.yyyy"))
           </td>
           <td>
-              @Html.DisplayFor(modelItem => item.endDate)
+              @( item.endDate == null ? "" : Convert.ToDateTime(item.endDate).ToString("dd.MM.yyyy"))
           </td>
       </tr>
   }
