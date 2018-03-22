@@ -3,7 +3,8 @@
 namespace Scrasp.Models {
     public class ProjectMetadata {
         [Display(Name = "Titre")]
-        [Range(4, 50, ErrorMessage = "Le titre doit contenir entre 4 et 50 caractères")]
+        [MinLength(4, ErrorMessage = "Le titre doit contenir entre 4 et 50 caractères")]
+        [MaxLength(50, ErrorMessage = "Le titre doit contenir entre 4 et 50 caractères")]
         [Required(ErrorMessage = "Le titre est obligatoire")]
         public object title { get; set; }
 

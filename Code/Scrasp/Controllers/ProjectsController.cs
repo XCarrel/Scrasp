@@ -78,7 +78,7 @@ namespace Scrasp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,title,projectDescription,refRepo")] Project project)
+        public ActionResult Edit([Bind(Include = "id,title,projectDescription,refRepo,beginDate,endDate")] Project project)
         {
             if (ModelState.IsValid)
             {
