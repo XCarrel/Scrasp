@@ -87,7 +87,7 @@ namespace Scrasp.Controllers
                 return RedirectToAction("Index");
             }
             //return RedirectToAction("Details", project);
-            return View(project);
+            return View("Details", project);
         }
 
         // GET: Projects/Delete/5

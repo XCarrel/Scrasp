@@ -1,89 +1,99 @@
 ﻿@model Scrasp.Models.Project
 
 @{
-  ViewBag.Title = "Project details";
+    ViewBag.Title = "Project details";
 }
 
 <h2>Project details</h2>
 
 <form action="/Projects/Edit/@Model.id" method="post">
-  @Html.AntiForgeryToken()
-  <div>
-    <hr />
-    <dl class="dl-horizontal">
-        @Html.HiddenFor(model => model.id)
+    @Html.AntiForgeryToken()
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            @Html.HiddenFor(model => model.id)
 
-        <dt>
-            @Html.DisplayNameFor(model => model.title)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.title)
+            </dt>
 
-        <dd>
-            <div class="toggle-hidden">@Html.DisplayFor(model => model.title)</div>
-            @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "default-hidden" } })
-        </dd>
+            <dd>
+                <div class="toggle-hidden">@Html.DisplayFor(model => model.title)</div>
+                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "default-hidden" } })
+                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.projectDescription)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.projectDescription)
+            </dt>
 
-        <dd>
-            <div class="toggle-hidden">@Html.DisplayFor(model => model.projectDescription)</div>
-            @Html.EditorFor(model => model.projectDescription, new { htmlAttributes = new { @class = "default-hidden" } })
-        </dd>
+            <dd>
+                <div class="toggle-hidden">@Html.DisplayFor(model => model.projectDescription)</div>
+                @Html.EditorFor(model => model.projectDescription, new { htmlAttributes = new { @class = "default-hidden" } })
+                @Html.ValidationMessageFor(model => model.projectDescription, "", new { @class = "text-danger" })
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.refRepo)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.refRepo)
+            </dt>
 
-        <dd>
-            <div class="toggle-hidden">@Html.DisplayFor(model => model.refRepo)</div>
-            @Html.EditorFor(model => model.refRepo, new { htmlAttributes = new { @class = "default-hidden" } })
-        </dd>
+            <dd>
+                <div class="toggle-hidden">@Html.DisplayFor(model => model.refRepo)</div>
+                @Html.EditorFor(model => model.refRepo, new { htmlAttributes = new { @class = "default-hidden" } })
+                @Html.ValidationMessageFor(model => model.refRepo, "", new { @class = "text-danger" })
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.beginDate)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.beginDate)
+            </dt>
 
-        <dd>
-            <div class="toggle-hidden">@Html.DisplayFor(model => model.beginDate)</div>
-            @Html.EditorFor(model => model.beginDate, new { htmlAttributes = new { @class = "default-hidden" } })
-        </dd>
+            <dd>
+                <div class="toggle-hidden">@Html.DisplayFor(model => model.beginDate)</div>
+                @Html.EditorFor(model => model.beginDate, new { htmlAttributes = new { @class = "default-hidden" } })
+                @Html.ValidationMessageFor(model => model.beginDate, "", new { @class = "text-danger" })
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.endDate)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.endDate)
+            </dt>
 
-        <dd>
-            <div class="toggle-hidden">@Html.DisplayFor(model => model.endDate)</div>
-            @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "default-hidden" } })
-        </dd>
+            <dd>
+                <div class="toggle-hidden">@Html.DisplayFor(model => model.endDate)</div>
+                @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "default-hidden" } })
+                @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+            </dd>
 
-    </dl>
+        </dl>
 
-    <hr />
-    <p><h3>Stories</h3> <a class="btn btn-success default-hidden" href="/Stories/Create/@Model.id">Ajouter</a></p>
-    @Html.Partial("~/Views/Stories/StoryList.cshtml",Model.Stories)
+        <hr />
+        <p><h3>Stories</h3> <a class="btn btn-success default-hidden" href="/Stories/Create/@Model.id">Ajouter</a></p>
+        @Html.Partial("~/Views/Stories/StoryList.cshtml", Model.Stories)
 
-  </div>
-  <div class="row">
-    <p>
-      <a id="edit-btn" class="btn btn-warning toggle-hidden">Edit</a>
-      <input id="save-btn" type="submit" value="Enregistrer" class="btn btn-success default-hidden" /> |
-      @Html.ActionLink("Back to List", "Index", null, new {@class="btn btn-primary"})
-    </p>
-  </div>
+    </div>
+    <div class="row">
+        <p>
+            <a id="edit-btn" class="btn btn-warning toggle-hidden">Edit</a>
+            <input id="save-btn" type="submit" value="Enregistrer" class="btn btn-success default-hidden" /> |
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+        </p>
+    </div>
 </form>
 
 @section scripts {
-  <script type="text/javascript">
-    $(document).ready(function ($) {
 
-      $(".default-hidden").hide();
+    @Scripts.Render("~/bundles/jqueryval")
 
-      $("#edit-btn").click(function () {
-        $(".toggle-hidden").hide();
-        $(".default-hidden").show();
-      });
-    });
-  </script>
+
+    <script type="text/javascript">
+        $(document).ready(function ($) {
+
+            $(".default-hidden").hide();
+
+            $("#edit-btn").click(function () {
+                $(".toggle-hidden").hide();
+                $(".default-hidden").show();
+            });
+        });
+
+    </script>
 }
