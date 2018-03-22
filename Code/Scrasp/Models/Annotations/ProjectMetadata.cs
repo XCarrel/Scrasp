@@ -18,10 +18,12 @@ namespace Scrasp.Models {
 
         [Display(Name = "Date de début")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public object startDate { get; set; }
 
         [Display(Name = "Date de fin")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public object endDate { get; set; }
 
 

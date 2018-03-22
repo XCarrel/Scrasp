@@ -48,7 +48,7 @@
             </dt>
 
             <dd>
-                <div class="toggle-hidden">@Html.DisplayFor(model => model.startDate)</div>
+                <div class="toggle-hidden">@( Model.startDate == null ? "" : Convert.ToDateTime(Model.startDate).ToString("dd.MM.yyyy"))</div>
                 @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "default-hidden" } })
                 @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
             </dd>
@@ -58,7 +58,7 @@
             </dt>
 
             <dd>
-                <div class="toggle-hidden">@Html.DisplayFor(model => model.endDate)</div>
+                <div class="toggle-hidden">@( Model.endDate == null ? "" : Convert.ToDateTime(Model.endDate).ToString("dd.MM.yyyy"))</div>
                 @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "default-hidden" } })
                 @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
             </dd>
