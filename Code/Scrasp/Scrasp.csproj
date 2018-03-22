@@ -275,6 +275,7 @@
     <Compile Include="Models\Team.cs">
       <DependentUpon>ScraspModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Validators\GreaterThanAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -388,10 +389,9 @@
     <Content Include="Views\ScraspUsers\Details.cshtml" />
     <Content Include="Views\ScraspUsers\Edit.cshtml" />
     <Content Include="Views\ScraspUsers\Index.cshtml" />
+    <Content Include="Views\Stories\_Stories.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
