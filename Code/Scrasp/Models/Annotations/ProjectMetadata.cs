@@ -1,15 +1,29 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Scrasp.Models {
     public class ProjectMetadata {
         [Display(Name = "Titre")]
+        [Required(ErrorMessage = "Le nom du projet est obligatoire")]
+        [MinLength(5), MaxLength(50)]
         public object title { get; set; }
 
         [Display(Name = "Description du projet")]
+        [Required(ErrorMessage = "La description du projet est obligatoire")]
+        [MinLength(50)]
         public object projectDescription { get; set; }
 
         [Display(Name = "Repository Git")]
+        [Url]
         public object refRepo { get; set; }
+
+        [Display(Name = "Date de début")]
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+        public object startDate { get; set; }
+
+        [Display(Name = "Date de fin")]
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+        public object endDate { get; set; }
     }
 
     [MetadataType(typeof(ProjectMetadata))]
