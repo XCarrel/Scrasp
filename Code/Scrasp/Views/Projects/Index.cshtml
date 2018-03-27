@@ -21,6 +21,12 @@
       @Html.DisplayNameFor(model => model.projectDescription)
     </th>
     <th>
+      @Html.DisplayNameFor(model => model.startDate)
+    </th>
+    <th>
+      @Html.DisplayNameFor(model => model.endDate)
+    </th>
+    <th>
       @Html.DisplayNameFor(model => model.refRepo)
     </th>
   </tr>
@@ -28,12 +34,18 @@
 
   <tbody>
   @foreach (var item in Model) {
-    <tr class='clickable-row' data-href='@Url.Action("Details", "Projects", new {id=item.id})'>
+    <tr class='clickable-row' data-href='@Url.Action("Details", "Projects", new {item.id})'>
       <td>
         @Html.DisplayFor(modelItem => item.title)
       </td>
       <td>
         @Html.DisplayFor(modelItem => item.projectDescription)
+      </td>
+      <td>
+        @(item.endDate != null ? Convert.ToDateTime(item.startDate).ToString("dd.MM.yyyy") : "")
+      </td>
+      <td>
+        @(item.endDate != null ? Convert.ToDateTime(item.endDate).ToString("dd.MM.yyyy") : "")
       </td>
       <td>
         @Html.DisplayFor(modelItem => item.refRepo)

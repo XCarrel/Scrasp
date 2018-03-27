@@ -46,7 +46,7 @@ namespace Scrasp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,title,projectDescription,refRepo")] Project project)
+        public ActionResult Create([Bind(Include = "id,title,projectDescription,refRepo,startDate,endDate")] Project project)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace Scrasp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,title,projectDescription,refRepo")] Project project)
+        public ActionResult Edit([Bind(Include = "id,title,projectDescription,refRepo,startDate,endDate")] Project project)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,9 @@ namespace Scrasp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(project);
+            project.Stories = db.Projects.Find(project.id)?.Stories;
+            ViewBag.EditMode = true;
+            return View("Details", project);
         }
 
         // GET: Projects/Delete/5

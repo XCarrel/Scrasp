@@ -1,0 +1,131 @@
+﻿@using Scrasp.Models
+@{
+  ViewBag.Title = "Index";
+  List<StoryType> storyTypes = ViewBag.StoryTypes;
+  List<StoryState> storyStates = ViewBag.StoryStates;
+  List<ScraspRole> scraspRoles = ViewBag.ScraspRoles;
+  List<JobState> jobStates = ViewBag.JobStates;
+}
+
+<h2>Admin</h2>
+
+<div class="row">
+  <div class="col-md-6">
+    <h4>StoryTypes</h4>
+    <p>
+      @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+    </p>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>
+          @Html.DisplayNameFor(model => storyTypes.First().typeName)
+        </th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      @foreach (var item in storyTypes) {
+        <tr>
+          <td>
+            @Html.DisplayFor(modelItem => item.typeName)
+          </td>
+          <td>
+            @Html.ActionLink("Edit", "Edit", new {id = item.id}) |
+            @Html.ActionLink("Delete", "Delete", new {id = item.id})
+          </td>
+        </tr>
+      }
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <h4>StoryStates</h4>
+    <p>
+      @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+    </p>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>
+          @Html.DisplayNameFor(model => storyStates.First().stateName)
+        </th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      @foreach (var item in storyStates) {
+        <tr>
+          <td>
+            @Html.DisplayFor(modelItem => item.stateName)
+          </td>
+          <td>
+            @Html.ActionLink("Edit", "Edit", new {id = item.id}) |
+            @Html.ActionLink("Delete", "Delete", new {id = item.id})
+          </td>
+        </tr>
+      }
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h4>ScraspRoles</h4>
+    <p>
+      @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+    </p>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>
+          @Html.DisplayNameFor(model => scraspRoles.First().roleName)
+        </th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      @foreach (var item in scraspRoles) {
+        <tr>
+          <td>
+            @Html.DisplayFor(modelItem => item.roleName)
+          </td>
+          <td>
+            @Html.ActionLink("Edit", "Edit", new {id = item.id}) |
+            @Html.ActionLink("Delete", "Delete", new {id = item.id})
+          </td>
+        </tr>
+      }
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <h4>JobStates</h4>
+    <p>
+      @Html.ActionLink("Create New", "Create", "JobStates", null, new { @class = "btn btn-success" })
+    </p>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>
+          @Html.DisplayNameFor(model => jobStates.First().stateName)
+        </th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      @foreach (var item in jobStates) {
+        <tr>
+          <td>
+            @Html.DisplayFor(modelItem => item.stateName)
+          </td>
+          <td>
+            @Html.ActionLink("Edit", "Edit", new {id = item.id}) |
+            @Html.ActionLink("Delete", "Delete", new {id = item.id})
+          </td>
+        </tr>
+      }
+      </tbody>
+    </table>
+  </div>
+</div>

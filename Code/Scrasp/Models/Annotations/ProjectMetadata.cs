@@ -3,13 +3,29 @@
 namespace Scrasp.Models {
     public class ProjectMetadata {
         [Display(Name = "Titre")]
-        public object title { get; set; }
+        [MinLength(4, ErrorMessage = "Minimum 4 caractères")]
+        [MaxLength(50, ErrorMessage = "Maximum 50 caractères")]
+        [Required(ErrorMessage = "Champ obligatoire")]
+        public object title;
 
         [Display(Name = "Description du projet")]
-        public object projectDescription { get; set; }
+        [MinLength(50, ErrorMessage = "Minimum 50 caractères")]
+        [Required(ErrorMessage = "Champ obligatoire")]
+        public object projectDescription;
 
         [Display(Name = "Repository Git")]
-        public object refRepo { get; set; }
+        [Url(ErrorMessage = "N'est pas une URL valide")]
+        public object refRepo;
+
+        [Display(Name = "Date de début")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        public object startDate;
+
+        [Display(Name = "Date de fin")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        public object endDate;
     }
 
     [MetadataType(typeof(ProjectMetadata))]

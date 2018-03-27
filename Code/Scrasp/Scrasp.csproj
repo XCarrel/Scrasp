@@ -205,6 +205,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\JobStatesController.cs" />
@@ -380,18 +381,16 @@
     <Content Include="Views\Teams\Index.cshtml" />
     <Content Include="Views\JobStates\Create.cshtml" />
     <Content Include="Views\JobStates\Delete.cshtml" />
-    <Content Include="Views\JobStates\Details.cshtml" />
     <Content Include="Views\JobStates\Edit.cshtml" />
-    <Content Include="Views\JobStates\Index.cshtml" />
     <Content Include="Views\ScraspUsers\Create.cshtml" />
     <Content Include="Views\ScraspUsers\Delete.cshtml" />
     <Content Include="Views\ScraspUsers\Details.cshtml" />
     <Content Include="Views\ScraspUsers\Edit.cshtml" />
     <Content Include="Views\ScraspUsers\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Stories\StoryList.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
