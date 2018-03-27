@@ -1,7 +1,6 @@
 ﻿@model Scrasp.Models.Project
-
 @{
-  ViewBag.Title = "Project details";
+    ViewBag.Title = "Project details";
 }
 
 @section styles {
@@ -13,85 +12,67 @@
 }
 
 <h2>Project details</h2>
-
-<form action="/Projects/Edit/@Model.id" method="post">
-  @Html.AntiForgeryToken()
-
-  <div class="form-horizontal">
+@using (Html.BeginForm("Edit", "Projects"))
+{
+    @Html.AntiForgeryToken()
+<div>
     <hr />
-    @Html.HiddenFor(model => model.id)
-
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-      @Html.LabelFor(model => model.title, new { @class = "control-label col-md-2" })
-      <div class="col-md-10">
-        <div class="toggle-hidden">@Html.DisplayFor(model => model.title)</div>
-        @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control default-hidden" } })
-        @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
-      </div>
-    </div>
-
-    <div class="form-group">
-      @Html.LabelFor(model => model.projectDescription, new { @class = "control-label col-md-2" })
-      <div class="col-md-10">
-        <div class="toggle-hidden">@Html.DisplayFor(model => model.projectDescription)</div>
-        @Html.EditorFor(model => model.projectDescription, new { htmlAttributes = new { @class = "form-control default-hidden" } })
-        @Html.ValidationMessageFor(model => model.projectDescription, "", new { @class = "text-danger" })
-      </div>
-    </div>
-
-    <div class="form-group">
-      @Html.LabelFor(model => model.refRepo, new { @class = "control-label col-md-2" })
-      <div class="col-md-10">
-        <div class="toggle-hidden">@Html.DisplayFor(model => model.refRepo)</div>
-        @Html.EditorFor(model => model.refRepo, new { htmlAttributes = new { @class = "form-control default-hidden" } })
-        @Html.ValidationMessageFor(model => model.refRepo, "", new { @class = "text-danger" })
-      </div>
-    </div>
-
-    <div class="form-group">
-      @Html.LabelFor(model => model.startDate, new { @class = "control-label col-md-2" })
-      <div class="col-md-10">
-        <div class="toggle-hidden">@(Model.endDate != null ? Convert.ToDateTime(Model.startDate).ToString("dd.MM.yyyy") : "")</div>
-        @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "form-control default-hidden" } })
-        @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
-      </div>
-    </div>
-
-    <div class="form-group">
-      @Html.LabelFor(model => model.endDate, new { @class = "control-label col-md-2" })
-      <div class="col-md-10">
-        <div class="toggle-hidden">@(Model.endDate != null ? Convert.ToDateTime(Model.endDate).ToString("dd.MM.yyyy") : "")</div>
-        @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "form-control default-hidden" } })
-        @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="col-md-offset-2 col-md-10">
-        <input id="save-btn" type="submit" value="Enregistrer" class="btn btn-success default-hidden" />
-      </div>
-    </div>
-
-  </div>
-
-</form>
-
-
-<hr />
-<p>
-  <h3>Stories</h3> 
-  <a class="btn btn-success default-hidden" href="/Stories/Create/@Model.id">Ajouter</a>
-</p>
-@Html.Partial("~/Views/Stories/StoryList.cshtml", Model.Stories)
-<div class="row">
-  <p>
-    <button id="edit-btn" class="btn btn-warning toggle-hidden">Edit</button>
-    <button id="cancel-btn" class="btn btn-warning default-hidden">Cancel</button>
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
-  </p>
+    <dl class="dl-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+        <dt>
+            @Html.DisplayNameFor(model => model.title)
+        </dt>
+        <dd>
+            <div class="toggle-hidden">@Html.DisplayFor(model => model.title, new { htmlAttributes = new { @class = "control-label" } })</div>
+            @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "default-hidden form-control" } })
+            @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.projectDescription)
+        </dt>
+        <dd>
+            <div class="toggle-hidden">@Html.DisplayFor(model => model.projectDescription, new { htmlAttributes = new { @class = "control-label" } })</div>
+            @Html.EditorFor(model => model.projectDescription, new { htmlAttributes = new { @class = "default-hidden form-control" } })
+            @Html.ValidationMessageFor(model => model.projectDescription, "", new { @class = "text-danger" })
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.refRepo)
+        </dt>
+        <dd>
+            <div class="toggle-hidden">@Html.DisplayFor(model => model.refRepo, new { htmlAttributes = new { @class = "control-label" } })</div>
+            @Html.EditorFor(model => model.refRepo, new { htmlAttributes = new { @class = "default-hidden form-control" } })
+            @Html.ValidationMessageFor(model => model.refRepo, "", new { @class = "text-danger" })
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.startDate)
+        </dt>
+        <dd>
+            <div class="toggle-hidden">@Html.DisplayFor(model => model.startDate, new { htmlAttributes = new { @class = "control-label" } })</div>
+            @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "default-hidden form-control datepicker", @type = "date" } })
+            @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.endDate)
+        </dt>
+        <dd>
+            <div class="toggle-hidden">@Html.DisplayFor(model => model.endDate, new { htmlAttributes = new { @class = "control-label" } })</div>
+            @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "default-hidden form-control datepicker", @type = "date" } })
+            @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+        </dd>
+    </dl>
+    <hr />
+    <p><h3>Stories</h3> <a class="btn btn-success default-hidden" href="/Stories/Create/@Model.id">Ajouter</a></p>
+    @Html.Partial("~/Views/Stories/_Stories.cshtml", Model.Stories)
 </div>
-
+    <div class="row">
+        <p>
+            <a id="edit-btn" class="btn btn-warning toggle-hidden">Edit</a>
+            <input id="save-btn" type="submit" value="Enregistrer" class="btn btn-success default-hidden" /> |
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+        </p>
+    </div>
+}
 @section scripts {
   @if (ViewBag.EditMode != null) {
     <script type="text/javascript">
@@ -104,7 +85,7 @@
   <script type="text/javascript">
     $(document).ready(function ($) {
 
-      //$("#startDate").val($("#startDate").val());
+      $(".default-hidden").hide();
 
       $("#edit-btn").click(function() {
         $(".toggle-hidden").hide();

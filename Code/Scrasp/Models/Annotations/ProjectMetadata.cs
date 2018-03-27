@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Scrasp.Models {
     public class ProjectMetadata {
@@ -20,6 +22,7 @@ namespace Scrasp.Models {
         [Display(Name = "Date de début")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
+        [GreaterThan]
         public object startDate;
 
         [Display(Name = "Date de fin")]
@@ -29,5 +32,15 @@ namespace Scrasp.Models {
     }
 
     [MetadataType(typeof(ProjectMetadata))]
-    public partial class Project { }
+    public partial class Project : IValidatableObject {
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (endDate < startDate)
+            {
+                yield return
+                  new ValidationResult(errorMessage: "La date de fin ne peut pas être avant la date de début",
+                                       memberNames: new[] { "EndDate" });
+            }
+        }
+    }
 }
