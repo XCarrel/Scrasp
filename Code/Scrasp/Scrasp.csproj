@@ -390,6 +390,7 @@
     <Content Include="Views\ScraspUsers\Edit.cshtml" />
     <Content Include="Views\ScraspUsers\Index.cshtml" />
     <Content Include="Views\Stories\_Stories.cshtml" />
+    <Content Include="Views\Teams\Management.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />

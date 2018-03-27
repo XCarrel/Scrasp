@@ -14,6 +14,18 @@ namespace Scrasp.Controllers
     {
         private scraspEntities db = new scraspEntities();
 
+        // GET: team-management
+        public ActionResult management()
+        {
+            List<Project> projects = db.Projects.ToList();
+            List<ScraspUser> users = db.ScraspUsers.ToList();
+
+            ViewBag.projects = projects;
+            ViewBag.users = users;
+
+            return View();
+        }
+
         // GET: Teams
         public ActionResult Index()
         {

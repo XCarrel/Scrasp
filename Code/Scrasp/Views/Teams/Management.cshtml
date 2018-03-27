@@ -1,0 +1,29 @@
+﻿@{
+
+}
+
+<h2>Team management</h2>
+
+
+<table class="table table-striped table-hover table-bordered">
+    <tr>
+        <th class="col-xs-2"></th>
+        @foreach (var project in ViewBag.projects)
+        {
+            <th class="text-center col-xs-2">@project.title</th>
+        }
+    </tr>
+    @foreach (var user in ViewBag.users)
+    {
+    <tr>
+        <th>@user.username</th>
+        @foreach (var project in ViewBag.projects)
+        {
+            <td class="text-center">
+                <input type="checkbox" value="@project.id"/>
+            </td>
+        }
+    </tr>
+    }
+
+</table>
