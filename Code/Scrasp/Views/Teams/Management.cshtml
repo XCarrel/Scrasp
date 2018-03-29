@@ -27,3 +27,23 @@
     }
 
 </table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: '/api/TeamsAPI/GetTeams',
+                data: {
+                    format: 'json'
+                },
+                error: function () {
+                    console.log("Error");
+                },
+                success: function (data) {
+                    alert("dataLength : " + data.length);
+                },
+                type: "GET"
+            });
+        });
+    </script>
+ }
