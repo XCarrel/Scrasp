@@ -15,13 +15,24 @@
     </tr>
     @foreach (var user in ViewBag.users)
     {
-    <tr>
+    <tr data-id="@user.id">
         <th>@user.username</th>
         @foreach (var project in ViewBag.projects)
         {
-            <td class="text-center">
-                <input type="checkbox" value="@project.id"/>
-            </td>
+        <td class="text-center">
+            @foreach (var team in ViewBag.teams)
+            {
+                if (team.Projects_id == project.id && team.ScraspUsers_id == user.id)
+                {
+                    <input type="checkbox" value="@project.id" checked="checked"/>
+                }
+                else
+                {
+                    <input type="checkbox" value="@project.id"/>
+                }
+
+            }
+        </td>
         }
     </tr>
     }
@@ -30,11 +41,38 @@
 
 @section Scripts {
     <script>
-        $(document).ready(function () {
+
+        $(":checkbox").change(function () {
+            if (this.checked) {
+                var projectId = $(this).val();
+                var userId = $(this).parent().parent().data("id");
+                $.ajax({
+                    url: '/API/addTeams',
+                    data: {
+                        projectId: projectId,
+                        userId: userId,
+                    },
+                    error: function () {
+                        console.log("Error");
+                    },
+                    success: function (data) {
+                        alert(data);
+                    },
+                    type: "POST"
+                });
+            }else {
+                alert("unchecked");
+                console.log(this.val());
+            }
+        });
+
+
+        /*$(document).ready(function () {
             $.ajax({
-                url: '/api/TeamsAPI/GetTeams',
+                url: '/API/addTeams',
                 data: {
-                    format: 'json'
+                    projectId: 1,
+                    userId: 1,
                 },
                 error: function () {
                     console.log("Error");
@@ -42,8 +80,8 @@
                 success: function (data) {
                     alert("dataLength : " + data.length);
                 },
-                type: "GET"
+                type: "POST"
             });
-        });
+        });*/
     </script>
  }

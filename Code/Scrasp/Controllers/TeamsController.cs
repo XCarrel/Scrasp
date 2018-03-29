@@ -19,9 +19,11 @@ namespace Scrasp.Controllers
         {
             List<Project> projects = db.Projects.ToList();
             List<ScraspUser> users = db.ScraspUsers.ToList();
+            List<Team> teams = db.Teams.ToList();
 
             ViewBag.projects = projects;
             ViewBag.users = users;
+            ViewBag.teams = teams;
 
             return View();
         }

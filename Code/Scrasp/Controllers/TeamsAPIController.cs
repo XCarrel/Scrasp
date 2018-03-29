@@ -18,11 +18,9 @@ namespace Scrasp.Controllers
         private scraspEntities db = new scraspEntities();
 
         // GET: api/TeamsAPI
-        public String GetTeams()
+        public IQueryable GetTeams()
         {
-            List<Team> myteams = db.Teams.ToList();
-
-            return new JavaScriptSerializer().Serialize(myteams);
+            return db.Teams.Select(t => new { t.Projects_id, t.ScraspUsers_id });
         }
 
         // GET: api/TeamsAPI/5
