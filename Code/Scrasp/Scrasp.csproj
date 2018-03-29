@@ -214,6 +214,7 @@
     <Compile Include="Controllers\ScraspUsersController.cs" />
     <Compile Include="Controllers\SprintsController.cs" />
     <Compile Include="Controllers\StoriesController.cs" />
+    <Compile Include="Controllers\TeamsAPIController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -228,7 +229,7 @@
     <Compile Include="Models\Annotations\StoryStateMetadata.cs" />
     <Compile Include="Models\Annotations\StoryTypeMetadata.cs" />
     <Compile Include="Models\Annotations\TeamMetadata.cs" />
-    <Compile Include="Models\Annotations\UserMetadata.cs" />
+    <Compile Include="Models\Annotations\ScraspUserMetadata.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Job.cs">
       <DependentUpon>ScraspModel.tt</DependentUpon>
@@ -391,8 +392,11 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Stories\StoryList.cshtml" />
     <Content Include="Views\Stories\_Stories.cshtml" />
+    <Content Include="Views\Teams\Managment.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\API\" />
+  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
