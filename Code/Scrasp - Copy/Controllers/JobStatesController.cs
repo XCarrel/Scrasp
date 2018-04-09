@@ -10,128 +10,107 @@ using Scrasp.Models;
 
 namespace Scrasp.Controllers
 {
-    public class TeamsController : Controller
+    public class JobStatesController : Controller
     {
         private scraspEntities db = new scraspEntities();
 
-        // GET: team-management
-        public ActionResult Management()
-        {
-            TeamManagementViewModel model = new TeamManagementViewModel();
-
-            model.projects = db.Projects.ToList();
-            model.users = db.ScraspUsers.ToList();
-            model.teams = db.Teams.ToList();
-
-            return View(model);
-        }
-
-        // GET: Teams
+        // GET: JobStates
         public ActionResult Index()
         {
-            var teams = db.Teams.Include(t => t.Project).Include(t => t.ScraspUser);
-            return View(teams.ToList());
+            return View(db.JobStates.ToList());
         }
 
-        // GET: Teams/Details/5
+        // GET: JobStates/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            JobState jobState = db.JobStates.Find(id);
+            if (jobState == null)
             {
                 return HttpNotFound();
             }
-            return View(team);
+            return View(jobState);
         }
 
-        // GET: Teams/Create
+        // GET: JobStates/Create
         public ActionResult Create()
         {
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title");
-            ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id");
             return View();
         }
 
-        // POST: Teams/Create
+        // POST: JobStates/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,Projects_id,ScraspUsers_id")] Team team)
+        public ActionResult Create([Bind(Include = "id,stateName")] JobState jobState)
         {
             if (ModelState.IsValid)
             {
-                db.Teams.Add(team);
+                db.JobStates.Add(jobState);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title", team.Projects_id);
-            ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id", team.ScraspUsers_id);
-            return View(team);
+            return View(jobState);
         }
 
-        // GET: Teams/Edit/5
+        // GET: JobStates/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            JobState jobState = db.JobStates.Find(id);
+            if (jobState == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title", team.Projects_id);
-            ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id", team.ScraspUsers_id);
-            return View(team);
+            return View(jobState);
         }
 
-        // POST: Teams/Edit/5
+        // POST: JobStates/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,Projects_id,ScraspUsers_id")] Team team)
+        public ActionResult Edit([Bind(Include = "id,stateName")] JobState jobState)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(team).State = EntityState.Modified;
+                db.Entry(jobState).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title", team.Projects_id);
-            ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id", team.ScraspUsers_id);
-            return View(team);
+            return View(jobState);
         }
 
-        // GET: Teams/Delete/5
+        // GET: JobStates/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            JobState jobState = db.JobStates.Find(id);
+            if (jobState == null)
             {
                 return HttpNotFound();
             }
-            return View(team);
+            return View(jobState);
         }
 
-        // POST: Teams/Delete/5
+        // POST: JobStates/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Team team = db.Teams.Find(id);
-            db.Teams.Remove(team);
+            JobState jobState = db.JobStates.Find(id);
+            db.JobStates.Remove(jobState);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

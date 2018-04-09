@@ -10,128 +10,107 @@ using Scrasp.Models;
 
 namespace Scrasp.Controllers
 {
-    public class TeamsController : Controller
+    public class ScraspRolesController : Controller
     {
         private scraspEntities db = new scraspEntities();
 
-        // GET: team-management
-        public ActionResult Management()
-        {
-            TeamManagementViewModel model = new TeamManagementViewModel();
-
-            model.projects = db.Projects.ToList();
-            model.users = db.ScraspUsers.ToList();
-            model.teams = db.Teams.ToList();
-
-            return View(model);
-        }
-
-        // GET: Teams
+        // GET: ScraspRoles
         public ActionResult Index()
         {
-            var teams = db.Teams.Include(t => t.Project).Include(t => t.ScraspUser);
-            return View(teams.ToList());
+            return View(db.ScraspRoles.ToList());
         }
 
-        // GET: Teams/Details/5
+        // GET: ScraspRoles/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            ScraspRole scraspRole = db.ScraspRoles.Find(id);
+            if (scraspRole == null)
             {
                 return HttpNotFound();
             }
-            return View(team);
+            return View(scraspRole);
         }
 
-        // GET: Teams/Create
+        // GET: ScraspRoles/Create
         public ActionResult Create()
         {
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title");
-            ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id");
             return View();
         }
 
-        // POST: Teams/Create
+        // POST: ScraspRoles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,Projects_id,ScraspUsers_id")] Team team)
+        public ActionResult Create([Bind(Include = "id,roleName")] ScraspRole scraspRole)
         {
             if (ModelState.IsValid)
             {
-                db.Teams.Add(team);
+                db.ScraspRoles.Add(scraspRole);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title", team.Projects_id);
-            ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id", team.ScraspUsers_id);
-            return View(team);
+            return View(scraspRole);
         }
 
-        // GET: Teams/Edit/5
+        // GET: ScraspRoles/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            ScraspRole scraspRole = db.ScraspRoles.Find(id);
+            if (scraspRole == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title", team.Projects_id);
-            ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id", team.ScraspUsers_id);
-            return View(team);
+            return View(scraspRole);
         }
 
-        // POST: Teams/Edit/5
+        // POST: ScraspRoles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,Projects_id,ScraspUsers_id")] Team team)
+        public ActionResult Edit([Bind(Include = "id,roleName")] ScraspRole scraspRole)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(team).State = EntityState.Modified;
+                db.Entry(scraspRole).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title", team.Projects_id);
-            ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id", team.ScraspUsers_id);
-            return View(team);
+            return View(scraspRole);
         }
 
-        // GET: Teams/Delete/5
+        // GET: ScraspRoles/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            ScraspRole scraspRole = db.ScraspRoles.Find(id);
+            if (scraspRole == null)
             {
                 return HttpNotFound();
             }
-            return View(team);
+            return View(scraspRole);
         }
 
-        // POST: Teams/Delete/5
+        // POST: ScraspRoles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Team team = db.Teams.Find(id);
-            db.Teams.Remove(team);
+            ScraspRole scraspRole = db.ScraspRoles.Find(id);
+            db.ScraspRoles.Remove(scraspRole);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

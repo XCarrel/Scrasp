@@ -1,0 +1,42 @@
+﻿@model Scrasp.Models.Story
+
+@{
+  ViewBag.Title = "Story details";
+}
+
+<div class="row">
+  <h2>Story @Model.shortName</h2>
+  <p>As a @Model.actor</p>
+  <p>I want to @Model.storyDescription</p>
+  <p>Il s'agit d'une @Model.StoryType.typeName story, valant @Model.points points, qui est @Model.StoryState.stateName</p>
+</div>
+<div class="row">
+  <h4>Tâches associées</h4>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Tâche</th>
+      <th>Personne</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var job in Model.Jobs) {
+      <tr>
+        <td>@job.jobDescription</td>
+        @if (job.ScraspUser == null) {
+          <td>Aucun</td>
+        } else {
+          <td>@job.ScraspUser.username</td>
+        }
+      </tr>
+    }
+    <tr></tr>
+    </tbody>
+  </table>
+</div>
+<div class="row">
+  <p>
+    @Html.ActionLink("Edit", "Edit", new {id = Model.id}, new {@class = "btn btn-warning"}) |
+    @Html.ActionLink("Back to List", "Index", null, new {@class = "btn btn-primary"})
+  </p>
+</div>

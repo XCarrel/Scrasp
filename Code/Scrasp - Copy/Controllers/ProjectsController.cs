@@ -10,128 +10,107 @@ using Scrasp.Models;
 
 namespace Scrasp.Controllers
 {
-    public class TeamsController : Controller
+    public class ProjectsController : Controller
     {
         private scraspEntities db = new scraspEntities();
 
-        // GET: team-management
-        public ActionResult Management()
-        {
-            TeamManagementViewModel model = new TeamManagementViewModel();
-
-            model.projects = db.Projects.ToList();
-            model.users = db.ScraspUsers.ToList();
-            model.teams = db.Teams.ToList();
-
-            return View(model);
-        }
-
-        // GET: Teams
+        // GET: Projects
         public ActionResult Index()
         {
-            var teams = db.Teams.Include(t => t.Project).Include(t => t.ScraspUser);
-            return View(teams.ToList());
+            return View(db.Projects.ToList());
         }
 
-        // GET: Teams/Details/5
+        // GET: Projects/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            Project project = db.Projects.Find(id);
+            if (project == null)
             {
                 return HttpNotFound();
             }
-            return View(team);
+            return View(project);
         }
 
-        // GET: Teams/Create
+        // GET: Projects/Create
         public ActionResult Create()
         {
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title");
-            ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id");
             return View();
         }
 
-        // POST: Teams/Create
+        // POST: Projects/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,Projects_id,ScraspUsers_id")] Team team)
+        public ActionResult Create([Bind(Include = "id,title,projectDescription,refRepo")] Project project)
         {
             if (ModelState.IsValid)
             {
-                db.Teams.Add(team);
+                db.Projects.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title", team.Projects_id);
-            ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id", team.ScraspUsers_id);
-            return View(team);
+            return View(project);
         }
 
-        // GET: Teams/Edit/5
+        // GET: Projects/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            Project project = db.Projects.Find(id);
+            if (project == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title", team.Projects_id);
-            ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id", team.ScraspUsers_id);
-            return View(team);
+            return View(project);
         }
 
-        // POST: Teams/Edit/5
+        // POST: Projects/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,Projects_id,ScraspUsers_id")] Team team)
+        public ActionResult Edit([Bind(Include = "id,title,projectDescription,refRepo,startDate,endDate")] Project project)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(team).State = EntityState.Modified;
+                db.Entry(project).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title", team.Projects_id);
-            ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id", team.ScraspUsers_id);
-            return View(team);
+            return View("Details", project);
         }
 
-        // GET: Teams/Delete/5
+        // GET: Projects/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            Project project = db.Projects.Find(id);
+            if (project == null)
             {
                 return HttpNotFound();
             }
-            return View(team);
+            return View(project);
         }
 
-        // POST: Teams/Delete/5
+        // POST: Projects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Team team = db.Teams.Find(id);
-            db.Teams.Remove(team);
+            Project project = db.Projects.Find(id);
+            db.Projects.Remove(project);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -10,128 +10,112 @@ using Scrasp.Models;
 
 namespace Scrasp.Controllers
 {
-    public class TeamsController : Controller
+    public class ScraspUsersController : Controller
     {
         private scraspEntities db = new scraspEntities();
 
-        // GET: team-management
-        public ActionResult Management()
-        {
-            TeamManagementViewModel model = new TeamManagementViewModel();
-
-            model.projects = db.Projects.ToList();
-            model.users = db.ScraspUsers.ToList();
-            model.teams = db.Teams.ToList();
-
-            return View(model);
-        }
-
-        // GET: Teams
+        // GET: ScraspUsers
         public ActionResult Index()
         {
-            var teams = db.Teams.Include(t => t.Project).Include(t => t.ScraspUser);
-            return View(teams.ToList());
+            var scraspUsers = db.ScraspUsers.Include(s => s.ScraspRole);
+            return View(scraspUsers.ToList());
         }
 
-        // GET: Teams/Details/5
+        // GET: ScraspUsers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            ScraspUser scraspUser = db.ScraspUsers.Find(id);
+            if (scraspUser == null)
             {
                 return HttpNotFound();
             }
-            return View(team);
+            return View(scraspUser);
         }
 
-        // GET: Teams/Create
+        // GET: ScraspUsers/Create
         public ActionResult Create()
         {
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title");
-            ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id");
+            ViewBag.ScraspRoles_id = new SelectList(db.ScraspRoles, "id", "roleName");
             return View();
         }
 
-        // POST: Teams/Create
+        // POST: ScraspUsers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,Projects_id,ScraspUsers_id")] Team team)
+        public ActionResult Create([Bind(Include = "id,AspNetUsers_id,username,ScraspRoles_id")] ScraspUser scraspUser)
         {
             if (ModelState.IsValid)
             {
-                db.Teams.Add(team);
+                db.ScraspUsers.Add(scraspUser);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title", team.Projects_id);
-            ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id", team.ScraspUsers_id);
-            return View(team);
+            ViewBag.ScraspRoles_id = new SelectList(db.ScraspRoles, "id", "roleName", scraspUser.ScraspRoles_id);
+            return View(scraspUser);
         }
 
-        // GET: Teams/Edit/5
+        // GET: ScraspUsers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            ScraspUser scraspUser = db.ScraspUsers.Find(id);
+            if (scraspUser == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title", team.Projects_id);
-            ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id", team.ScraspUsers_id);
-            return View(team);
+            ViewBag.ScraspRoles_id = new SelectList(db.ScraspRoles, "id", "roleName", scraspUser.ScraspRoles_id);
+            return View(scraspUser);
         }
 
-        // POST: Teams/Edit/5
+        // POST: ScraspUsers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,Projects_id,ScraspUsers_id")] Team team)
+        public ActionResult Edit([Bind(Include = "id,AspNetUsers_id,username,ScraspRoles_id")] ScraspUser scraspUser)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(team).State = EntityState.Modified;
+                db.Entry(scraspUser).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Projects_id = new SelectList(db.Projects, "id", "title", team.Projects_id);
-            ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id", team.ScraspUsers_id);
-            return View(team);
+            ViewBag.ScraspRoles_id = new SelectList(db.ScraspRoles, "id", "roleName", scraspUser.ScraspRoles_id);
+            return View(scraspUser);
         }
 
-        // GET: Teams/Delete/5
+        // GET: ScraspUsers/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            ScraspUser scraspUser = db.ScraspUsers.Find(id);
+            if (scraspUser == null)
             {
                 return HttpNotFound();
             }
-            return View(team);
+            return View(scraspUser);
         }
 
-        // POST: Teams/Delete/5
+        // POST: ScraspUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Team team = db.Teams.Find(id);
-            db.Teams.Remove(team);
+            ScraspUser scraspUser = db.ScraspUsers.Find(id);
+            db.ScraspUsers.Remove(scraspUser);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

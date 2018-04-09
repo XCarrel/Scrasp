@@ -1,0 +1,691 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="scraspModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Jobs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="jobDescription" Type="text" />
+          <Property Name="startDate" Type="date" />
+          <Property Name="endDate" Type="date" />
+          <Property Name="JobStates_id" Type="int" Nullable="false" />
+          <Property Name="Stories_id" Type="int" />
+          <Property Name="ScraspUsers_id" Type="int" />
+        </EntityType>
+        <EntityType Name="JobStates">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stateName" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="projectDescription" Type="text" />
+          <Property Name="refRepo" Type="varchar" MaxLength="100" />
+          <Property Name="startDate" Type="date" />
+          <Property Name="endDate" Type="date" />
+        </EntityType>
+        <EntityType Name="ScraspRoles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roleName" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="ScraspUsers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AspNetUsers_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="ScraspRoles_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sprints">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="number" Type="int" />
+          <Property Name="sprintDescription" Type="text" />
+          <Property Name="startDate" Type="date" />
+          <Property Name="endDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Stories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="shortName" Type="varchar" MaxLength="50" />
+          <Property Name="actor" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="storyDescription" Type="text" />
+          <Property Name="StoryTypes_id" Type="int" Nullable="false" />
+          <Property Name="StoryStates_id" Type="int" Nullable="false" />
+          <Property Name="Sprints_id" Type="int" />
+          <Property Name="Projects_id" Type="int" Nullable="false" />
+          <Property Name="points" Type="int" />
+        </EntityType>
+        <EntityType Name="StoryStates">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stateName" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="StoryTypes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="typeName" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Teams">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Projects_id" Type="int" Nullable="false" />
+          <Property Name="ScraspUsers_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Jobs__JobStates___3587F3E0">
+          <End Role="JobStates" Type="Self.JobStates" Multiplicity="1" />
+          <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobStates">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Jobs">
+              <PropertyRef Name="JobStates_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Jobs__ScraspUser__37703C52">
+          <End Role="ScraspUsers" Type="Self.ScraspUsers" Multiplicity="0..1" />
+          <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScraspUsers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Jobs">
+              <PropertyRef Name="ScraspUsers_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Jobs__Stories_id__367C1819">
+          <End Role="Stories" Type="Self.Stories" Multiplicity="0..1" />
+          <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Jobs">
+              <PropertyRef Name="Stories_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ScraspUse__Scras__33D4B598">
+          <End Role="ScraspRoles" Type="Self.ScraspRoles" Multiplicity="1" />
+          <End Role="ScraspUsers" Type="Self.ScraspUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScraspRoles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ScraspUsers">
+              <PropertyRef Name="ScraspRoles_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stories__Project__30C33EC3">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
+          <End Role="Stories" Type="Self.Stories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Stories">
+              <PropertyRef Name="Projects_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stories__Sprints__2FCF1A8A">
+          <End Role="Sprints" Type="Self.Sprints" Multiplicity="0..1" />
+          <End Role="Stories" Type="Self.Stories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sprints">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Stories">
+              <PropertyRef Name="Sprints_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stories__StorySt__2EDAF651">
+          <End Role="StoryStates" Type="Self.StoryStates" Multiplicity="1" />
+          <End Role="Stories" Type="Self.Stories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StoryStates">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Stories">
+              <PropertyRef Name="StoryStates_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stories__StoryTy__2DE6D218">
+          <End Role="StoryTypes" Type="Self.StoryTypes" Multiplicity="1" />
+          <End Role="Stories" Type="Self.Stories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StoryTypes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Stories">
+              <PropertyRef Name="StoryTypes_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Teams__Projects___38996AB5">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
+          <End Role="Teams" Type="Self.Teams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Teams">
+              <PropertyRef Name="Projects_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Teams__ScraspUse__398D8EEE">
+          <End Role="ScraspUsers" Type="Self.ScraspUsers" Multiplicity="1" />
+          <End Role="Teams" Type="Self.Teams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScraspUsers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Teams">
+              <PropertyRef Name="ScraspUsers_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="scraspModelStoreContainer">
+          <EntitySet Name="Jobs" EntityType="Self.Jobs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobStates" EntityType="Self.JobStates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScraspRoles" EntityType="Self.ScraspRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScraspUsers" EntityType="Self.ScraspUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sprints" EntityType="Self.Sprints" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stories" EntityType="Self.Stories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StoryStates" EntityType="Self.StoryStates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StoryTypes" EntityType="Self.StoryTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Jobs__JobStates___3587F3E0" Association="Self.FK__Jobs__JobStates___3587F3E0">
+            <End Role="JobStates" EntitySet="JobStates" />
+            <End Role="Jobs" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Jobs__ScraspUser__37703C52" Association="Self.FK__Jobs__ScraspUser__37703C52">
+            <End Role="ScraspUsers" EntitySet="ScraspUsers" />
+            <End Role="Jobs" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Jobs__Stories_id__367C1819" Association="Self.FK__Jobs__Stories_id__367C1819">
+            <End Role="Stories" EntitySet="Stories" />
+            <End Role="Jobs" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ScraspUse__Scras__33D4B598" Association="Self.FK__ScraspUse__Scras__33D4B598">
+            <End Role="ScraspRoles" EntitySet="ScraspRoles" />
+            <End Role="ScraspUsers" EntitySet="ScraspUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stories__Project__30C33EC3" Association="Self.FK__Stories__Project__30C33EC3">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Stories" EntitySet="Stories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stories__Sprints__2FCF1A8A" Association="Self.FK__Stories__Sprints__2FCF1A8A">
+            <End Role="Sprints" EntitySet="Sprints" />
+            <End Role="Stories" EntitySet="Stories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stories__StorySt__2EDAF651" Association="Self.FK__Stories__StorySt__2EDAF651">
+            <End Role="StoryStates" EntitySet="StoryStates" />
+            <End Role="Stories" EntitySet="Stories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stories__StoryTy__2DE6D218" Association="Self.FK__Stories__StoryTy__2DE6D218">
+            <End Role="StoryTypes" EntitySet="StoryTypes" />
+            <End Role="Stories" EntitySet="Stories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teams__Projects___38996AB5" Association="Self.FK__Teams__Projects___38996AB5">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Teams" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teams__ScraspUse__398D8EEE" Association="Self.FK__Teams__ScraspUse__398D8EEE">
+            <End Role="ScraspUsers" EntitySet="ScraspUsers" />
+            <End Role="Teams" EntitySet="Teams" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="scraspModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="jobDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="startDate" Type="DateTime" Precision="0" />
+          <Property Name="endDate" Type="DateTime" Precision="0" />
+          <Property Name="JobStates_id" Type="Int32" Nullable="false" />
+          <Property Name="Stories_id" Type="Int32" />
+          <Property Name="ScraspUsers_id" Type="Int32" />
+          <NavigationProperty Name="JobState" Relationship="Self.FK__Jobs__JobStates___3587F3E0" FromRole="Jobs" ToRole="JobStates" />
+          <NavigationProperty Name="ScraspUser" Relationship="Self.FK__Jobs__ScraspUser__37703C52" FromRole="Jobs" ToRole="ScraspUsers" />
+          <NavigationProperty Name="Story" Relationship="Self.FK__Jobs__Stories_id__367C1819" FromRole="Jobs" ToRole="Stories" />
+        </EntityType>
+        <EntityType Name="JobState">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stateName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Jobs" Relationship="Self.FK__Jobs__JobStates___3587F3E0" FromRole="JobStates" ToRole="Jobs" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="projectDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="refRepo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Stories" Relationship="Self.FK__Stories__Project__30C33EC3" FromRole="Projects" ToRole="Stories" />
+          <NavigationProperty Name="Teams" Relationship="Self.FK__Teams__Projects___38996AB5" FromRole="Projects" ToRole="Teams" />
+          <Property Name="startDate" Type="DateTime" Precision="0" />
+          <Property Name="endDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="ScraspRole">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roleName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ScraspUsers" Relationship="Self.FK__ScraspUse__Scras__33D4B598" FromRole="ScraspRoles" ToRole="ScraspUsers" />
+        </EntityType>
+        <EntityType Name="ScraspUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AspNetUsers_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ScraspRoles_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Jobs" Relationship="Self.FK__Jobs__ScraspUser__37703C52" FromRole="ScraspUsers" ToRole="Jobs" />
+          <NavigationProperty Name="ScraspRole" Relationship="Self.FK__ScraspUse__Scras__33D4B598" FromRole="ScraspUsers" ToRole="ScraspRoles" />
+          <NavigationProperty Name="Teams" Relationship="Self.FK__Teams__ScraspUse__398D8EEE" FromRole="ScraspUsers" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="Sprint">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="number" Type="Int32" />
+          <Property Name="sprintDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="startDate" Type="DateTime" Precision="0" />
+          <Property Name="endDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Stories" Relationship="Self.FK__Stories__Sprints__2FCF1A8A" FromRole="Sprints" ToRole="Stories" />
+        </EntityType>
+        <EntityType Name="Story">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="shortName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="actor" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="storyDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StoryTypes_id" Type="Int32" Nullable="false" />
+          <Property Name="StoryStates_id" Type="Int32" Nullable="false" />
+          <Property Name="Sprints_id" Type="Int32" />
+          <Property Name="Projects_id" Type="Int32" Nullable="false" />
+          <Property Name="points" Type="Int32" />
+          <NavigationProperty Name="Jobs" Relationship="Self.FK__Jobs__Stories_id__367C1819" FromRole="Stories" ToRole="Jobs" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__Stories__Project__30C33EC3" FromRole="Stories" ToRole="Projects" />
+          <NavigationProperty Name="Sprint" Relationship="Self.FK__Stories__Sprints__2FCF1A8A" FromRole="Stories" ToRole="Sprints" />
+          <NavigationProperty Name="StoryState" Relationship="Self.FK__Stories__StorySt__2EDAF651" FromRole="Stories" ToRole="StoryStates" />
+          <NavigationProperty Name="StoryType" Relationship="Self.FK__Stories__StoryTy__2DE6D218" FromRole="Stories" ToRole="StoryTypes" />
+        </EntityType>
+        <EntityType Name="StoryState">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stateName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Stories" Relationship="Self.FK__Stories__StorySt__2EDAF651" FromRole="StoryStates" ToRole="Stories" />
+        </EntityType>
+        <EntityType Name="StoryType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="typeName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Stories" Relationship="Self.FK__Stories__StoryTy__2DE6D218" FromRole="StoryTypes" ToRole="Stories" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Projects_id" Type="Int32" Nullable="false" />
+          <Property Name="ScraspUsers_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__Teams__Projects___38996AB5" FromRole="Teams" ToRole="Projects" />
+          <NavigationProperty Name="ScraspUser" Relationship="Self.FK__Teams__ScraspUse__398D8EEE" FromRole="Teams" ToRole="ScraspUsers" />
+        </EntityType>
+        <Association Name="FK__Jobs__JobStates___3587F3E0">
+          <End Role="JobStates" Type="Self.JobState" Multiplicity="1" />
+          <End Role="Jobs" Type="Self.Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobStates">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Jobs">
+              <PropertyRef Name="JobStates_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Jobs__ScraspUser__37703C52">
+          <End Role="ScraspUsers" Type="Self.ScraspUser" Multiplicity="0..1" />
+          <End Role="Jobs" Type="Self.Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScraspUsers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Jobs">
+              <PropertyRef Name="ScraspUsers_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Jobs__Stories_id__367C1819">
+          <End Role="Stories" Type="Self.Story" Multiplicity="0..1" />
+          <End Role="Jobs" Type="Self.Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Jobs">
+              <PropertyRef Name="Stories_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stories__Project__30C33EC3">
+          <End Role="Projects" Type="Self.Project" Multiplicity="1" />
+          <End Role="Stories" Type="Self.Story" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Stories">
+              <PropertyRef Name="Projects_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Teams__Projects___38996AB5">
+          <End Role="Projects" Type="Self.Project" Multiplicity="1" />
+          <End Role="Teams" Type="Self.Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Teams">
+              <PropertyRef Name="Projects_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ScraspUse__Scras__33D4B598">
+          <End Role="ScraspRoles" Type="Self.ScraspRole" Multiplicity="1" />
+          <End Role="ScraspUsers" Type="Self.ScraspUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScraspRoles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ScraspUsers">
+              <PropertyRef Name="ScraspRoles_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Teams__ScraspUse__398D8EEE">
+          <End Role="ScraspUsers" Type="Self.ScraspUser" Multiplicity="1" />
+          <End Role="Teams" Type="Self.Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScraspUsers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Teams">
+              <PropertyRef Name="ScraspUsers_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stories__Sprints__2FCF1A8A">
+          <End Role="Sprints" Type="Self.Sprint" Multiplicity="0..1" />
+          <End Role="Stories" Type="Self.Story" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sprints">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Stories">
+              <PropertyRef Name="Sprints_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stories__StorySt__2EDAF651">
+          <End Role="StoryStates" Type="Self.StoryState" Multiplicity="1" />
+          <End Role="Stories" Type="Self.Story" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StoryStates">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Stories">
+              <PropertyRef Name="StoryStates_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stories__StoryTy__2DE6D218">
+          <End Role="StoryTypes" Type="Self.StoryType" Multiplicity="1" />
+          <End Role="Stories" Type="Self.Story" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StoryTypes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Stories">
+              <PropertyRef Name="StoryTypes_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="scraspEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Jobs" EntityType="Self.Job" />
+          <EntitySet Name="JobStates" EntityType="Self.JobState" />
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="ScraspRoles" EntityType="Self.ScraspRole" />
+          <EntitySet Name="ScraspUsers" EntityType="Self.ScraspUser" />
+          <EntitySet Name="Sprints" EntityType="Self.Sprint" />
+          <EntitySet Name="Stories" EntityType="Self.Story" />
+          <EntitySet Name="StoryStates" EntityType="Self.StoryState" />
+          <EntitySet Name="StoryTypes" EntityType="Self.StoryType" />
+          <EntitySet Name="Teams" EntityType="Self.Team" />
+          <AssociationSet Name="FK__Jobs__JobStates___3587F3E0" Association="Self.FK__Jobs__JobStates___3587F3E0">
+            <End Role="JobStates" EntitySet="JobStates" />
+            <End Role="Jobs" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Jobs__ScraspUser__37703C52" Association="Self.FK__Jobs__ScraspUser__37703C52">
+            <End Role="ScraspUsers" EntitySet="ScraspUsers" />
+            <End Role="Jobs" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Jobs__Stories_id__367C1819" Association="Self.FK__Jobs__Stories_id__367C1819">
+            <End Role="Stories" EntitySet="Stories" />
+            <End Role="Jobs" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stories__Project__30C33EC3" Association="Self.FK__Stories__Project__30C33EC3">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Stories" EntitySet="Stories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teams__Projects___38996AB5" Association="Self.FK__Teams__Projects___38996AB5">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Teams" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ScraspUse__Scras__33D4B598" Association="Self.FK__ScraspUse__Scras__33D4B598">
+            <End Role="ScraspRoles" EntitySet="ScraspRoles" />
+            <End Role="ScraspUsers" EntitySet="ScraspUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teams__ScraspUse__398D8EEE" Association="Self.FK__Teams__ScraspUse__398D8EEE">
+            <End Role="ScraspUsers" EntitySet="ScraspUsers" />
+            <End Role="Teams" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stories__Sprints__2FCF1A8A" Association="Self.FK__Stories__Sprints__2FCF1A8A">
+            <End Role="Sprints" EntitySet="Sprints" />
+            <End Role="Stories" EntitySet="Stories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stories__StorySt__2EDAF651" Association="Self.FK__Stories__StorySt__2EDAF651">
+            <End Role="StoryStates" EntitySet="StoryStates" />
+            <End Role="Stories" EntitySet="Stories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stories__StoryTy__2DE6D218" Association="Self.FK__Stories__StoryTy__2DE6D218">
+            <End Role="StoryTypes" EntitySet="StoryTypes" />
+            <End Role="Stories" EntitySet="Stories" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="scraspModelStoreContainer" CdmEntityContainer="scraspEntities">
+          <EntitySetMapping Name="Jobs">
+            <EntityTypeMapping TypeName="scraspModel.Job">
+              <MappingFragment StoreEntitySet="Jobs">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="jobDescription" ColumnName="jobDescription" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="JobStates_id" ColumnName="JobStates_id" />
+                <ScalarProperty Name="Stories_id" ColumnName="Stories_id" />
+                <ScalarProperty Name="ScraspUsers_id" ColumnName="ScraspUsers_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobStates">
+            <EntityTypeMapping TypeName="scraspModel.JobState">
+              <MappingFragment StoreEntitySet="JobStates">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="stateName" ColumnName="stateName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="scraspModel.Project">
+              <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="projectDescription" ColumnName="projectDescription" />
+                <ScalarProperty Name="refRepo" ColumnName="refRepo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScraspRoles">
+            <EntityTypeMapping TypeName="scraspModel.ScraspRole">
+              <MappingFragment StoreEntitySet="ScraspRoles">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="roleName" ColumnName="roleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScraspUsers">
+            <EntityTypeMapping TypeName="scraspModel.ScraspUser">
+              <MappingFragment StoreEntitySet="ScraspUsers">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="AspNetUsers_id" ColumnName="AspNetUsers_id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="ScraspRoles_id" ColumnName="ScraspRoles_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sprints">
+            <EntityTypeMapping TypeName="scraspModel.Sprint">
+              <MappingFragment StoreEntitySet="Sprints">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="sprintDescription" ColumnName="sprintDescription" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stories">
+            <EntityTypeMapping TypeName="scraspModel.Story">
+              <MappingFragment StoreEntitySet="Stories">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="shortName" ColumnName="shortName" />
+                <ScalarProperty Name="actor" ColumnName="actor" />
+                <ScalarProperty Name="storyDescription" ColumnName="storyDescription" />
+                <ScalarProperty Name="StoryTypes_id" ColumnName="StoryTypes_id" />
+                <ScalarProperty Name="StoryStates_id" ColumnName="StoryStates_id" />
+                <ScalarProperty Name="Sprints_id" ColumnName="Sprints_id" />
+                <ScalarProperty Name="Projects_id" ColumnName="Projects_id" />
+                <ScalarProperty Name="points" ColumnName="points" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StoryStates">
+            <EntityTypeMapping TypeName="scraspModel.StoryState">
+              <MappingFragment StoreEntitySet="StoryStates">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="stateName" ColumnName="stateName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StoryTypes">
+            <EntityTypeMapping TypeName="scraspModel.StoryType">
+              <MappingFragment StoreEntitySet="StoryTypes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="typeName" ColumnName="typeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="scraspModel.Team">
+              <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Projects_id" ColumnName="Projects_id" />
+                <ScalarProperty Name="ScraspUsers_id" ColumnName="ScraspUsers_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
