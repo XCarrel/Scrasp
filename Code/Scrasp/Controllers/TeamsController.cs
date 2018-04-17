@@ -14,6 +14,14 @@ namespace Scrasp.Controllers
     {
         private scraspEntities db = new scraspEntities();
 
+
+        public ActionResult Management()
+        {
+            ViewBag.users = db.ScraspUsers;
+            ViewBag.projects = db.Projects;
+            return View();
+        }
+
         // GET: Teams
         public ActionResult Index()
         {

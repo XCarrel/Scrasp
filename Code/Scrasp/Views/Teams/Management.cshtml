@@ -1,0 +1,76 @@
+﻿@model Scrasp.Models.Project
+@using Scrasp.Models
+
+@{
+    ViewBag.Title = "Project details";
+}
+
+<table class="table table-striped">
+    @Html.AntiForgeryToken()
+    <tr>
+        <th></th>
+        @foreach (Project project in ViewBag.projects)
+        {
+            <th>@project.title</th>
+        }
+
+        @foreach (ScraspUser user in ViewBag.users)
+        {
+        <tr>
+            <th>@user.username</th>
+            @foreach (var project in ViewBag.projects)
+            {
+                <th class="add_or_remove_team @( user.isInProject(project) ? "checked" : "")" data-project_id="@project.id" data-user_id="@user.id">
+                </th>
+            }
+        </tr>
+    }
+    </table>
+
+@section styles {
+    <style>
+        .checked {
+            background-color: #88e881 !important;
+        }
+    </style>
+}
+
+
+    @section scripts {
+        <script>
+            $(document).ready(function () {
+                $(".add_or_remove_team").dblclick(function () {
+                    var self = $(this);
+                    var token = $('input[name="__RequestVerificationToken"]').val();
+                    if ($(this).hasClass("checked")) {
+                        $.ajax({
+                            type: "DELETE",
+                            url: "/api/removeTeam/" + $(this).data("project_id") + "/" + $(this).data("user_id"),
+                            data: {
+                                __RequestVerificationToken: token,
+                            },
+                            success: function (response) {
+                                if (response == "True")
+                                    self.removeClass("checked")
+                                else
+                                    alert("Cette utilisateur est lié à un job!");
+                            }
+                        });
+                    }
+                    else {
+                        $.ajax({
+                            type: "POST",
+                            url: "/api/addTeam/" + $(this).data("project_id") + "/" + $(this).data("user_id"),
+                            data: {
+                                __RequestVerificationToken: token,
+                            },
+                            success: function () {
+                                self.addClass("checked")
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
+    }
+

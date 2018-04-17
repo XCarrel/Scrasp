@@ -16,6 +16,12 @@ namespace Scrasp
             );
 
             routes.MapRoute(
+                name: "apiTeam",
+                url: "api/{action}/{project_id}/{user_id}",
+                defaults: new { controller = "API"}
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Projects", action = "Index", id = UrlParameter.Optional }
