@@ -7,12 +7,24 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Scrasp.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Scrasp.Controllers
 {
     public class ScraspUsersController : Controller
     {
         private scraspEntities db = new scraspEntities();
+
+        // GET: Dashboard
+        public ActionResult Dashboard()
+        {
+            if(!Request.IsAuthenticated){
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+            string currentUserId = User.Identity.GetUserId();
+            ScraspUser user = db.ScraspUsers.First(c => c.AspNetUsers_id == currentUserId);
+            return View(user);
+        }
 
         // GET: ScraspUsers
         public ActionResult Index()

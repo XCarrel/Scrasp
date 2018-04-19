@@ -14,6 +14,17 @@ namespace Scrasp.Controllers
     {
         private scraspEntities db = new scraspEntities();
 
+        // POST: Jobs/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult setJobToFinish()
+        {
+            Job job = db.Jobs.Find(Convert.ToInt32(Request["jobId"]));
+            job.JobStates_id = 4; //set to finish
+            db.SaveChanges();
+            return RedirectToAction("Dashboard", "ScraspUsers");
+        }
+
         // GET: Jobs
         public ActionResult Index()
         {

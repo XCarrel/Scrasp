@@ -1,0 +1,84 @@
+﻿@model Scrasp.Models.ScraspUser
+@using Scrasp.Models
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+<!-- Projects -->
+<div class="row">
+    <h4>Mes projets</h4>
+    @if (Model.Teams.Count() == 0) {
+        <p>Aucun Projets</p>
+    }
+    else {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Teams.First().Project.title)</th>
+                    <th>@Html.DisplayNameFor(model => model.Teams.First().Project.projectDescription)</th>
+                    <th>@Html.DisplayNameFor(model => model.Teams.First().Project.refRepo)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Team team in Model.Teams)
+                {
+                    if (team.ScraspUsers_id == Model.id)
+                    {
+                        <tr>
+                            <td>@team.Project.title</td>
+                            <td>@team.Project.projectDescription</td>
+                            <td><a href="@team.Project.refRepo" target="_blank">@team.Project.refRepo</a></td>
+                        </tr>
+                    }
+                }
+                <tr></tr>
+            </tbody>
+        </table>
+    }
+</div>
+
+<!-- Jobs -->
+<div class="row">
+    <h4>Mes tâches</h4>
+    @if (Model.Jobs.Where(c => c.JobState.hideInDashboard == null).Count() == 0){
+        <p>Aucune tâches</p>
+    }
+    else {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Jobs.First().jobDescription)</th>
+                    <th>@Html.DisplayNameFor(model => model.Jobs.First().JobState.stateName)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Job job in Model.Jobs)
+                {
+
+                    if (job.JobState.hideInDashboard == 1){
+                        continue;
+                    }
+                    <tr>
+                        <td>@job.jobDescription</td>
+                        <td>@job.JobState.stateName</td>
+                        <td>
+                            @if (job.JobState.allowClosure == 1){
+                                using (Html.BeginForm("setJobToFinish", "Jobs", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" value="@job.id" name="jobId"/>
+                                    <input type="submit" value="Fermer" class="btn btn-primary"/>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+                <tr></tr>
+            </tbody>
+        </table>
+    }
+</div>

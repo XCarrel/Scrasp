@@ -10,6 +10,12 @@ namespace Scrasp
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Dashboard",
+                url: "Dashboard",
+                defaults: new { controller = "ScraspUsers", action = "Dashboard" }
+            );
+
+            routes.MapRoute(
                 name: "API",
                 url: "apix/{controller}/{id}",
                 defaults: new { controller = "StoriesAPI", action = "GetStory", id = UrlParameter.Optional }
