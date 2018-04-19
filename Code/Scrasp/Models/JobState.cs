@@ -31,6 +31,10 @@ public partial class JobState
 
     public string stateName { get; set; }
 
+    public Nullable<byte> allowClosure { get; set; }
+
+    public Nullable<byte> hideInDashboard { get; set; }
+
 
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
