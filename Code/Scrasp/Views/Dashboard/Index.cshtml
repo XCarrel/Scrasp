@@ -1,0 +1,109 @@
+﻿@model Scrasp.Models.DashboardViewModel
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+<h3>Projets</h3>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(dummy => Model.project.title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(dummy => Model.project.projectDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(dummy => Model.project.refRepo)
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.teams)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Project.title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Project.projectDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Project.refRepo)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<h3>Jobs</h3>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(dummy => Model.job.jobDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(dummy => Model.job.JobState.stateName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.jobs)
+        {
+            <tr data="@item.id">
+                <td>
+                    @Html.DisplayFor(modelItem => item.jobDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JobState.stateName)
+                </td>
+                <td>
+                    @if (item.JobState.allowClosure == 1)
+                    {
+                        <button id="closeJob" class="btn btn-primary" data="@item.id">Fermer</button>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function ($) {
+            $("button#closeJob").click(function (event) {
+                $.ajax({
+                    url: '/API/closeJob',
+                    data: {
+                        jobId: $(this).attr("data"),
+                    },
+                    error: function () {
+                        console.log("API Error");
+                    },
+                    success: function (newstate) {
+                        switch (newstate) {
+                            case "0": // error
+                                alert('Désolé, une erreur s\'est produite...');
+                                break;
+                            case "1": // added ok
+                                var id = $(event.target)[0].getAttribute("data");
+                                var row = document.querySelector('tr[data="' + id + '"]');
+                                row.remove();
+                                break;
+                        }
+                    },
+                    type: "POST"
+                });
+            });
+        });
+    </script>
+}

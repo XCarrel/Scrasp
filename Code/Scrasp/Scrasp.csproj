@@ -206,6 +206,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\APIController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\JobStatesController.cs" />
@@ -280,6 +281,7 @@
     </Compile>
     <Compile Include="Models\Validators\GreaterThanAttribute.cs" />
     <Compile Include="Models\ViewModels\TeamManagementViewModel.cs" />
+    <Compile Include="Models\ViewModels\DashboardViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -402,6 +404,7 @@
     <Content Include="Views\ScraspRoles\Details.cshtml" />
     <Content Include="Views\ScraspRoles\Edit.cshtml" />
     <Content Include="Views\ScraspRoles\Index.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
@@ -435,7 +438,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50083</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

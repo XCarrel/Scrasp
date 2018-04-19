@@ -3,6 +3,7 @@ using Scrasp.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using System;
 
 namespace Scrasp.Controllers
 {
@@ -46,6 +47,26 @@ namespace Scrasp.Controllers
                     res = 2; // leaving denied
             }
             db.SaveChanges();
+            return res;
+        }
+
+        // POST: API
+        [HttpPost]
+        public int closeJob(int jobId)
+        {
+            int res = 0;
+
+            Job job = db.Jobs.Where(s => s.id == jobId).First();
+            JobState done = db.JobStates.Where(s => s.stateName == "Terminé").First();
+
+            if (job == null || done == null)  { res = 2; }
+            else
+            {
+                job.JobState = done;
+                job.endDate = DateTime.Today;
+                db.SaveChanges();
+                res = 1;
+            }
             return res;
         }
     }
