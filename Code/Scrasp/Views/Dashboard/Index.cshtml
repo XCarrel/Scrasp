@@ -1,0 +1,101 @@
+﻿@using System.Web.UI.HtmlControls
+@model Scrasp.Models.DashboardViewModel
+
+@{
+  ViewBag.Title = "Dashboard";
+}
+
+<h1>Dashboard</h1>
+
+<h2>Projects</h2>
+<table class="table table-striped table-hover">
+  <thead>
+  <tr>
+    <th>
+      @Html.DisplayNameFor(model => model.Projects.First().title)
+    </th>
+    <th>
+      @Html.DisplayNameFor(model => model.Projects.First().projectDescription)
+    </th>
+    <th>
+      @Html.DisplayNameFor(model => model.Projects.First().refRepo)
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  @foreach (var project in Model.Projects) {
+    <tr>
+      <td>
+        @Html.DisplayFor(modelItem => project.title)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => project.projectDescription)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => project.refRepo)
+      </td>
+    </tr>
+  }
+  </tbody>
+
+</table>
+
+<h2>Mes tâches</h2>
+<table class="table table-striped table-hover">
+  <thead>
+  <tr>
+    <th>
+      @Html.DisplayNameFor(model => model.Jobs.First().jobDescription)
+    </th>
+    <th>
+      @Html.DisplayNameFor(model => model.Jobs.First().JobState.stateName)
+    </th>
+    <th>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  @foreach (var job in Model.Jobs) {
+    if (job.JobState.hideInDashboard != 1) {
+       <tr>
+         <td>
+           @Html.DisplayFor(modelItem => job.jobDescription)
+         </td>
+         <td>
+           @Html.DisplayFor(modelItem => job.JobState.stateName)
+         </td>
+         <td>
+           @if (job.JobState.allowClosure == 1) {
+             <button class="btn btn-primary jobClose" data-job_id="@job.id">Fermer</button>
+           }
+         </td>
+       </tr>
+     }
+  }
+  </tbody>
+
+</table>
+
+@section scripts {
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".jobClose").click(function() {
+        $.ajax({
+          url: "/API/CloseJob",
+          data: {
+            jobId: $(this).data("job_id")
+          },
+          error: function() {
+            console.log("API Error");
+          },
+          success: function() {
+            location.reload();
+          },
+          type: "POST"
+        });
+      });
+    });
+  </script>
+}

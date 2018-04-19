@@ -14,12 +14,15 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
-      @Html.ActionLink("SCRASP", "Index", "Projects", new {area = ""}, new {@class = "navbar-brand"})
+      @Html.ActionLink("SCRASP", "Index", "Projects", new { area = "" }, new { @class = "navbar-brand" })
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
           @Html.ActionLink("Stories", "Index", "Stories")
+        </li>
+        <li>
+          @Html.ActionLink("Equipes", "Management", "Teams")
         </li>
       </ul>
       @Html.Partial("_LoginPartial")

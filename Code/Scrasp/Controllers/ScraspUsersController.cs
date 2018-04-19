@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Scrasp.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Scrasp.Controllers
 {

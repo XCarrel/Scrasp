@@ -8,37 +8,32 @@ using System.Web;
 using System.Web.Mvc;
 using Scrasp.Models;
 
-namespace Scrasp.Controllers
-{
-    public class JobsController : Controller
-    {
+namespace Scrasp.Controllers {
+    public class JobsController : Controller {
         private scraspEntities db = new scraspEntities();
 
         // GET: Jobs
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             var jobs = db.Jobs.Include(j => j.JobState).Include(j => j.ScraspUser).Include(j => j.Story);
             return View(jobs.ToList());
         }
 
         // GET: Jobs/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
+        public ActionResult Details(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Job job = db.Jobs.Find(id);
-            if (job == null)
-            {
+            if (job == null) {
                 return HttpNotFound();
             }
+
             return View(job);
         }
 
         // GET: Jobs/Create
-        public ActionResult Create()
-        {
+        public ActionResult Create() {
             ViewBag.JobStates_id = new SelectList(db.JobStates, "id", "stateName");
             ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id");
             ViewBag.Stories_id = new SelectList(db.Stories, "id", "shortName");
@@ -50,10 +45,10 @@ namespace Scrasp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,jobDescription,startDate,endDate,JobStates_id,Stories_id,ScraspUsers_id")] Job job)
-        {
-            if (ModelState.IsValid)
-            {
+        public ActionResult Create(
+            [Bind(Include = "id,jobDescription,startDate,endDate,JobStates_id,Stories_id,ScraspUsers_id")]
+            Job job) {
+            if (ModelState.IsValid) {
                 db.Jobs.Add(job);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -66,17 +61,16 @@ namespace Scrasp.Controllers
         }
 
         // GET: Jobs/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
+        public ActionResult Edit(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Job job = db.Jobs.Find(id);
-            if (job == null)
-            {
+            if (job == null) {
                 return HttpNotFound();
             }
+
             ViewBag.JobStates_id = new SelectList(db.JobStates, "id", "stateName", job.JobStates_id);
             ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id", job.ScraspUsers_id);
             ViewBag.Stories_id = new SelectList(db.Stories, "id", "shortName", job.Stories_id);
@@ -88,14 +82,15 @@ namespace Scrasp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,jobDescription,startDate,endDate,JobStates_id,Stories_id,ScraspUsers_id")] Job job)
-        {
-            if (ModelState.IsValid)
-            {
+        public ActionResult Edit(
+            [Bind(Include = "id,jobDescription,startDate,endDate,JobStates_id,Stories_id,ScraspUsers_id")]
+            Job job) {
+            if (ModelState.IsValid) {
                 db.Entry(job).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.JobStates_id = new SelectList(db.JobStates, "id", "stateName", job.JobStates_id);
             ViewBag.ScraspUsers_id = new SelectList(db.ScraspUsers, "id", "AspNetUsers_id", job.ScraspUsers_id);
             ViewBag.Stories_id = new SelectList(db.Stories, "id", "shortName", job.Stories_id);
@@ -103,37 +98,24 @@ namespace Scrasp.Controllers
         }
 
         // GET: Jobs/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
+        public ActionResult Delete(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Job job = db.Jobs.Find(id);
-            if (job == null)
-            {
+            if (job == null) {
                 return HttpNotFound();
             }
+
             return View(job);
         }
 
-        // POST: Jobs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Job job = db.Jobs.Find(id);
-            db.Jobs.Remove(job);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing) {
                 db.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }
