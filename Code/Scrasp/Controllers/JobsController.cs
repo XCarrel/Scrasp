@@ -128,6 +128,21 @@ namespace Scrasp.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Close(int? id)
+        {
+            Job job = db.Jobs.SingleOrDefault(j => j.id == id);
+
+            if (job == null)
+            {
+                return HttpNotFound();
+            }
+            // set job to "terminé"
+            job.JobStates_id = 4;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Dashboard");
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
