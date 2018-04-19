@@ -1,2 +1,76 @@
-﻿
+﻿@model Scrasp.Models.DashboardViewModel
+@using Scrasp.Models
+
 <h1>Dashboard</h1>
+
+<h2>Mes projets</h2>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                Titre
+            </th>
+            <th>
+                Description du projet
+            </th>
+            <th>
+                Repository Git
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.projects)
+        {
+            <tr class='clickable-row' data-href='@Url.Action("Details", "Projects", new {id=item.id})'>
+                <td>
+                    @Html.DisplayFor(modelItem => item.title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.projectDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.refRepo)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Mes tâches</h2>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                Description du job
+            </th>
+            <th>
+                Etat
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.jobs)
+        {
+            if (item.JobState.hideInDashboard == 1)
+            {
+                continue;
+            }
+
+            <tr class='clickable-row'>
+                <td>
+                    @Html.DisplayFor(modelItem => item.jobDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JobState.stateName)
+                </td>
+                <td>
+                    @if (item.JobState.allowClosure == 1) {
+                        <!--<a href="#" class="btn btn-primary">Fermer</a>-->
+                        @Html.ActionLink("Fermer", "Close", "Jobs", new {id = item.id}, new {@class = "btn btn-primary"})
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
