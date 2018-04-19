@@ -1,0 +1,27 @@
+﻿@using Scrasp.Models
+@model Job
+
+<h3>Mes tâches</h3>
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.jobDescription)</th>
+        <th>@Html.DisplayNameFor(model => model.JobState.stateName)</th>
+        <th></th>
+    </tr>
+    @foreach (Job job in ViewBag.jobs)
+    {
+        if (job.JobState.hideInDashboard != 1)
+        {
+            <tr>
+                <td>@job.jobDescription</td>
+                <td>@job.JobState.stateName</td>
+                <td>
+                    @if (job.JobState.allowClosure == 1)
+                    {
+                        <button class="btn btn-primary close-job" data-job="@job.id">Fermer</button>
+                    }
+                </td>
+            </tr>
+        }
+    }
+</table>

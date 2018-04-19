@@ -1,0 +1,19 @@
+﻿@using Scrasp.Models
+@model Project
+
+<h3>Mes projects</h3>
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.title)</th>
+        <th>@Html.DisplayNameFor(model => model.projectDescription)</th>
+        <th>@Html.DisplayNameFor(model => model.refRepo)</th>
+    </tr>
+    @foreach (Project project in ViewBag.projects)
+    {
+        <tr>
+            <td>@project.title</td>
+            <td>@project.projectDescription</td>
+            <td>@project.refRepo</td>
+        </tr>
+    }
+</table>

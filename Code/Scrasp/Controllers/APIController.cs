@@ -48,5 +48,23 @@ namespace Scrasp.Controllers
             db.SaveChanges();
             return res;
         }
+
+        // PUT: /API/closeJob
+        [HttpPut]
+        public int closeJob(int jobId)
+        {
+            int res = 0; // result
+            if (User.Identity.IsAuthenticated)
+            {
+                Job job = db.Jobs.Find(jobId);
+                job.JobStates_id = db.JobStates.Single(d => d.hideInDashboard == 1).id;
+                db.SaveChanges();
+            }
+            else
+            {
+                res = 1;
+            }
+            return res;
+        }
     }
 }

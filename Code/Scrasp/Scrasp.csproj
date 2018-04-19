@@ -206,6 +206,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\APIController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\JobStatesController.cs" />
@@ -302,6 +303,7 @@
       <DependentUpon>ScraspModel.edmx</DependentUpon>
       <LastGenOutput>ScraspModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\App\jobStatusManagement.js" />
     <Content Include="Scripts\App\teamManagement.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -402,6 +404,9 @@
     <Content Include="Views\ScraspRoles\Details.cshtml" />
     <Content Include="Views\ScraspRoles\Edit.cshtml" />
     <Content Include="Views\ScraspRoles\Index.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Jobs\_MyJobs.cshtml" />
+    <Content Include="Views\Projects\_MyProjects.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
