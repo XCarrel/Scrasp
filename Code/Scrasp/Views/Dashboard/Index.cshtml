@@ -1,0 +1,82 @@
+﻿@model Scrasp.Models.DashboardViewModel
+
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>Mes Projets</h2>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.project.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.project.projectDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.project.refRepo)
+        </th>
+    </tr>
+    @foreach (var item in Model.projects.FindAll(
+        p => p.Teams.ToList().Exists(tx =>
+         Model.teams.FindAll(t =>
+             t.ScraspUser.AspNetUsers_id.Equals(User.Identity.GetUserId())
+         ).Exists(t2 =>tx.id.Equals(t2.id)))
+     ))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.projectDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.refRepo)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<h2>Mes taches</h2>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.job.jobDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.job.JobState)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.jobs.FindAll(j=> 
+        j.JobState.hideInDashboard != 1
+        /* Probleme de scope de variable ca me fout les boules
+         * j.Story.Project.Teams.ToList().Exists(teto =>
+            Model.teams.FindAll(t =>
+                t.ScraspUser.AspNetUsers_id.Equals(User.Identity.GetUserId())
+            ).Exists(t2 =>
+                teto.id.Equals(t2.id)
+            )  
+    */))
+    {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.jobDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JobState.stateName)
+                </td>
+                <td>
+                    @if(item.JobState.allowClosure == 1)
+                    {
+                        <button>Fermer</button>
+                    }
+                </td>
+            </tr>
+     }
+
+</table>

@@ -23,6 +23,8 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="stateName" Type="varchar" MaxLength="15" />
+          <Property Name="allowClosure" Type="tinyint" />
+          <Property Name="hideInDashboard" Type="tinyint" />
         </EntityType>
         <EntityType Name="Projects">
           <Key>
@@ -96,6 +98,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Projects_id" Type="int" Nullable="false" />
           <Property Name="ScraspUsers_id" Type="int" Nullable="false" />
+          <Property Name="payload" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK__Jobs__JobStates___3587F3E0">
           <End Role="JobStates" Type="Self.JobStates" Multiplicity="1" />
@@ -295,6 +298,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="stateName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Jobs" Relationship="Self.FK__Jobs__JobStates___3587F3E0" FromRole="JobStates" ToRole="Jobs" />
+          <Property Name="allowClosure" Type="Byte" />
+          <Property Name="hideInDashboard" Type="Byte" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -384,6 +389,7 @@
           <Property Name="ScraspUsers_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Project" Relationship="Self.FK__Teams__Projects___38996AB5" FromRole="Teams" ToRole="Projects" />
           <NavigationProperty Name="ScraspUser" Relationship="Self.FK__Teams__ScraspUse__398D8EEE" FromRole="Teams" ToRole="ScraspUsers" />
+          <Property Name="payload" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__Jobs__JobStates___3587F3E0">
           <End Role="JobStates" Type="Self.JobState" Multiplicity="1" />
@@ -579,6 +585,8 @@
           <EntitySetMapping Name="JobStates">
             <EntityTypeMapping TypeName="scraspModel.JobState">
               <MappingFragment StoreEntitySet="JobStates">
+                <ScalarProperty Name="hideInDashboard" ColumnName="hideInDashboard" />
+                <ScalarProperty Name="allowClosure" ColumnName="allowClosure" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="stateName" ColumnName="stateName" />
               </MappingFragment>
@@ -659,6 +667,7 @@
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="scraspModel.Team">
               <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="payload" ColumnName="payload" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Projects_id" ColumnName="Projects_id" />
                 <ScalarProperty Name="ScraspUsers_id" ColumnName="ScraspUsers_id" />
