@@ -130,15 +130,21 @@ namespace Scrasp.Controllers
 
         public ActionResult Close(int? id)
         {
+            // find the job
             Job job = db.Jobs.SingleOrDefault(j => j.id == id);
-
             if (job == null)
             {
                 return HttpNotFound();
             }
-            // set job to "terminé"
-            job.JobStates_id = 4;
-            db.SaveChanges();
+
+            // check if the job can be closed
+            if (job.JobState.allowClosure == 1)
+            {
+                // set job to "terminé"
+                job.JobStates_id = 4;
+                db.SaveChanges();
+            }
+            // return to dashboard
             return RedirectToAction("Index", "Dashboard");
         }
 
