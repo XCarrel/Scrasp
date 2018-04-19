@@ -23,6 +23,8 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="stateName" Type="varchar" MaxLength="15" />
+          <Property Name="allowClosure" Type="tinyint" />
+          <Property Name="hideInDashboard" Type="tinyint" />
         </EntityType>
         <EntityType Name="Projects">
           <Key>
@@ -295,6 +297,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="stateName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Jobs" Relationship="Self.FK__Jobs__JobStates___3587F3E0" FromRole="JobStates" ToRole="Jobs" />
+          <Property Name="allowClosure" Type="Byte" />
+          <Property Name="hideInDashboard" Type="Byte" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -579,6 +583,8 @@
           <EntitySetMapping Name="JobStates">
             <EntityTypeMapping TypeName="scraspModel.JobState">
               <MappingFragment StoreEntitySet="JobStates">
+                <ScalarProperty Name="hideInDashboard" ColumnName="hideInDashboard" />
+                <ScalarProperty Name="allowClosure" ColumnName="allowClosure" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="stateName" ColumnName="stateName" />
               </MappingFragment>
