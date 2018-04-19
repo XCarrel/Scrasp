@@ -17,11 +17,14 @@
       @Html.ActionLink("SCRASP", "Index", "Projects", new {area = ""}, new {@class = "navbar-brand"})
     </div>
     <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li>
-          @Html.ActionLink("Stories", "Index", "Stories")
-        </li>
-      </ul>
+        <ul class="nav navbar-nav">
+            <li>
+                @Html.ActionLink("Stories", "Index", "Stories")
+            </li>
+            <li>
+                @Html.ActionLink("Teams", "Management", "Teams")
+            </li>
+        </ul>
       @Html.Partial("_LoginPartial")
     </div>
   </div>
