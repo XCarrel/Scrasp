@@ -130,6 +130,11 @@ namespace Scrasp.Controllers
 
         public ActionResult Close(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             // find the job
             Job job = db.Jobs.SingleOrDefault(j => j.id == id);
             if (job == null)

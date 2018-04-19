@@ -28,6 +28,7 @@ namespace Scrasp.Controllers
             List<Team> teams = db.Teams.Where(t => t.ScraspUsers_id == user.id).ToList();
             List<Project> userProjects = new List<Project>();
 
+            // get the users projects
             foreach (Team team in teams)
             {
                 // check that the project wasn't already added
