@@ -48,5 +48,24 @@ namespace Scrasp.Controllers
             db.SaveChanges();
             return res;
         }
+
+        // POST: API
+        [HttpPost]
+        public int closeJob(int jobId)
+        {
+            // Indicates whether the job has been closed successfully or not
+            var success = 0;
+
+            var targetJob = db.Jobs.Find(jobId);
+
+            // Remove the job from DB if it exists
+            if (targetJob != null)
+            {
+                db.Jobs.Remove(targetJob);
+                success = 1;
+            }
+
+            return success;
+        }
     }
 }
