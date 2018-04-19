@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="12fdb3d4ca374737becc1f4630a6f23d" Name="Diagram1">
         <EntityTypeShape EntityType="scraspModel.Job" Width="1.5" PointX="8.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="scraspModel.JobState" Width="1.5" PointX="6" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="scraspModel.JobState" Width="1.5" PointX="6" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="scraspModel.Project" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="scraspModel.ScraspRole" Width="1.5" PointX="3.75" PointY="8.5" IsExpanded="true" />
         <EntityTypeShape EntityType="scraspModel.ScraspUser" Width="1.5" PointX="6" PointY="8.125" IsExpanded="true" />

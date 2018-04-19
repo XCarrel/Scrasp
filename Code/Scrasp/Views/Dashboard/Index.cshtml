@@ -1,0 +1,89 @@
+﻿
+@model Scrasp.Models.DashboardViewModel
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h1>Dashboard</h1>
+
+<h2>Mes projets</h2>
+
+<!-- Erreurs dans les seeds de la DB qui fait qu'on a plusieurs fois le user lié au même projet -->
+<table class="table table-striped table-hover">
+    <thead>
+        <!--
+            J'ai pas utilisé les annotations des metadatas pour afficher les titres car
+            je ne trouve pas comment initialiser dans razor une variable (AT)model pour le ViewModel + une seconde (At)model pour le model Project ...
+        -->
+        <tr>
+            <th>
+                Titre
+            </th>
+            <th>
+                Description du projet
+            </th>
+            <th>
+                Repository Git
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var project in Model.userProjects)
+        {
+            <tr>
+                <td>
+                    @project.title
+                </td>
+                <td>
+                    @project.projectDescription
+                </td>
+                <td>
+                    @project.refRepo
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<h2>Mes Tâches</h2>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                Description du job
+            </th>
+            <th>
+                Etat
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var job in Model.userJobs)
+        {
+            <tr>
+                <td>
+                    @job.jobDescription
+                </td>
+                <td>
+                    @job.JobState.stateName
+                </td>
+                <td>
+                    @if (job.JobState.allowClosure == 1)
+                    {
+                        <form method="post" action="/Dashboard/CloseJob">
+                            <input type="hidden" name="jobId" value="@job.id" />
+                            <input type="submit" class="btn btn-primary" value="Fermer" />
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
