@@ -1,0 +1,53 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+}
+<h1>Dashboard</h1>
+<h2>Mes projects</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Titre de projet 
+        </th>
+        <th>
+          desription
+        </th>
+    </tr>
+
+</table>
+
+<h2>Mes tâches</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Description
+        </th>
+        <th>
+            Etat
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var job in ViewBag.jobs) {
+    <tr>
+
+        <td>
+           @job.jobDescription
+        </td>
+        <td>
+            @job.JobState.stateName
+        </td>
+        <td>
+            @if (job.JobState.allowClosure == 1)
+            {
+                @Html.ActionLink("Finir", "finishTask", new {id = job.id}, new {@class = "btn"})
+            }
+        </td>
+    </tr>
+}
+</table>
+
+
