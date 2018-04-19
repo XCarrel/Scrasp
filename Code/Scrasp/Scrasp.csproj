@@ -206,6 +206,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\APIController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Models\ViewModels\DashboardViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\JobStatesController.cs" />
@@ -402,6 +404,7 @@
     <Content Include="Views\ScraspRoles\Details.cshtml" />
     <Content Include="Views\ScraspRoles\Edit.cshtml" />
     <Content Include="Views\ScraspRoles\Index.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
