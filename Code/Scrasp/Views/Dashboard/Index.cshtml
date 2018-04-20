@@ -1,0 +1,83 @@
+﻿@model Scrasp.Models.DashboardViewModel
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+<h3>Mes projets</h3>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.myProjects.First().title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.myProjects.First().projectDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.myProjects.First().refRepo)
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.myProjects)
+        {
+            <tr class='clickable-row' data-href='@Url.Action("Details", "Projects", new {id=item.id})'>
+                <td>
+                    @Html.DisplayFor(modelItem => item.title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.projectDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.refRepo)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Mes tâches</h3>
+@using (Html.BeginForm("Close", "Jobs", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.myJobs.First().jobDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.myJobs.First().JobState)
+            </th>
+            <th>
+                &nbsp;
+            </th>
+        </tr>
+
+        @foreach (var item in Model.myJobs)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.jobDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JobState.stateName)
+                </td>
+                <td>
+                    @if (item.JobState.allowClosure != null && item.JobState.allowClosure > 0)
+                    {
+                        <button name="closejob" value="@item.id" type="submit" class="btn btn-primary">Fermer</button>
+                    }
+                    else
+                    {
+                        <div>&nbsp;</div>
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+}

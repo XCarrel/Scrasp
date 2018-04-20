@@ -5,6 +5,23 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="scraspModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
         <EntityType Name="Jobs">
           <Key>
             <PropertyRef Name="id" />
@@ -23,6 +40,8 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="stateName" Type="varchar" MaxLength="15" />
+          <Property Name="allowClosure" Type="tinyint" />
+          <Property Name="hideInDashboard" Type="tinyint" />
         </EntityType>
         <EntityType Name="Projects">
           <Key>
@@ -133,6 +152,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ScraspUse__AspNe__32E0915F">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="ScraspUsers" Type="Self.ScraspUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScraspUsers">
+              <PropertyRef Name="AspNetUsers_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ScraspUse__Scras__33D4B598">
           <End Role="ScraspRoles" Type="Self.ScraspRoles" Multiplicity="1" />
           <End Role="ScraspUsers" Type="Self.ScraspUsers" Multiplicity="*" />
@@ -218,6 +249,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="scraspModelStoreContainer">
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Jobs" EntityType="Self.Jobs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobStates" EntityType="Self.JobStates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
@@ -239,6 +271,10 @@
           <AssociationSet Name="FK__Jobs__Stories_id__367C1819" Association="Self.FK__Jobs__Stories_id__367C1819">
             <End Role="Stories" EntitySet="Stories" />
             <End Role="Jobs" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ScraspUse__AspNe__32E0915F" Association="Self.FK__ScraspUse__AspNe__32E0915F">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ScraspUsers" EntitySet="ScraspUsers" />
           </AssociationSet>
           <AssociationSet Name="FK__ScraspUse__Scras__33D4B598" Association="Self.FK__ScraspUse__Scras__33D4B598">
             <End Role="ScraspRoles" EntitySet="ScraspRoles" />
@@ -295,6 +331,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="stateName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Jobs" Relationship="Self.FK__Jobs__JobStates___3587F3E0" FromRole="JobStates" ToRole="Jobs" />
+          <Property Name="allowClosure" Type="Byte" />
+          <Property Name="hideInDashboard" Type="Byte" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -328,6 +366,7 @@
           <NavigationProperty Name="Jobs" Relationship="Self.FK__Jobs__ScraspUser__37703C52" FromRole="ScraspUsers" ToRole="Jobs" />
           <NavigationProperty Name="ScraspRole" Relationship="Self.FK__ScraspUse__Scras__33D4B598" FromRole="ScraspUsers" ToRole="ScraspRoles" />
           <NavigationProperty Name="Teams" Relationship="Self.FK__Teams__ScraspUse__398D8EEE" FromRole="ScraspUsers" ToRole="Teams" />
+          <NavigationProperty Name="AspNetUser" Relationship="scraspModel.FK__ScraspUse__AspNe__32E0915F" FromRole="ScraspUser" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="Sprint">
           <Key>
@@ -556,7 +595,42 @@
             <End Role="StoryTypes" EntitySet="StoryTypes" />
             <End Role="Stories" EntitySet="Stories" />
           </AssociationSet>
+          <EntitySet Name="AspNetUsers" EntityType="scraspModel.AspNetUser" />
+          <AssociationSet Name="FK__ScraspUse__AspNe__32E0915F" Association="scraspModel.FK__ScraspUse__AspNe__32E0915F">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="ScraspUser" EntitySet="ScraspUsers" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ScraspUsers" Relationship="scraspModel.FK__ScraspUse__AspNe__32E0915F" FromRole="AspNetUser" ToRole="ScraspUser" />
+        </EntityType>
+        <Association Name="FK__ScraspUse__AspNe__32E0915F">
+          <End Type="scraspModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="scraspModel.ScraspUser" Role="ScraspUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScraspUser">
+              <PropertyRef Name="AspNetUsers_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -579,6 +653,8 @@
           <EntitySetMapping Name="JobStates">
             <EntityTypeMapping TypeName="scraspModel.JobState">
               <MappingFragment StoreEntitySet="JobStates">
+                <ScalarProperty Name="hideInDashboard" ColumnName="hideInDashboard" />
+                <ScalarProperty Name="allowClosure" ColumnName="allowClosure" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="stateName" ColumnName="stateName" />
               </MappingFragment>
@@ -662,6 +738,24 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Projects_id" ColumnName="Projects_id" />
                 <ScalarProperty Name="ScraspUsers_id" ColumnName="ScraspUsers_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="scraspModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

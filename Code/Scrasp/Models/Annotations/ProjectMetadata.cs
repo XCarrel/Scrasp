@@ -39,5 +39,12 @@ namespace Scrasp.Models {
                                        memberNames: new[] { "EndDate" });
             }
         }
+
+        public Project (string title, string description, string repo)
+        {
+            this.title = title;
+            this.projectDescription = description;
+            this.refRepo = repo;
+        }
     }
 }

@@ -10,6 +10,9 @@ namespace Scrasp.Models {
 
         [Display(Name = "Date fin")]
         public object endDate { get; set; }
+
+        [Display(Name = "Etat")]
+        public object JobState { get; set; }
     }
 
     [MetadataType(typeof(JobMetadata))]

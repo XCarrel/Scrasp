@@ -128,6 +128,17 @@ namespace Scrasp.Controllers
             return RedirectToAction("Index");
         }
 
+        // POST: Jobs/Close
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Close(int closejob)
+        {
+            Job job = db.Jobs.Find(closejob);
+            job.JobStates_id = 4; // closed
+            db.SaveChanges();
+            return Redirect("~/Dashboard/Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
